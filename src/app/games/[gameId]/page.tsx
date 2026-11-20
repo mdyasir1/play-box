@@ -50,6 +50,8 @@ export function generateStaticParams() {
   return GAME_CATALOG.map((game) => ({ gameId: game.id }));
 }
 
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: GamePageProps): Promise<Metadata> {
@@ -97,7 +99,7 @@ export default async function GamePage({ params }: GamePageProps) {
           />
           <div className="relative">
             <div className="mb-4 flex flex-wrap items-center gap-2">
-              <Badge variant="outline">{game.category}</Badge>
+              <Badge variant="outline">{game.categoryLabel}</Badge>
               <Badge variant="warning">{game.status}</Badge>
             </div>
             <div className="flex items-center gap-4">

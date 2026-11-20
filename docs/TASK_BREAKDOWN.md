@@ -59,13 +59,13 @@ Games are sequential because there is one writer. Within each game, pure-engine 
 
 | ID | Task | Owner | Deps | Status | Acceptance criteria |
 |---|---|---|---|---|---|
-| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | UI | P1-04, P1-05 | PENDING | No overflow at 320–1440; keyboard nav; active states |
-| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | UI | P1-04 | PENDING | All states per `UI_DESIGN_SYSTEM.md`; component tests |
-| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | PM | P1-02 | PENDING | Type tests; all 5 games registered; caps validated |
-| P2-04 | Local snapshot schema + safe storage + migrations skeleton | DB | P2-03 | PENDING | Corrupt JSON, quota, old version, unknown fields handled |
-| P2-05 | Game chrome: header, instructions, pause overlay, result panel | UI | P2-02 | PENDING | Keyboard/touch; aria-live; no color-only cues |
-| P2-06 | Route scaffolding + lazy game loading | PM | P2-01 | PENDING | Routes render; 404 for unknown game; no layout shift |
-| P2-07 | Component/a11y smoke tests (axe) | QA | P2-02, P2-05 | PENDING | Zero critical/serious axe issues on shell |
+| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | UI | P1-04, P1-05 | **DONE** | `AppShell` + sidebar/mobile nav; Playwright verifies no horizontal overflow on `/`, `/games`, game detail, play, stats, achievements at 320–1440 px; nav switches at 1024 px; skip link is the first keyboard stop |
+| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | UI | P1-04 | **DONE** | Button loading state; LevelBadge/ProgressBar/StatTile/DifficultyChip/ErrorState/Skeleton/Toast/SyncStatus added; Dialog is a mobile bottom sheet; component tests pass |
+| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | PM | P1-02 | **DONE** | Five definitions and ten level configs per game in `src/games/*`; registry validates caps, sequential levels, and versioned configs; type/curve tests pass |
+| P2-04 | Local snapshot schema + safe storage + migrations skeleton | DB | P2-03 | **DONE** | Versioned snapshot validation, quarantine, quota trim, canonical installation ID, old/new schema handling, and monotonic result merge; tests cover corrupt JSON, unknown fields, quota, and idempotency |
+| P2-05 | Game chrome: header, instructions, pause overlay, result panel | UI | P2-02 | **DONE** | `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; keyboard/touch buttons, Escape resume, aria-live result summary, no color-only state |
+| P2-06 | Route scaffolding + lazy game loading | PM | P2-01 | **DONE** | Static `/games/[gameId]/play` for all five games; unknown game returns 404; per-game `next/dynamic` loaders with skeleton; production build emits five static play routes |
+| P2-07 | Component/a11y smoke tests (axe) | QA | P2-02, P2-05 | **DONE** | `axe-core` 4.14.1; shell and game chrome have zero critical/serious violations; 12 Playwright shell checks pass; full browser/axe audit remains Phase 12 |
 
 ## Phase 3 — Homepage and library
 
@@ -190,7 +190,7 @@ Games are sequential because there is one writer. Within each game, pure-engine 
 | P14-01 | Update all documentation to final state | DOC | P13 | PENDING | No stale sections; progress and changelog current |
 | P14-02 | QA, security, performance reports finalized | QA | P12–P13 | PENDING | Real results only; known issues listed |
 | P14-03 | Final known-issues review | PM | P14-02 | PENDING | Accepted P3s documented; no hidden P0/P1 |
-| P14-04 | Handover package + Phase 2 auth plan | PM | P14-01..03 | PENDING | Source, docs, deployment details, migration plan delivered |
+| P14-04 | Handover package + future authentication plan | PM | P14-01..03 | PENDING | Source, docs, deployment details, migration plan delivered |
 
 ## Dependency and risk gates
 

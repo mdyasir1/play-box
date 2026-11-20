@@ -1,7 +1,7 @@
 # YASIR PLAYBOX — Documentation Index
 
 **Project:** YASIR PLAYBOX — "Your Personal Arcade."
-**Current phase:** Phase 1 complete (scaffold and brand foundation). Games are not playable yet.
+**Current phase:** Phase 2 complete (shared layout, navigation, contracts, persistence skeleton, and game chrome). Games are not playable yet.
 **Frozen specification:** `docs/PROJECT_SPEC.md` v1.0
 **Frozen hash:** `ef76a2655afa94b19b79d7f95782499767693505a08ede1d84592b59cc97bd33`
 

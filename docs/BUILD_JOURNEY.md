@@ -193,9 +193,52 @@ No `git add`, commit, push, reset, restore, or staging command was executed in P
 4. **Honesty in intermediate UI.** Saying "in build" is better than a button that does nothing.
 5. **Lint rules catch real design problems.** The effect-state warning led to a better splash lifecycle.
 
-### Next chapter (not started)
+## Chapter 3 — Phase 2: shared layout, navigation, contracts, persistence skeleton, game chrome
 
-Phase 2: shared game contracts, centralized level-config registry, local snapshot schema, game chrome, and shell refinements. Entry is gated on owner approval.
+### Step 1: Approve and audit interfaces
+
+After owner approval, the PM/UI/DB packages landed in this order: (1) shared contracts/registry, (2) local snapshot storage, (3) app shell, (4) core primitives, (5) game chrome/static play routes, (6) docs/verification. Shared contracts were reviewed before engines because every game, screen, and test depends on them.
+
+### Step 2: Validate the shell by browser, not just CSS
+
+Phase 2 is the first Phase where visual system is implemented. Instead of manual screenshots only, the PM added deterministic Playwright checks: 10 widths from 320–1440 px across the main shell routes, asserting `document.documentElement.scrollWidth <= innerWidth + 1`. The first browser run found real overflow: the home hero used `absolute -inset-6` around a blurred glow, creating an 8 px horizontal overflow at 320–414 px. It was changed to `absolute inset-x-0 -inset-y-6`, and the browser checks now pass.
+
+The same Playwright pass verified:
+
+- desktop sidebar at ≥1024 px;
+- mobile top bar + bottom nav below 1024 px;
+- sidebar→bottom nav switch at 1023/1024 px;
+- skip link as the first keyboard stop;
+- static play routes render and return real 404s for unknown games.
+
+### Step 3: Build contracts and the persistence skeleton
+
+The DB/PM layer created `GameId`, `GameDefinition`, `LevelConfig`, result/snapshot types, and five ten-level configs with documented caps. The registry is the single source for `maxScore`, difficulty labels, completion values, and curve data, and `validateLevelRegistry()` guards it in tests.
+
+The DB layer built safe local storage: schema validation, unknown-field stripping, future-version quarantine, corrupt-JSON recovery, old-version migration skeleton, quota trim, canonical installation ID, and monotonic result merge.
+
+### Step 4: Add modern UI primitives and core components
+
+UI added Button loading, LevelBadge, ProgressBar, StatTile, DifficultyChip, ErrorState, Skeleton, Toast, SyncStatus, and made Dialog a mobile bottom sheet. Component tests cover behavior and a11y names.
+
+### Step 5: Build shared game chrome and static play routes
+
+UI built `GameChrome`, header/instructions, pause overlay, and result panel. PM built static `/games/[gameId]/play` routes for all five games. Dynamic `next/dynamic` game loaders make the play module lazy, but unknown params return 404.
+
+### Step 6: Add structural a11y smoke and browser QA
+
+QA installed free `axe-core` for shell/game chrome zero critical/serious checks and Playwright for browser overflow/navigation checks. All pass. Full browser axe/Lighthouse remains Phase 12.
+
+### Lessons
+
+1. **Call the browser while building, not after.** The shell overflow would have been found later by a player.
+2. **Static routing fixes real 404s.** Dynamic not-found can stream and still return 200; `dynamicParams = false` gives deterministic unknown-route 404s.
+3. **Lazy modules should have a visible skeleton.** `GameStageSkeleton` avoids layout shift before game engines arrive.
+4. **Version-sensitive dev tooling needs a local browser target.** Playwright v1.65.1 needed its v1255 headless-shell download.
+
+### Next chapter
+
+Phase 3: wire local snapshot into homepage/library, stats/achievements, and extend Playwright navigation. Entry is gated on owner approval.
 
 ---
 

@@ -1,6 +1,6 @@
 # Architecture — YASIR PLAYBOX
 
-> Status: Phase 0 design (approved direction). No application code exists yet. Any section marked **planned** describes the contract Phase 1+ must implement and test.
+> Status: Phase 0 approved direction; Phase 1 scaffold complete; Phase 2 shared layout, contracts, persistence skeleton, and game chrome complete. Any section marked **planned** describes the contract game work phases must implement.
 
 ## 1. System overview
 
@@ -41,6 +41,7 @@ Cloud availability never blocks gameplay. The browser is the primary gameplay an
 | ADR-010 | Game routes lazy-loaded client modules | Keeps initial JavaScript small on mobile; each game owns its bundle. |
 | ADR-011 | Build UI primitives manually in shadcn style instead of running the CLI | Deterministic, non-interactive setup; Radix + CVA + Tailwind v4 already proven by the build. |
 | ADR-012 | Enforce unused symbols with ESLint, not TypeScript flags | Next-generated `.next/dev/types` files fail `noUnusedLocals`; linting covers project code without breaking generated types. |
+| ADR-013 | Use axe-core for component a11y smoke tests and Playwright for responsive shell checks | Free, local, and deterministic; jsdom axe covers structural/ARIA rules, while Playwright verifies real 320–1440 px overflow and navigation switching. Full color/browser audit remains Phase 12. |
 
 Full decisions and consequences are appended below in §10.
 
@@ -235,7 +236,7 @@ No polling. Sync triggers: app foreground, online event, queue flush on interval
 - **Identity:** installation ID generated once via `crypto.randomUUID()`; stored separately under `ypb:v1:installation`; not used as authentication.
 - **Pending queue:** array of `ResultSubmission`, max 100; deduplicate by `idempotencyKey`; each result merged locally immediately so gameplay is never blocked.
 - **Cross-tab:** listen to `storage` events and reload the snapshot to avoid stale overwrites; last valid write wins with monotonic merge on level/score fields.
-- **Phase 2:** adapter gains account-scoped implementation; game and UI layers remain unchanged.
+- **Phase 10:** the persistence adapter gains the account-scoped implementation; game and UI layers remain unchanged.
 
 ## 7. Database communication
 
@@ -325,10 +326,19 @@ Accepted. `noUnusedLocals` and `noUnusedParameters` were removed from `tsconfig.
 - Next.js 16 rewrote `tsconfig.json` (`jsx: react-jsx`, added `.next/dev/types/**/*.ts`). This is expected; it is recorded here because it affects typechecking.
 - `server-only` guard exists at `src/lib/server/assert-server-only.ts`; no server-only modules are imported by client code.
 - Security headers (CSP and hardening headers) are applied in `next.config.ts` and were verified against the local production server.
-- Tests: 11 unit/component tests pass; production build passes; routes return 200 and unknown games return 404.
+- Tests: Phase 1 smoke (11 unit/component) and Phase 2 verification (68 unit/component + 12 Playwright shell checks) pass; production build passes; routes return 200 and unknown games return 404.
 - No Git staging, commits, or pushes were performed by the agent, per `AGENT_INSTRUCTIONS.md`.
 
-## 13. Verification expectations for later phases
+## 13. Phase 2 implementation notes
+
+- `src/lib/games/contracts.ts` defines `GameId`, `GameDefinition`, `LevelConfig`, result/snapshot types; `src/games/<game>/{definition,level-config}.ts` and `src/games/level-registry.ts` own five ten-level configs; `validateLevelRegistry()` enforces sequential levels and caps.
+- `src/lib/persistence/*` implements versioned snapshot validation/normalization, canonical `crypto.randomUUID()` installation ID, corrupt JSON quarantine, quota activity trim, migration skeleton, and monotonic `applyResultToSnapshot`.
+- `AppShell`: sidebar at `lg+`, mobile top bar + 56 px bottom nav, safe-area support; Playwright verifies no horizontal overflow at 320–1440 px and nav switching at 1024 px.
+- Core UI: Button loading, LevelBadge, ProgressBar, StatTile, DifficultyChip, ErrorState, Skeleton, Toast, SyncStatus; Dialog is a mobile bottom sheet.
+- Game chrome: `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; static `/games/[gameId]/play` routes, unknown params 404.
+- Testing: Vitest 68/68, Playwright 12/12, axe smoke zero critical/serious.
+
+## 14. Verification expectations for later phases
 
 - `npm run build` succeeds with strict TypeScript.
 - Unit tests cover pure engines and progression merges.

@@ -30,26 +30,32 @@ function DialogOverlay({
 function DialogContent({
   className,
   children,
+  showClose = true,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content>) {
+}: React.ComponentProps<typeof DialogPrimitive.Content> & {
+  showClose?: boolean;
+}) {
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-card border border-border bg-bg-elevated p-6 shadow-[0_24px_64px_rgba(0,0,0,0.55)]",
+          "fixed inset-x-0 bottom-0 z-50 max-h-[88dvh] w-full overflow-y-auto rounded-t-card border border-border bg-bg-elevated p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_24px_64px_rgba(0,0,0,0.55)]",
+          "sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:max-h-[85dvh] sm:w-[calc(100%-2rem)] sm:max-w-md sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-card sm:pb-6",
           className,
         )}
         {...props}
       >
         {children}
-        <DialogPrimitive.Close
-          className="absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-surface hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
-          aria-label="Close dialog"
-        >
-          <X className="size-4" aria-hidden="true" />
-        </DialogPrimitive.Close>
+        {showClose ? (
+          <DialogPrimitive.Close
+            className="absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-surface hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+            aria-label="Close dialog"
+          >
+            <X className="size-4" aria-hidden="true" />
+          </DialogPrimitive.Close>
+        ) : null}
       </DialogPrimitive.Content>
     </DialogPortal>
   );

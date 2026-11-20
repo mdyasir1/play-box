@@ -1,7 +1,7 @@
 # Development Progress — YASIR PLAYBOX
 
-**Last updated:** 2026-11-21 (Phase 1 session)
-**Current phase:** Phase 1 complete — awaiting owner approval before Phase 2.
+**Last updated:** 2026-11-21 (Phase 2 session)
+**Current phase:** Phase 2 complete — awaiting owner approval before Phase 3.
 
 ## Honest completion metrics
 
@@ -9,76 +9,80 @@
 |---|---|---|
 | Phase 0 deliverables | **100%** | 18 docs incl. agent instructions + freeze record verified |
 | Phase 1 deliverables | **100%** | Scaffold, tooling, tokens, brand, splash, shell, primitives, tests, headers |
-| Application foundation | **Complete** | Home/library/detail/stats/achievements/error states exist |
-| Game logic | **0%** | No game engine implemented yet |
-| Automated tests | **11 passing** | 3 Vitest files (utils, catalog, Button) |
+| Phase 2 deliverables | **100%** | Contracts, registry, persistence skeleton, app shell, core components, game chrome, static play routes, axe/Playwright |
+| Game engines | **0%** | No game logic implemented yet |
+| Automated tests | **80 passing** | Vitest 68 + Playwright 12; full pass |
 | Deployment | **0%** | No accounts, no remote, no Vercel project |
-| WBS task completion | **16 / 88 tasks (18%)** | P0-01..07 and P1-01..09 done |
+| WBS task completion | **23 / 88 tasks (26%)** | P0-01..07, P1-01..09, P2-01..07 done |
 
 There is no meaningful single "overall %". Use the metrics above; do not invent a blended number.
 
 ## Current work
 
-- Phase 1 is complete and verified.
-- No implementation work is in progress. Phase 2 is gated on owner approval.
+- Phase 2 is complete and verified.
+- No implementation work is in progress. Phase 3 is gated on owner approval.
 - No Git staging, commit, push, reset, or restore was performed by the agent (see `AGENT_INSTRUCTIONS.md`).
 
-## Completed — Phase 1
+## Completed — Phase 2
 
 | ID | Task | Evidence |
 |---|---|---|
-| P1-01 | Next.js 16.4.6 scaffold with App Router, `src/`, TypeScript | Manual scaffold; `npm run build` succeeds; production server returns 200 |
-| P1-02 | Strict tooling and scripts | `eslint`, `tsc --noEmit`, `vitest`, `next build` all configured and passing |
-| P1-03 | Dependencies installed and audited | 475 packages; `npm audit` → 0 vulnerabilities (prod and full) |
-| P1-04 | Tailwind v4 semantic tokens + Sora/Inter fonts | `globals.css` tokens; self-hosted fonts; measured AA contrast |
-| P1-05 | UI primitives compatibility | Vendored shadcn-style Button, Badge, Card, Dialog (Radix + CVA); build + tests pass |
-| P1-06 | Test harness | Vitest 5.1.1 + RTL + jsdom 29.1.1; 11 tests pass |
-| P1-07 | Brand assets and splash | SVG logo, `icon.svg`, session-once skippable splash with reduced-motion path |
-| P1-08 | Error/not-found/loading states | Implemented; unknown game route returns 404 |
-| P1-09 | Security headers, env template, server guard | CSP/HSTS/nosniff/frame/referrer/permissions verified via `curl -I`; `server-only` guard |
+| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | `AppShell`/`Sidebar`/`MobileTopBar`/`MobileBottomNav`; Playwright no horizontal overflow at 320–1440 px; nav switches at 1024 px; skip link is first keyboard stop; active states tested |
+| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | Added modern primitives; Dialog is a mobile bottom sheet; Button loading state; component tests pass |
+| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | Five definitions, ten level configs each, registry validates sequential levels and caps; type/curve tests pass |
+| P2-04 | Local snapshot schema + safe storage + migrations skeleton | Versioned validation, quarantine, quota trim, canonical installation ID, old/new schema handling, monotonic result merge; tests cover corrupt JSON, unknown fields, quota, idempotency |
+| P2-05 | Game chrome: header, instructions, pause overlay, result panel | `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; keyboard/touch, Escape resume, aria-live, no color-only state |
+| P2-06 | Route scaffolding + lazy game loading | Static `/games/[gameId]/play` for all five games; unknown game returns 404; per-game `next/dynamic` loaders with skeletons; build emits five static play routes |
+| P2-07 | Component/a11y smoke tests (axe) | `axe-core` 4.14.1; shell and game chrome have zero critical/serious violations; Playwright shell checks pass; full browser audit remains Phase 12 |
 
 ## Route inventory
 
 | Route | Status |
 |---|---|
-| `/` | Branded foundation home, catalog, splash |
-| `/games` | Five-game library |
-| `/games/[gameId]` | Five statically generated detail pages; unknown → 404 |
-| `/stats` | Honest empty state |
-| `/achievements` | Honest empty state |
+| `/` | Static foundation home |
+| `/games` | Static games library; all five cards are labeled "In build" |
+| `/games/[gameId]` | Static detail pages for five games; unknown → 404 |
+| `/games/[gameId]/play` | Static, honest in-build shell; unknown → 404 |
+| `/stats` | Static empty state |
+| `/achievements` | Static empty state |
 | `/_not-found`, `error`, `loading` | Implemented |
+
+## App shell summary
+
+- Desktop sidebar: brand, primary nav, daily-challenge card, local profile/sync summary.
+- Mobile top bar: logo mark, status text.
+- Mobile bottom nav: Home, Games, Stats, Achievements; respects safe-area inset; 56 px + safe area.
+- Shell paddings verified by Playwright at 320–1440 px; sidebar↔mobile-nav switch at 1024 px.
 
 ## Pending / next
 
 | Order | ID | Task | Owner | Deps |
 |---|---|---|---|---|
-| 1 | — | Owner approves Phase 2 | Owner | Phase 1 |
-| 2 | P2-01..P2-07 | Shell refinements, shared contracts, local persistence skeleton, game chrome | UI/DB | Approval |
-| 3 | P3-01..P3-07 | Homepage/library data wiring, stats/achievements | UI | Phase 2 |
-| 4 | P4..P8 | Five games, sequential with QA gates | G1/G2/G3 | Shared contracts |
-| 5 | P9 | Progression and achievements | DB/PM | Games |
-| 6 | P10 | Supabase persistence + security probes | DB | P9 |
-| 7 | P11 | PWA/offline | PM/UI | P3, P10 |
-| 8 | P12 | Full QA/security/performance | QA | All |
-| 9 | P13 | GitHub/Vercel production deployment | PM | P12 sign-off |
-| 10 | P14 | Documentation and handover | DOC | P13 |
+| 1 | — | Owner approves Phase 3 | Owner | Phase 2 |
+| 2 | P3-01..P3-07 | Homepage/library data wiring, stats/achievements, Playwright navigation smoke | UI | Phase 2 |
+| 3 | P4..P8 | Five games, sequential with QA gates | G1/G2/G3 | Shared contracts |
+| 4 | P9 | Progression and achievements | DB/PM | Games |
+| 5 | P10 | Supabase persistence + security probes | DB | P9 |
+| 6 | P11 | PWA/offline | PM/UI | P3, P10 |
+| 7 | P12 | Full QA/security/performance | QA | All |
+| 8 | P13 | GitHub/Vercel production deployment | PM | P12 sign-off |
+| 9 | P14 | Documentation and handover | DOC | P13 |
 
-## Important decisions (Phase 1)
+## Important decisions (Phase 2)
 
-1. **Manual Next.js scaffold:** `create-next-app` was avoided because it can initialize Git and create commits. All files were created explicitly.
-2. **jsdom 29.1.1:** jsdom 30/31 require Node ≥ 22.14/22.22; the environment runs Node 22.13.1. Version 29.1.1 is compatible.
-3. **Flat ESLint config:** `eslint-config-next` exports flat configs directly, so `@eslint/eslintrc` was removed.
-4. **Manual shadcn-style primitives:** deterministic and non-interactive; Radix + CVA + Tailwind v4 proven by build/tests (ADR-011).
-5. **Unused checks via ESLint:** Next-generated `.next/dev/types` conflicted with TS `noUnusedLocals`/`noUnusedParameters`; those flags were removed and coverage delegated to ESLint (ADR-012).
-6. **Next rewrote tsconfig:** `jsx: react-jsx` and `.next/dev/types` inclusion were added automatically; recorded in `ARCHITECTURE.md`.
-7. **Responsive header:** wordmark shows only at `lg`+ so navigation cannot overflow at 320–430 px.
-8. **Git policy:** no Git write operations were performed; staging/commits/pushes remain manual.
+1. **Manual Playwright shell checks:** added `tests/e2e/shell.spec.ts`; 10 widths × 6 routes, navigation switch, and skip-link keyboard checks.
+2. **axe-core for smoke:** shell and game chrome pass with zero critical/serious violations in jsdom; color-contrast disabled there because jsdom lacks real layout; full browser audit is Phase 12.
+3. **Static play routes:** `/games/[gameId]/play` is static for all five games so unknown routes return real 404s; per-game code is still lazy via `next/dynamic`.
+4. **Play route starts at level 1:** engines are not playable; when engines land, the play route and link contract can advance.
+5. **Dialog is a mobile bottom sheet:** centered on desktop, full-width sheet on mobile, safe-area bottom padding.
+6. **No fake statistics:** library, detail, stats, and achievements still show only real/empty states; `GameCard` progress props are ready for Phase 3.
+7. **Git policy:** no Git staging/commit/push/reset/restore was performed.
 
 ## Blockers
 
 | Blocker | Impact | Status |
 |---|---|---|
-| Phase 2 owner approval | Phase 2 cannot start | Open |
+| Phase 3 owner approval | Phase 3 cannot start | Open |
 | No Supabase project/keys | Blocks Phase 10 only | Deferred by approval |
 | No GitHub remote / Vercel account | Blocks Phase 13 only | Deferred by approval |
 | No Vercel Hobby eligibility confirmation | Could affect deployment options | Deferred to Phase 13 |
@@ -86,11 +90,12 @@ There is no meaningful single "overall %". Use the metrics above; do not invent 
 
 ## Known issues and accepted limitations
 
-- Games are not playable yet; catalog pages say so explicitly.
-- Progress persistence is not implemented yet (planned Phase 2/9/10).
-- PWA manifest, service worker, and installability are not implemented yet (Phase 11).
-- Anonymous progress is spoofable and not cross-device; accepted for Phase 1 (see `SECURITY.md`).
-- Daily challenge requires network by design.
+- Games are not playable yet; engines and UI-playful states are 0%.
+- Local progress storage exists but UI wiring, automatic save, sync, and queue behavior are not active yet.
+- PWA manifest/service worker/offline installability are not implemented yet (Phase 11).
+- Anonymous progress is spoofable and not cross-device; accepted until authentication phases.
+- Play route is a labeled shell, not gameplay.
+- Daily challenge is not functional; wording explains Phase 5.
 - See `KNOWN_ISSUES.md` for the tracked ledger.
 
 ## Latest test results (verified 2026-11-21)
@@ -99,18 +104,18 @@ There is no meaningful single "overall %". Use the metrics above; do not invent 
 |---|---|
 | `npm run lint` | Pass, 0 errors / 0 warnings |
 | `npm run typecheck` | Pass |
-| `npm test` | **11 passed** in 3 files (utils, catalog, Button) |
-| `npm run build` | Pass; 12 static pages generated |
-| Production server smoke | `/`, `/games`, `/games/reaction-rush`, `/stats`, `/achievements`, `/icon.svg` → 200; unknown game → 404 |
-| Security headers | CSP + HSTS + nosniff + frame/referrer/permissions headers present |
-| `npm audit` | 0 vulnerabilities (production and full) |
-| Contrast spot-check | All documented token pairs ≥ 4.5:1 (6.28–16.18:1) |
-| Frozen spec hash | Verified `OK` (unchanged) |
-| E2E / axe / Lighthouse | **Not run yet** (deferred to Phases 11–12) |
-| Deployment | **Not performed** |
+| `npm test` | **68/68 pass** across 14 files |
+| `npm run test:e2e` | **12/12 pass** (10 overflow widths, nav switch, skip link) |
+| `npm run build` | Pass; 16 static pages |
+| Production server smoke | Routes return 200; unknown game routes return 404; static play routes return 200 |
+| Security headers | Present after production build/start |
+| `npm audit` | 0 vulnerabilities |
+| Frozen spec hash | Verified `OK` |
+| E2E across more games / RLS | Not run yet |
+| Full browser axe / Lighthouse | Not run yet; Phase 12 |
 
 ## Next actions
 
-1. Owner reviews the Phase 1 foundation and approves Phase 2.
-2. Phase 2: shared game contracts, level-config registry, local snapshot schema, game chrome, shell refinements.
-3. Do not begin any game engine implementation before P2-03/P2-04 are complete.
+1. Owner reviews the Phase 2 foundation and approves Phase 3.
+2. Phase 3: wire local snapshot into homepage/library, implement/refine stats and achievements, extend Playwright navigation suite.
+3. Resolve all Phase 2 advisories before starting Phase 3.

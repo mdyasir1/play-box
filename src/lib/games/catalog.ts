@@ -1,88 +1,57 @@
-export type GameCategory = "Reflex" | "Word" | "Puzzle" | "Memory" | "Action";
+import { GAME_DEFINITIONS } from "@/games/definitions";
+import type {
+  GameCategory,
+  GameDefinition,
+  GameIconName,
+  GameId,
+} from "@/lib/games/contracts";
 
-export type GameIconName =
-  | "zap"
-  | "book-open"
-  | "layers"
-  | "brain"
-  | "rocket";
+export type {
+  GameCategory,
+  GameIconName,
+  GameId,
+} from "@/lib/games/contracts";
 
-export type GameCatalogEntry = {
-  id: string;
-  name: string;
-  tagline: string;
-  description: string;
-  category: GameCategory;
+type GameUiMeta = {
+  icon: GameIconName;
+  phase: number;
+  status: "In build" | "Playable";
+};
+
+const CATEGORY_LABELS: Record<GameCategory, string> = {
+  reflex: "Reflex",
+  word: "Word",
+  puzzle: "Puzzle",
+  memory: "Memory",
+  action: "Action",
+};
+
+const UI_META = {
+  "reaction-rush": { icon: "zap", phase: 4, status: "In build" },
+  "word-master": { icon: "book-open", phase: 5, status: "In build" },
+  "number-merge": { icon: "layers", phase: 6, status: "In build" },
+  "memory-challenge": { icon: "brain", phase: 7, status: "In build" },
+  "neon-survival": { icon: "rocket", phase: 8, status: "In build" },
+} as const satisfies Record<GameId, GameUiMeta>;
+
+export type GameCatalogEntry = GameDefinition & {
+  categoryLabel: string;
   icon: GameIconName;
   accent: string;
   phase: number;
   status: "In build" | "Playable";
 };
 
-export const GAME_CATALOG = [
-  {
-    id: "reaction-rush",
-    name: "Reaction Rush",
-    tagline: "Chase the green.",
-    description:
-      "Wait for the signal, then tap as fast as you can. Jump too early and the round costs you.",
-    category: "Reflex",
-    icon: "zap",
-    accent: "var(--color-warning)",
-    phase: 4,
-    status: "In build",
-  },
-  {
-    id: "word-master",
-    name: "Word Master",
-    tagline: "Six tries. Five letters.",
-    description:
-      "Deduce the hidden word with color-coded clues, a daily challenge, and a keyboard built for thumbs.",
-    category: "Word",
-    icon: "book-open",
-    accent: "var(--color-success)",
-    phase: 5,
-    status: "In build",
-  },
-  {
-    id: "number-merge",
-    name: "Number Merge",
-    tagline: "Slide. Merge. Climb.",
-    description:
-      "Combine matching tiles toward an ever-higher target, with undo, swipes, and keyboard control.",
-    category: "Puzzle",
-    icon: "layers",
-    accent: "var(--color-accent)",
-    phase: 6,
-    status: "In build",
-  },
-  {
-    id: "memory-challenge",
-    name: "Memory Challenge",
-    tagline: "Watch. Repeat. Remember.",
-    description:
-      "Follow the glowing pads as the sequence grows longer and the playback gets faster.",
-    category: "Memory",
-    icon: "brain",
-    accent: "var(--color-accent-blue)",
-    phase: 7,
-    status: "In build",
-  },
-  {
-    id: "neon-survival",
-    name: "Neon Survival",
-    tagline: "Stay in the light.",
-    description:
-      "Dodge a neon barrage, grab power-ups, and survive the clock on touch or keyboard.",
-    category: "Action",
-    icon: "rocket",
-    accent: "var(--color-danger)",
-    phase: 8,
-    status: "In build",
-  },
-] as const satisfies readonly GameCatalogEntry[];
-
-export type GameId = (typeof GAME_CATALOG)[number]["id"];
+export const GAME_CATALOG: readonly GameCatalogEntry[] = GAME_DEFINITIONS.map(
+  (game): GameCatalogEntry => ({
+    ...game,
+    categoryLabel: CATEGORY_LABELS[game.category],
+    icon: UI_META[game.id].icon,
+    accent: game.accentVar,
+    phase: UI_META[game.id].phase,
+    status: UI_META[game.id].status,
+  }),
+);
 
 export function getGameById(gameId: string): GameCatalogEntry | undefined {
   return GAME_CATALOG.find((game) => game.id === gameId);

@@ -1,6 +1,6 @@
 # Known Issues — YASIR PLAYBOX
 
-> Live ledger of defects and accepted limitations. Last updated at the end of Phase 1. The application foundation exists, but games are not playable. Entries below are **known limitations and dependencies**, explicitly classified. Do not invent bugs or claim fixes.
+> Live ledger of defects and accepted limitations. Last updated at the end of Phase 2. The application foundation and local snapshot skeleton exist, but games are not playable. Entries below are **known limitations and dependencies**, explicitly classified. Do not invent bugs or claim fixes.
 
 ## Severity legend
 
@@ -16,11 +16,12 @@
 
 | ID | Severity | Area | Description | Reproduction | Status | Owner | Resolution |
 |---|---|---|---|---|---|---|---|
-| KI-001 | INFO | Games | The platform foundation exists, but no game engine is implemented or playable. Library/detail pages correctly label modules "In build"; there are no fake Play buttons. | N/A | Planned | PM | Phases 4–8 |
+| KI-001 | INFO | Entire app | The shell, shared contracts, local snapshot skeleton, and game chrome exist; no game engine is playable. Library/detail/play pages label modules "In build"; no fake Play buttons. | N/A | Planned | PM | Phases 4–8 |
+| KI-014 | INFO | Game play | The static `/games/[gameId]/play` route currently opens a labeled in-build shell and always starts level 1; level deep-linking/continue-by-level is not wired until game engines implement progress. | Visit play route directly | Planned | PM | Phase 3 data wiring or Phase 4 engines |
 | KI-012 | INFO | Persistence | Local progress storage, achievements wiring, and cloud sync are not implemented yet. Stats/achievements show honest empty states. | N/A | Planned | DB | Phases 2, 9, 10 |
 | KI-013 | INFO | PWA | Manifest/service worker/offline installability are not implemented yet. | N/A | Planned | PM | Phase 11 |
-| KI-002 | INFO | Persistence | Anonymous device IDs are spoofable; anyone with an installation UUID can access that progress via RPCs. Not ownership/authentication. | N/A | Accepted (Phase 1 design) | DB | Documented in SECURITY.md; Phase 2 auth path |
-| KI-003 | INFO | Persistence | No cross-device progress: clearing site data loses the installation ID and local progress; cloud recovery requires the same ID. | N/A | Accepted | DB | Phase 2 accounts or approved export/import |
+| KI-002 | INFO | Persistence | Anonymous device IDs are spoofable; anyone with an installation UUID can access that progress via RPCs. Not ownership/authentication. | N/A | Accepted | DB | Documented in SECURITY.md; Phase 10 authentication path |
+| KI-003 | INFO | Persistence | No cross-device progress: clearing site data loses the installation ID and local progress; cloud recovery requires the same ID. | N/A | Accepted | DB | Phase 10 accounts or approved export/import |
 | KI-004 | INFO | Word Master | Daily challenge requires network and is unavailable offline by design (future answers are not shipped to the client). Practice mode remains offline. | N/A | Accepted | G1 | Documented in GAME_DESIGN.md |
 | KI-005 | INFO | Security | Score integrity is limited to server plausibility caps and rate limits; anonymous scores are not tamper-proof. | N/A | Accepted | DB/QA | Documented in SECURITY.md; never claim cheat-proof |
 | KI-006 | INFO | Deployment | Supabase, GitHub, and Vercel accounts/credentials do not exist yet. | N/A | Pending owner action | PM | Phases 10/13 |

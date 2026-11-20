@@ -53,4 +53,13 @@ describe("Button", () => {
       "/games",
     );
   });
+
+  it("shows a busy state and stays disabled while loading", () => {
+    render(<Button loading>Saving</Button>);
+
+    const button = screen.getByRole("button", { name: "Saving" });
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute("aria-busy", "true");
+  });
 });

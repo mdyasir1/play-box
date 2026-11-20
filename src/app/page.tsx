@@ -70,7 +70,7 @@ export default function HomePage() {
           aria-hidden="true"
           className="animate-rise relative mx-auto w-full max-w-sm [animation-delay:120ms] lg:max-w-none"
         >
-          <div className="absolute -inset-6 rounded-[2rem] bg-accent/10 blur-3xl" />
+          <div className="absolute inset-x-0 -inset-y-6 rounded-[2rem] bg-accent/10 blur-3xl" />
           <div className="relative overflow-hidden rounded-card border border-border bg-bg-elevated p-6 shadow-[0_24px_64px_rgba(0,0,0,0.45)]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
@@ -95,7 +95,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <span className="text-[0.68rem] font-medium uppercase tracking-[0.12em] text-text-muted">
-                    {game.category}
+                    {game.categoryLabel}
                   </span>
                 </div>
               ))}

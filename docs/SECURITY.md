@@ -145,7 +145,7 @@ Results are recorded in `TESTING_AND_QA.md`.
 5. Serverless rate limiting is best-effort on free tiers.
 6. Shared-browser progress is visible to other users of that browser.
 
-These are documented product limitations, not hidden defects. Phase 2 authentication addresses ownership, not client-side score trust entirely.
+These are documented product limitations, not hidden defects. The future authentication phase (Phase 10) addresses ownership, not client-side score trust entirely.
 
 ## 13. Release security checklist
 

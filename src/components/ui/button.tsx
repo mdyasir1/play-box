@@ -34,6 +34,7 @@ const buttonVariants = cva(
 type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    loading?: boolean;
   };
 
 function Button({
@@ -41,18 +42,40 @@ function Button({
   variant,
   size,
   asChild = false,
+  loading = false,
+  disabled,
   type,
+  children,
   ...props
 }: ButtonProps) {
   const Component = asChild ? Slot : "button";
+  const isDisabled = loading || disabled;
+  const content = asChild ? (
+    children
+  ) : (
+    <>
+      {loading ? (
+        <span
+          aria-hidden="true"
+          className="size-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
+        />
+      ) : null}
+      {children}
+    </>
+  );
 
   return (
     <Component
       data-slot="button"
+      aria-busy={loading ? true : undefined}
       className={cn(buttonVariants({ variant, size }), className)}
-      {...(asChild ? {} : { type: type ?? "button" })}
+      {...(asChild
+        ? {}
+        : { type: type ?? "button", disabled: isDisabled })}
       {...props}
-    />
+    >
+      {content}
+    </Component>
   );
 }
 

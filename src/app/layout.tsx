@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { AppShell } from "@/components/layout/app-shell";
 
 import "./globals.css";
 
@@ -69,17 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`}>
       <body>
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main
-          id="main"
-          className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-6 lg:px-8"
-        >
-          {children}
-        </main>
-        <SiteFooter />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
