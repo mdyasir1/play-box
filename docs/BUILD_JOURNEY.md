@@ -133,6 +133,113 @@ No tests were run because no testable code exists. That is stated plainly rather
 
 Phase 1: scaffold Next.js, enable strict tooling, verify shadcn/ui + Tailwind v4 compatibility, set up Vitest, establish tokens, logo, and splash. Entry is gated on owner approval of Phase 0.
 
+## Chapter 2 — Phase 1: scaffold and brand foundation (2026-11-21)
+
+### Step 1: Record the new rule before touching code
+
+The owner added a binding process rule: the agent must never stage, unstage, commit, push, reset, or otherwise manipulate Git. The rule was written to `docs/AGENT_INSTRUCTIONS.md` and linked from the documentation index before any Phase 1 work began. This mattered immediately: the default `create-next-app` flow can initialize Git and create a commit, so it was rejected.
+
+### Step 2: Scaffold by hand
+
+The Next.js app was assembled manually: `package.json`, TypeScript config, Tailwind v4/PostCSS, flat ESLint config, and Vitest. This avoided hidden Git actions and gave full control over versions.
+
+Engine conflicts surfaced during installation:
+
+- jsdom 31 requires Node 22.22+; jsdom 30 requires 22.14+; the environment runs 22.13.1. **Fix:** jsdom 29.1.1.
+- `@eslint/eslintrc` was installed for legacy flat-config bridging, then removed after discovering that `eslint-config-next` 16 already exports flat config arrays.
+- `@vitejs/plugin-react` 6 requires Vite 8 and extra React tooling; it was unnecessary because Vitest/esbuild handles the automatic JSX runtime. It was not installed.
+
+### Step 3: Build the visual foundation
+
+Implemented semantic tokens (midnight, charcoal surfaces, purple/electric-blue accents), self-hosted Sora + Inter via `next/font`, a custom SVG mark, app icon, and a splash that:
+
+- runs once per session,
+- can be skipped,
+- respects `prefers-reduced-motion`,
+- reveals via `requestAnimationFrame` instead of blocking hydration.
+
+The first splash implementation called `setState` directly inside an effect. The Next/React lint rules correctly rejected it as a cascading render. Moving the reveal into a rAF callback fixed the architecture rather than suppressing the rule.
+
+### Step 4: Create honest foundation routes
+
+Because games are not playable yet, the library and detail pages say so explicitly. No fake scores, statistics, or "Play" buttons were added. Stats and achievements show real empty states. This keeps the intermediate build honest while still demonstrating the design system and routing.
+
+### Step 5: Prove the toolchain
+
+The first full verification sequence found two real issues:
+
+1. **Generated types vs. strict flags:** Next 16 added `.next/dev/types/**/*.ts` to `tsconfig.json`; those generated files trip `noUnusedLocals`/`noUnusedParameters`. Removing those two flags and relying on ESLint's unused checks fixed deterministic builds without weakening project linting (ADR-012).
+2. **Header overflow risk:** showing the wordmark at 360 px plus three nav labels would exceed the viewport. The wordmark now appears only at `lg`+; the logo mark remains visible on phones.
+
+The final checks passed:
+
+- lint and typecheck clean,
+- 11 tests green,
+- production build with 12 static pages,
+- production server route smoke test (200s and a real 404),
+- CSP and hardening headers present,
+- `npm audit` clean,
+- token contrast ≥ 4.5:1.
+
+### Step 6: Respect the Git boundary
+
+No `git add`, commit, push, reset, restore, or staging command was executed in Phase 1. The agent only wrote working-tree files. The owner retains full control of the index and history.
+
+### Lessons
+
+1. **Default scaffolding is not neutral.** It can create commits; read the tool's side effects.
+2. **Engine ranges matter.** A "latest" dev dependency can be unusable on the installed Node version.
+3. **Generated code can break strict flags.** Keep strictness where it applies to project code; don't fight generated types.
+4. **Honesty in intermediate UI.** Saying "in build" is better than a button that does nothing.
+5. **Lint rules catch real design problems.** The effect-state warning led to a better splash lifecycle.
+
+## Chapter 3 — Phase 2: shared layout, navigation, contracts, persistence skeleton, game chrome
+
+### Step 1: Approve and audit interfaces
+
+After owner approval, the PM/UI/DB packages landed in this order: (1) shared contracts/registry, (2) local snapshot storage, (3) app shell, (4) core primitives, (5) game chrome/static play routes, (6) docs/verification. Shared contracts were reviewed before engines because every game, screen, and test depends on them.
+
+### Step 2: Validate the shell by browser, not just CSS
+
+Phase 2 is the first Phase where visual system is implemented. Instead of manual screenshots only, the PM added deterministic Playwright checks: 10 widths from 320–1440 px across the main shell routes, asserting `document.documentElement.scrollWidth <= innerWidth + 1`. The first browser run found real overflow: the home hero used `absolute -inset-6` around a blurred glow, creating an 8 px horizontal overflow at 320–414 px. It was changed to `absolute inset-x-0 -inset-y-6`, and the browser checks now pass.
+
+The same Playwright pass verified:
+
+- desktop sidebar at ≥1024 px;
+- mobile top bar + bottom nav below 1024 px;
+- sidebar→bottom nav switch at 1023/1024 px;
+- skip link as the first keyboard stop;
+- static play routes render and return real 404s for unknown games.
+
+### Step 3: Build contracts and the persistence skeleton
+
+The DB/PM layer created `GameId`, `GameDefinition`, `LevelConfig`, result/snapshot types, and five ten-level configs with documented caps. The registry is the single source for `maxScore`, difficulty labels, completion values, and curve data, and `validateLevelRegistry()` guards it in tests.
+
+The DB layer built safe local storage: schema validation, unknown-field stripping, future-version quarantine, corrupt-JSON recovery, old-version migration skeleton, quota trim, canonical installation ID, and monotonic result merge.
+
+### Step 4: Add modern UI primitives and core components
+
+UI added Button loading, LevelBadge, ProgressBar, StatTile, DifficultyChip, ErrorState, Skeleton, Toast, SyncStatus, and made Dialog a mobile bottom sheet. Component tests cover behavior and a11y names.
+
+### Step 5: Build shared game chrome and static play routes
+
+UI built `GameChrome`, header/instructions, pause overlay, and result panel. PM built static `/games/[gameId]/play` routes for all five games. Dynamic `next/dynamic` game loaders make the play module lazy, but unknown params return 404.
+
+### Step 6: Add structural a11y smoke and browser QA
+
+QA installed free `axe-core` for shell/game chrome zero critical/serious checks and Playwright for browser overflow/navigation checks. All pass. Full browser axe/Lighthouse remains Phase 12.
+
+### Lessons
+
+1. **Call the browser while building, not after.** The shell overflow would have been found later by a player.
+2. **Static routing fixes real 404s.** Dynamic not-found can stream and still return 200; `dynamicParams = false` gives deterministic unknown-route 404s.
+3. **Lazy modules should have a visible skeleton.** `GameStageSkeleton` avoids layout shift before game engines arrive.
+4. **Version-sensitive dev tooling needs a local browser target.** Playwright v1.65.1 needed its v1255 headless-shell download.
+
+### Next chapter
+
+Phase 3: wire local snapshot into homepage/library, stats/achievements, and extend Playwright navigation. Entry is gated on owner approval.
+
 ---
 
 _Entries are appended as milestones complete. This file never restates requirements; it records the path taken._

@@ -35,6 +35,21 @@ Dark-first. All UI uses semantic tokens, never raw hex in components.
 | `--danger` | `#FF6B81` | Error, false start, collision |
 | `--focus` | `#8AB4FF` | Focus ring |
 
+Measured contrast ratios (computed 2026-11-21 using WCAG relative luminance):
+
+| Pair | Ratio | AA target | Result |
+|---|---|---|---|
+| `--text` on `--surface` | 16.18:1 | 4.5:1 | Pass |
+| `--text-secondary` on `--surface` | 10.88:1 | 4.5:1 | Pass |
+| `--text-muted` on `--surface` | 6.69:1 | 4.5:1 | Pass |
+| `--text-muted` on `--bg` | 7.63:1 | 4.5:1 | Pass |
+| `--accent` on `--bg` | 6.28:1 | 4.5:1 | Pass |
+| `--bg` (button text) on `--accent` | 6.28:1 | 4.5:1 | Pass |
+| Warning text `#FFE1A0` on `--surface` | 13.63:1 | 4.5:1 | Pass |
+| `--danger` on `--bg` | 7.22:1 | 4.5:1 | Pass |
+
+These are token-to-token calculations, not a full rendered-page audit. Axe and browser-based accessibility checks still occur in Phase 12.
+
 Accent gradients: purple → electric blue at low opacity; never behind body text. Game accents:
 
 | Game | Accent |
@@ -177,7 +192,16 @@ Button hierarchy: one primary action per screen region. Destructive actions use 
 - Sync: separate, quieter status from connectivity; a failed sync is not an error the player must fix mid-game.
 - Slow network: app shell renders without waiting for Supabase; no layout shift when sync completes.
 
-## 12. Iconography and assets
+## 12. Implementation notes (Phase 1)
+
+- Sora and Inter are self-hosted at build via `next/font` and bound to the token variables `--font-sora` / `--font-inter`.
+- The dark theme is implemented with Tailwind v4 `@theme` tokens; components use semantic utilities, not raw hex values.
+- The splash uses CSS animations, runs at most once per session, is skippable, and collapses to a static presentation under `prefers-reduced-motion`.
+- The mobile header hides the wordmark below `lg` so navigation never overflows at 320 px; the mark remains visible.
+- `Button`, `Badge`, `Card`, and `Dialog` are vendored shadcn-style primitives.
+- Measured contrast passes AA for the documented pairs; full axe/browser verification is deferred to Phase 12.
+
+## 13. Iconography and assets
 
 - Lucide icons at 16/20/24 px, stroke width 2; icons decorative unless labelled.
 - No emoji as UI icons (except shareable Word Master result text).

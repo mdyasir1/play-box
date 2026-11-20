@@ -175,7 +175,7 @@ The client stops retrying validation rejections and retains local progress. Only
 
 ### 5.2 Client trust disclaimer
 
-Score plausibility caps and rate limits reduce casual abuse; they do **not** make anonymous results tamper-proof. A modified client can submit any value within the caps. This is documented as an accepted limitation until Phase 2 authentication.
+Score plausibility caps and rate limits reduce casual abuse; they do **not** make anonymous results tamper-proof. A modified client can submit any value within the caps. This is documented as an accepted limitation until the future authentication phase (Phase 10).
 
 ## 6. Device identification
 
@@ -235,5 +235,5 @@ Score plausibility caps and rate limits reduce casual abuse; they do **not** mak
 ## 12. Future authentication compatibility
 
 - The persistence adapter is the only backend-aware layer; game code never sees IDs.
-- Phase 2 migration path: add `user_id uuid` to progress/achievement tables, create ownership policies, and implement a one-time `claim_device_progress(device_id)` RPC after sign-in. The installation ID remains a fallback key for merged data.
+- Future authentication: add `user_id uuid` to progress/achievement tables, create ownership policies, and implement a one-time `claim_device_progress(device_id)` RPC after sign-in. The installation ID remains a fallback key for merged data. |
 - No Phase 1 table shape blocks this evolution.

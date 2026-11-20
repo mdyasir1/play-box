@@ -63,16 +63,18 @@ Each game exposes: title, level, difficulty label, instructions, start/continue,
 
 **Out of scope in Phase 1:** authentication, accounts, multiplayer, PvP, chat, mini battle, tic-tac-toe, rock-paper-scissors, paid services, paid analytics, cloud storage beyond persistence needs.
 
-## Technology stack (planned, pinned in Phase 1)
+## Technology stack (implemented foundation, pinned)
 
-- Next.js (App Router), React, TypeScript strict.
-- Tailwind CSS, shadcn/ui primitives, Lucide icons.
-- Motion for React for UI animation; GSAP only if justified; React Bits only if a component is genuinely reused.
-- HTML Canvas for Neon Survival; no game engine unless justified.
-- Supabase Free (Postgres + RPCs) for optional cloud sync.
-- Vitest, React Testing Library, Playwright.
-- GitHub Free + Vercel Hobby (subject to eligibility).
-- npm as the package manager (only installed manager in the environment).
+- Next.js 16.4.6 (App Router), React 19.3.1, TypeScript 5.9.3.
+- Tailwind CSS 4.3.5 with semantic tokens; shadcn-style primitives built on Radix UI and CVA.
+- Lucide icons; Motion for React installed for upcoming UI animation.
+- HTML Canvas planned for Neon Survival; no game engine needed.
+- Supabase Free (Postgres + RPCs) planned for optional cloud sync.
+- Vitest 5.1.1, React Testing Library, jsdom; Playwright planned for end-to-end.
+- GitHub Free + Vercel Hobby (subject to eligibility) for later deployment.
+- npm as the package manager (the only one installed in the environment).
+
+The current foundation includes the app shell, branded splash, five game catalog entries with placeholder detail pages, stats/achievements empty states, error/not-found/loading states, strict tooling, and passing build/tests. Game engines are **not** implemented yet.
 
 ## Zero-budget constraint
 

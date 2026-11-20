@@ -39,33 +39,33 @@ Games are sequential because there is one writer. Within each game, pure-engine 
 | P0-04 | Write frozen authoritative specification | PM | P0-03 | **DONE** | 22 sections; hash recorded; read-only; hash verifies |
 | P0-05 | Architecture, game design, level curves, DB/security design | PM | P0-03 | **DONE** | All required sections present and consistent |
 | P0-06 | WBS, dependencies, risks, progress baseline | PM | P0-05 | **DONE** | This file + risk tables + honest progress |
-| P0-07 | Phase 0 review gate | QA/owner | P0-01..06 | **PENDING REVIEW** | User reviews Phase 0; Phase 1 begins only after approval |
+| P0-07 | Phase 0 review gate | QA/owner | P0-01..06 | **DONE** | Owner approved Phase 0 and instructed Phase 1 to proceed (2026-11-21) |
 
 ## Phase 1 — Scaffold and brand foundation
 
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
+| ID | Task | Owner | Deps | Status | Acceptance criteria / evidence |
 |---|---|---|---|---|---|
-| P1-01 | Initialize Next.js 16.4.6 app with App Router, TS, `src/`, npm | PM | P0-07 | PENDING | `npm run dev` and `npm run build` succeed on a clean install |
-| P1-02 | Enable TS strict, ESLint, scripts (`dev/build/start/lint/typecheck/test`) | PM | P1-01 | PENDING | `typecheck` and `lint` pass with zero errors |
-| P1-03 | Install approved dependencies only; commit lockfile | PM | P1-01 | PENDING | No paid/unapproved packages; `npm audit` reviewed |
-| P1-04 | Tailwind CSS v4 + semantic tokens + fonts (Sora/Inter via `next/font`) | UI | P1-02 | PENDING | Tokens used; no raw hex in components; contrast spot-check recorded |
-| P1-05 | shadcn/ui init and 3-primitive compatibility smoke test | UI | P1-03, P1-04 | PENDING | Primitives render and build; incompatibility documented + fallback |
-| P1-06 | Vitest + React Testing Library + jsdom setup with smoke test | QA | P1-02 | PENDING | `npm test` passes; coverage command configured |
-| P1-07 | Logo, favicon, icon set, splash screen component | UI | P1-04 | PENDING | Splash once per launch, skippable, reduced-motion static |
-| P1-08 | Error boundary, not-found, loading primitives | PM | P1-01 | PENDING | Forced error renders fallback; no blank screen |
-| P1-09 | Security headers + `.env.example` + service-role import guard | PM | P1-01 | PENDING | Headers verified in dev; guard throws on client import |
+| P1-01 | Initialize Next.js 16.4.6 app with App Router, TS, `src/`, npm | PM | P0-07 | **DONE** | Manual scaffold (no create-next-app Git actions); `next build` passes; production server returns 200 |
+| P1-02 | Enable TS strict, ESLint, scripts (`dev/build/start/lint/typecheck/test`) | PM | P1-01 | **DONE** | `npm run lint` and `npm run typecheck` pass; scripts installed. Unused checks moved to ESLint after Next-generated dev types conflicted with TS flags (ADR-012) |
+| P1-03 | Install approved dependencies only; commit lockfile | PM | P1-01 | **DONE** | 475 packages installed; `package-lock.json` present; `npm audit` reports 0 vulnerabilities (dev and production scopes) |
+| P1-04 | Tailwind CSS v4 + semantic tokens + fonts (Sora/Inter via `next/font`) | UI | P1-02 | **DONE** | Semantic tokens in `globals.css`; Sora/Inter self-hosted; measured contrast AA (see UI_DESIGN_SYSTEM) |
+| P1-05 | shadcn/ui init and 3-primitive compatibility smoke test | UI | P1-03, P1-04 | **DONE** | CLI not used by design (ADR-011); vendored Button/Badge/Card/Dialog on Radix + CVA; production build and component tests pass |
+| P1-06 | Vitest + React Testing Library + jsdom setup with smoke test | QA | P1-02 | **DONE** | `npm test` passes: 3 files, 11 tests; coverage command configured; jsdom pinned 29.1.1 for Node 22.13 compatibility |
+| P1-07 | Logo, favicon, icon set, splash screen component | UI | P1-04 | **DONE** | SVG logo, `icon.svg`, animated splash; once per session, skippable, reduced-motion static. Full PWA icons remain Phase 11 |
+| P1-08 | Error boundary, not-found, loading primitives | PM | P1-01 | **DONE** | `error.tsx`, `not-found.tsx`, `loading.tsx` implemented; unknown game route returns 404 |
+| P1-09 | Security headers + `.env.example` + service-role import guard | PM | P1-01 | **DONE** | CSP/HSTS/nosniff/frame/referrer/permissions headers verified via `curl -I`; `.env.example` contains names only; `server-only` guard verified to throw outside the react-server condition |
 
 ## Phase 2 — Shared layout, navigation, contracts, persistence skeleton
 
 | ID | Task | Owner | Deps | Status | Acceptance criteria |
 |---|---|---|---|---|---|
-| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | UI | P1-04, P1-05 | PENDING | No overflow at 320–1440; keyboard nav; active states |
-| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | UI | P1-04 | PENDING | All states per `UI_DESIGN_SYSTEM.md`; component tests |
-| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | PM | P1-02 | PENDING | Type tests; all 5 games registered; caps validated |
-| P2-04 | Local snapshot schema + safe storage + migrations skeleton | DB | P2-03 | PENDING | Corrupt JSON, quota, old version, unknown fields handled |
-| P2-05 | Game chrome: header, instructions, pause overlay, result panel | UI | P2-02 | PENDING | Keyboard/touch; aria-live; no color-only cues |
-| P2-06 | Route scaffolding + lazy game loading | PM | P2-01 | PENDING | Routes render; 404 for unknown game; no layout shift |
-| P2-07 | Component/a11y smoke tests (axe) | QA | P2-02, P2-05 | PENDING | Zero critical/serious axe issues on shell |
+| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | UI | P1-04, P1-05 | **DONE** | `AppShell` + sidebar/mobile nav; Playwright verifies no horizontal overflow on `/`, `/games`, game detail, play, stats, achievements at 320–1440 px; nav switches at 1024 px; skip link is the first keyboard stop |
+| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | UI | P1-04 | **DONE** | Button loading state; LevelBadge/ProgressBar/StatTile/DifficultyChip/ErrorState/Skeleton/Toast/SyncStatus added; Dialog is a mobile bottom sheet; component tests pass |
+| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | PM | P1-02 | **DONE** | Five definitions and ten level configs per game in `src/games/*`; registry validates caps, sequential levels, and versioned configs; type/curve tests pass |
+| P2-04 | Local snapshot schema + safe storage + migrations skeleton | DB | P2-03 | **DONE** | Versioned snapshot validation, quarantine, quota trim, canonical installation ID, old/new schema handling, and monotonic result merge; tests cover corrupt JSON, unknown fields, quota, and idempotency |
+| P2-05 | Game chrome: header, instructions, pause overlay, result panel | UI | P2-02 | **DONE** | `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; keyboard/touch buttons, Escape resume, aria-live result summary, no color-only state |
+| P2-06 | Route scaffolding + lazy game loading | PM | P2-01 | **DONE** | Static `/games/[gameId]/play` for all five games; unknown game returns 404; per-game `next/dynamic` loaders with skeleton; production build emits five static play routes |
+| P2-07 | Component/a11y smoke tests (axe) | QA | P2-02, P2-05 | **DONE** | `axe-core` 4.14.1; shell and game chrome have zero critical/serious violations; 12 Playwright shell checks pass; full browser/axe audit remains Phase 12 |
 
 ## Phase 3 — Homepage and library
 
@@ -190,7 +190,7 @@ Games are sequential because there is one writer. Within each game, pure-engine 
 | P14-01 | Update all documentation to final state | DOC | P13 | PENDING | No stale sections; progress and changelog current |
 | P14-02 | QA, security, performance reports finalized | QA | P12–P13 | PENDING | Real results only; known issues listed |
 | P14-03 | Final known-issues review | PM | P14-02 | PENDING | Accepted P3s documented; no hidden P0/P1 |
-| P14-04 | Handover package + Phase 2 auth plan | PM | P14-01..03 | PENDING | Source, docs, deployment details, migration plan delivered |
+| P14-04 | Handover package + future authentication plan | PM | P14-01..03 | PENDING | Source, docs, deployment details, migration plan delivered |
 
 ## Dependency and risk gates
 

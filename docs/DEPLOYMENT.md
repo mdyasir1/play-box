@@ -1,6 +1,6 @@
 # Deployment — YASIR PLAYBOX
 
-> Status: **not deployed.** No GitHub remote, Vercel project, or Supabase project exists. This document is the runbook for Phase 10 and Phase 13. Do not mark deployment complete until every production verification item has been executed.
+> Status: **not deployed.** No GitHub remote, Vercel project, or Supabase project exists. A local production build (`next build` + `next start`) passed route, header, static play-route, and unknown-route smoke tests on 2026-11-21; that is not a deployment. This document is the runbook for Phase 10 and Phase 13. Do not mark deployment complete until every production verification item has been executed.
 
 ## 1. Prerequisites
 
@@ -121,7 +121,7 @@ Must be executed against the real URL and recorded in `TESTING_AND_QA.md`:
 
 ## 9. Free-tier monitoring
 
-- Supabase dashboard: database size, egress, MAU (no auth in Phase 1), project pauses after inactivity on free plans.
+- Supabase dashboard: database size, egress, usage, project pauses after inactivity on free plans.
 - Vercel dashboard: function invocations, bandwidth, build minutes.
 - No polling endpoints; sync is event-driven.
 - If limits approach, reduce payload/retention first; enabling paid features requires explicit approval.
@@ -135,6 +135,7 @@ Must be executed against the real URL and recorded in `TESTING_AND_QA.md`:
 | Production URL | Not deployed |
 | First production deploy date | — |
 | Migrations applied | None |
+| Local production build verification | PASS 2026-11-21 (16 static pages; `/`, `/games`, five details, five play routes, `/stats`, `/achievements` → 200; unknown `/games/nope` and `/games/nope/play` → 404; headers present) |
 | Deployment verification | NOT RUN |
 
 Update this table only with verified facts.

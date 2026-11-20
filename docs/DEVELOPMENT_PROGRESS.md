@@ -1,68 +1,88 @@
 # Development Progress — YASIR PLAYBOX
 
-**Last updated:** 2026-11-21 (Phase 0 session)
-**Current phase:** Phase 0 complete — awaiting owner review before Phase 1.
+**Last updated:** 2026-11-21 (Phase 2 session)
+**Current phase:** Phase 2 complete — awaiting owner approval before Phase 3.
 
 ## Honest completion metrics
 
 | Metric | Value | Basis |
 |---|---|---|
-| Phase 0 deliverables | **100%** | 17 docs + freeze record + git init verified |
-| Application implementation | **0%** | No app scaffold, no source code, no dependencies installed |
-| Automated tests | **0 executed / 0 written** | No code exists |
+| Phase 0 deliverables | **100%** | 18 docs incl. agent instructions + freeze record verified |
+| Phase 1 deliverables | **100%** | Scaffold, tooling, tokens, brand, splash, shell, primitives, tests, headers |
+| Phase 2 deliverables | **100%** | Contracts, registry, persistence skeleton, app shell, core components, game chrome, static play routes, axe/Playwright |
+| Game engines | **0%** | No game logic implemented yet |
+| Automated tests | **80 passing** | Vitest 68 + Playwright 12; full pass |
 | Deployment | **0%** | No accounts, no remote, no Vercel project |
-| WBS task completion | **6 / 88 tasks** | P0-01..P0-06 done; P0-07 in review |
+| WBS task completion | **23 / 88 tasks (26%)** | P0-01..07, P1-01..09, P2-01..07 done |
 
 There is no meaningful single "overall %". Use the metrics above; do not invent a blended number.
 
 ## Current work
 
-- Phase 0 review gate (P0-07). No implementation work is in progress.
-- Phase 1 must not start until the owner approves this Phase 0 package.
+- Phase 2 is complete and verified.
+- No implementation work is in progress. Phase 3 is gated on owner approval.
+- No Git staging, commit, push, reset, or restore was performed by the agent (see `AGENT_INSTRUCTIONS.md`).
 
-## Completed this phase
+## Completed — Phase 2
 
 | ID | Task | Evidence |
 |---|---|---|
-| P0-01 | Environment and repository inspection | Node v22.13.1, npm 10.9.2, Git 2.47.1; empty directory; no Supabase/Vercel/gh CLI; no credentials; npm registry reachable |
-| P0-02 | Git initialization | `git init` created `.git`; `.gitignore` written |
-| P0-03 | Documentation system | 17 Markdown files under `docs/` (13 mandated + README, OVERVIEW is mandated, plus PROJECT_SPEC, BUILD_JOURNEY, TASK_BREAKDOWN) |
-| P0-04 | Frozen specification | `PROJECT_SPEC.md` 556 lines; SHA-256 `ef76a265...97bd33`; read-only attribute set; hash verification OK |
-| P0-05 | Architecture/design/security documents | ARCHITECTURE, GAME_DESIGN, LEVEL_PROGRESSION, UI_DESIGN_SYSTEM, DATABASE, SECURITY written |
-| P0-06 | WBS and risk plan | TASK_BREAKDOWN (88 tasks, dependencies, acceptance criteria); risk register in SECURITY/ARCHITECTURE |
+| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | `AppShell`/`Sidebar`/`MobileTopBar`/`MobileBottomNav`; Playwright no horizontal overflow at 320–1440 px; nav switches at 1024 px; skip link is first keyboard stop; active states tested |
+| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | Added modern primitives; Dialog is a mobile bottom sheet; Button loading state; component tests pass |
+| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | Five definitions, ten level configs each, registry validates sequential levels and caps; type/curve tests pass |
+| P2-04 | Local snapshot schema + safe storage + migrations skeleton | Versioned validation, quarantine, quota trim, canonical installation ID, old/new schema handling, monotonic result merge; tests cover corrupt JSON, unknown fields, quota, idempotency |
+| P2-05 | Game chrome: header, instructions, pause overlay, result panel | `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; keyboard/touch, Escape resume, aria-live, no color-only state |
+| P2-06 | Route scaffolding + lazy game loading | Static `/games/[gameId]/play` for all five games; unknown game returns 404; per-game `next/dynamic` loaders with skeletons; build emits five static play routes |
+| P2-07 | Component/a11y smoke tests (axe) | `axe-core` 4.14.1; shell and game chrome have zero critical/serious violations; Playwright shell checks pass; full browser audit remains Phase 12 |
+
+## Route inventory
+
+| Route | Status |
+|---|---|
+| `/` | Static foundation home |
+| `/games` | Static games library; all five cards are labeled "In build" |
+| `/games/[gameId]` | Static detail pages for five games; unknown → 404 |
+| `/games/[gameId]/play` | Static, honest in-build shell; unknown → 404 |
+| `/stats` | Static empty state |
+| `/achievements` | Static empty state |
+| `/_not-found`, `error`, `loading` | Implemented |
+
+## App shell summary
+
+- Desktop sidebar: brand, primary nav, daily-challenge card, local profile/sync summary.
+- Mobile top bar: logo mark, status text.
+- Mobile bottom nav: Home, Games, Stats, Achievements; respects safe-area inset; 56 px + safe area.
+- Shell paddings verified by Playwright at 320–1440 px; sidebar↔mobile-nav switch at 1024 px.
 
 ## Pending / next
 
 | Order | ID | Task | Owner | Deps |
 |---|---|---|---|---|
-| 1 | P0-07 | Owner reviews Phase 0 package | Owner/PM | — |
-| 2 | P1-01..P1-09 | Next.js scaffold, tooling, brand foundation | PM/UI | P0-07 |
-| 3 | P2-01..P2-07 | Shell, navigation, contracts, local persistence skeleton | UI/DB | Phase 1 |
-| 4 | P3-01..P3-07 | Homepage, library, stats, achievements shells | UI | Phase 2 |
-| 5 | P4..P8 | Five games, sequential with QA gates | G1/G2/G3 | Shared contracts |
-| 6 | P9 | Progression and achievements | DB/PM | Games |
-| 7 | P10 | Supabase persistence + security probes | DB | P9 |
-| 8 | P11 | PWA/offline | PM/UI | P3, P10 |
-| 9 | P12 | Full QA/security/performance | QA | All |
-| 10 | P13 | GitHub/Vercel production deployment | PM | P12 sign-off |
-| 11 | P14 | Documentation and handover | DOC | P13 |
+| 1 | — | Owner approves Phase 3 | Owner | Phase 2 |
+| 2 | P3-01..P3-07 | Homepage/library data wiring, stats/achievements, Playwright navigation smoke | UI | Phase 2 |
+| 3 | P4..P8 | Five games, sequential with QA gates | G1/G2/G3 | Shared contracts |
+| 4 | P9 | Progression and achievements | DB/PM | Games |
+| 5 | P10 | Supabase persistence + security probes | DB | P9 |
+| 6 | P11 | PWA/offline | PM/UI | P3, P10 |
+| 7 | P12 | Full QA/security/performance | QA | All |
+| 8 | P13 | GitHub/Vercel production deployment | PM | P12 sign-off |
+| 9 | P14 | Documentation and handover | DOC | P13 |
 
-## Important decisions (this phase)
+## Important decisions (Phase 2)
 
-1. **Frozen spec:** requirements are immutable after this phase; changes go to CHANGELOG + amendments.
-2. **npm only:** pnpm/yarn are not installed.
-3. **Pinned stack:** Next 16.4.6, React 19.3.1, Tailwind 4.3.5, Supabase JS 2.119.2 at inspection time; Phase 1 must re-verify.
-4. **No write-capable sub-agents:** roles are emulated as sequential work packages; QA runs as an independent pass. Documented in README and work log.
-5. **Local-first:** Supabase outage never blocks play.
-6. **Daily Word server-validated:** future answers are not shipped to the client; daily mode requires network.
-7. **Accounts deferred:** Supabase/GitHub/Vercel are Phase 10/13 prerequisites.
-8. **Content ownership matrix:** prevents duplication between docs; one fact has one home.
+1. **Manual Playwright shell checks:** added `tests/e2e/shell.spec.ts`; 10 widths × 6 routes, navigation switch, and skip-link keyboard checks.
+2. **axe-core for smoke:** shell and game chrome pass with zero critical/serious violations in jsdom; color-contrast disabled there because jsdom lacks real layout; full browser audit is Phase 12.
+3. **Static play routes:** `/games/[gameId]/play` is static for all five games so unknown routes return real 404s; per-game code is still lazy via `next/dynamic`.
+4. **Play route starts at level 1:** engines are not playable; when engines land, the play route and link contract can advance.
+5. **Dialog is a mobile bottom sheet:** centered on desktop, full-width sheet on mobile, safe-area bottom padding.
+6. **No fake statistics:** library, detail, stats, and achievements still show only real/empty states; `GameCard` progress props are ready for Phase 3.
+7. **Git policy:** no Git staging/commit/push/reset/restore was performed.
 
 ## Blockers
 
 | Blocker | Impact | Status |
 |---|---|---|
-| Phase 0 owner approval | Phase 1 cannot start | Open |
+| Phase 3 owner approval | Phase 3 cannot start | Open |
 | No Supabase project/keys | Blocks Phase 10 only | Deferred by approval |
 | No GitHub remote / Vercel account | Blocks Phase 13 only | Deferred by approval |
 | No Vercel Hobby eligibility confirmation | Could affect deployment options | Deferred to Phase 13 |
@@ -70,26 +90,32 @@ There is no meaningful single "overall %". Use the metrics above; do not invent 
 
 ## Known issues and accepted limitations
 
-- No application exists yet; no product bugs can be reported.
-- Anonymous progress is spoofable and not cross-device; accepted for Phase 1 (see `SECURITY.md`).
-- Daily challenge requires network by design.
-- First-visit offline support is not possible; offline works only after caching.
-- Vercel Hobby non-commercial eligibility must be confirmed.
+- Games are not playable yet; engines and UI-playful states are 0%.
+- Local progress storage exists but UI wiring, automatic save, sync, and queue behavior are not active yet.
+- PWA manifest/service worker/offline installability are not implemented yet (Phase 11).
+- Anonymous progress is spoofable and not cross-device; accepted until authentication phases.
+- Play route is a labeled shell, not gameplay.
+- Daily challenge is not functional; wording explains Phase 5.
 - See `KNOWN_ISSUES.md` for the tracked ledger.
 
-## Latest test results
-
-**None executed.** No application code, tests, database, or deployment exists. The only verifications performed:
+## Latest test results (verified 2026-11-21)
 
 | Verification | Result |
 |---|---|
-| `sha256sum -c docs/.freeze/PROJECT_SPEC.sha256` | OK |
-| Spec read-only attribute | Set (`R`) |
-| Git repository state | Initialized, no commits, no remote |
-| Documentation file presence | Verified after creation |
+| `npm run lint` | Pass, 0 errors / 0 warnings |
+| `npm run typecheck` | Pass |
+| `npm test` | **68/68 pass** across 14 files |
+| `npm run test:e2e` | **12/12 pass** (10 overflow widths, nav switch, skip link) |
+| `npm run build` | Pass; 16 static pages |
+| Production server smoke | Routes return 200; unknown game routes return 404; static play routes return 200 |
+| Security headers | Present after production build/start |
+| `npm audit` | 0 vulnerabilities |
+| Frozen spec hash | Verified `OK` |
+| E2E across more games / RLS | Not run yet |
+| Full browser axe / Lighthouse | Not run yet; Phase 12 |
 
 ## Next actions
 
-1. Owner reviews Phase 0 artifacts and approves Phase 1.
-2. Phase 1: scaffold, strict tooling, Tailwind tokens, shadcn compatibility smoke test, test harness, splash.
-3. Do not begin any game implementation before shared contracts (P2-03) are agreed.
+1. Owner reviews the Phase 2 foundation and approves Phase 3.
+2. Phase 3: wire local snapshot into homepage/library, implement/refine stats and achievements, extend Playwright navigation suite.
+3. Resolve all Phase 2 advisories before starting Phase 3.

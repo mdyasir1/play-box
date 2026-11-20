@@ -1,7 +1,7 @@
 # YASIR PLAYBOX — Documentation Index
 
 **Project:** YASIR PLAYBOX — "Your Personal Arcade."
-**Current phase:** Phase 0 complete (documentation and architecture). No application code exists yet.
+**Current phase:** Phase 2 complete (shared layout, navigation, contracts, persistence skeleton, and game chrome). Games are not playable yet.
 **Frozen specification:** `docs/PROJECT_SPEC.md` v1.0
 **Frozen hash:** `ef76a2655afa94b19b79d7f95782499767693505a08ede1d84592b59cc97bd33`
 
@@ -9,6 +9,7 @@
 
 | Document | Canonical content | Must NOT contain |
 |---|---|---|
+| `AGENT_INSTRUCTIONS.md` | Binding process rules for AI agents, including the no-Git-write policy | Product requirements, progress |
 | `PROJECT_SPEC.md` | Authoritative product requirements (frozen) | Progress, test results, journey, implementation notes |
 | `PROJECT_OVERVIEW.md` | Product summary for new readers | New requirements, progress, bug tracking |
 | `ARCHITECTURE.md` | System/module architecture, data flow, contracts, ADRs | Game rules, level numbers, progress percentages |
@@ -57,8 +58,13 @@ Get-FileHash docs\PROJECT_SPEC.md -Algorithm SHA256
 
 The build environment exposes one read-only exploration sub-agent, not eight writing agents. The eight required roles are therefore executed as sequential work packages by the main agent, with separate review/QA passes. `AGENT_WORK_LOG.md` records this honestly. No document may claim that specialized agents exist when they do not.
 
+## Manual Git control
+
+Per the project owner's binding instruction, the AI agent must never stage, unstage, commit, push, reset, restore, or otherwise write to Git. All staging, commits, and pushes are performed manually by the owner. See `AGENT_INSTRUCTIONS.md` §1 for the full policy.
+
 ## Start here
 
+- Rules for agents: `AGENT_INSTRUCTIONS.md`
 - Product: `PROJECT_OVERVIEW.md`
 - Requirements: `PROJECT_SPEC.md`
 - Plan and tasks: `TASK_BREAKDOWN.md`, `DEVELOPMENT_PROGRESS.md`
