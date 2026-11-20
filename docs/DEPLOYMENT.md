@@ -135,7 +135,7 @@ Must be executed against the real URL and recorded in `TESTING_AND_QA.md`:
 | Production URL | Not deployed |
 | First production deploy date | — |
 | Migrations applied | None |
-| Local production build verification | PASS 2026-11-21 (16 static pages; `/`, `/games`, five details, five play routes, `/stats`, `/achievements` → 200; unknown `/games/nope` and `/games/nope/play` → 404; headers present) |
+| Local production build verification | PASS 2026-11-21 (16 static pages; shell routes 200; unknown game routes 404; Phase 3 smoke: home/games/stats/achievements 200; headers present) |
 | Deployment verification | NOT RUN |
 
 Update this table only with verified facts.

@@ -71,13 +71,13 @@ Games are sequential because there is one writer. Within each game, pure-engine 
 
 | ID | Task | Owner | Deps | Status | Acceptance criteria |
 |---|---|---|---|---|---|
-| P3-01 | Homepage: splash handoff, hero, featured, continue, all games, daily, progress, bests, activity, achievements | UI | P2-01, P2-02 | PENDING | Real stored data only; empty states; not overlong |
-| P3-02 | Library: search, filters, descriptions, difficulty, level, best, progress, Play | UI | P2-02 | PENDING | Search/filter correct; locked levels show locked state |
-| P3-03 | Stats page with real values and empty state | UI | P2-02 | PENDING | No fabricated values; matches snapshot |
-| P3-04 | Achievements page (locked/unlocked) | UI | P2-02 | PENDING | Definitions only; no fake unlocks |
-| P3-05 | Daily challenge entry (UTC policy, offline message) | UI | P2-02 | PENDING | Disabled with clear explanation when offline |
-| P3-06 | Responsive pass at 10 target widths | QA | P3-01..05 | PENDING | No overflow/clipping/overlap; screenshots recorded |
-| P3-07 | Playwright navigation smoke suite | QA | P3-01..05 | PENDING | Home ↔ library ↔ stats ↔ achievements pass |
+| P3-01 | Homepage: splash handoff, hero, featured, continue, all games, daily, progress, bests, activity, achievements | UI | P2-01, P2-02 | **DONE** | Uses real snapshot: progress summary, bests, activity, achievements highlights; daily entry is honest ("In build", "Offline daily mode planned"); no fabricated player totals |
+| P3-02 | Library: search, filters, descriptions, difficulty, level, best, progress, Play | UI | P2-02 | **DONE** | Playwright library spec verifies `type=search` box, all category buttons, search filters real cards; GameCard uses definition difficulty and snapshot progress |
+| P3-03 | Stats page with real values and empty state | UI | P2-02 | **DONE** | Stats uses snapshot `totalPlays`, completed levels, best scores, activity, per-game progress; skeleton has real h1; no invented metrics |
+| P3-04 | Achievements page (locked/unlocked) | UI | P2-02 | **DONE** | Unlocked entries come from `snapshot.achievements`; locked entries from real definitions with "need real progression" text; empty state is honest |
+| P3-05 | Daily challenge entry (UTC policy, offline message) | UI | P2-02 | **DONE** | Home has UTC boundary text, Word Master entry, and disabled/pending offline text |
+| P3-06 | Responsive pass at 10 target widths | QA | P3-01..05 | **DONE** | Playwright verifies no horizontal overflow on shell pages at 320–1440 px; mobile/desktop nav switch at 1024 |
+| P3-07 | Playwright navigation smoke suite | QA | P3-01..05 | **DONE** | `tests/e2e/navigation.spec.ts` passes: core pages render headings, library search/filter works; 14/14 Playwright tests pass |
 
 ## Phase 4 — Reaction Rush
 

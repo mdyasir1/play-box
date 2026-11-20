@@ -5,13 +5,33 @@ All notable changes are recorded here chronologically. Versions follow a simple 
 ## [Unreleased]
 
 ### Planned
-- Phase 3: wire real local progress into homepage/library and extend Playwright navigation.
+- Phase 4: implement Reaction Rush engine, level config v1, unit tests, UI, result panel integration.
 - Phases 4–8: five games.
 - Phase 9–11: progression, Supabase persistence, PWA.
 - Phase 12–14: QA, deployment, handover.
 
-## [0.3.0-shell] — 2026-11-21
+## [0.4.0-data] — 2026-11-21
 
+### Added
+- Homepage now uses real local snapshot data: games played, completed levels, best scores, games with progress, and achievement highlights. Daily challenge entry is honest ("In build"/offline planned).
+- Library now has search and category filters; `GameCard` displays real progress and difficulty.
+- Stats page now reads real progress and activity from the snapshot; missing data shows real empty states.
+- Achievements page now distinguishes real unlocked entries from locked definitions; no fabricated unlocks.
+- Playwright navigation suite verifies `/`, `/games`, `/stats`, `/achievements` headings and library search/filter; 14/14 pass.
+- Manual Playwright suite verifies no horizontal overflow at 320–1440 px on shell pages and mobile/desktop nav switching.
+
+### Changed
+- Versioned to `0.4.0`.
+
+### Verified
+- `npm run lint`: pass.
+- `npm run typecheck`: pass.
+- `npm test`: pass.
+- `npm run test:e2e`: 14/14 pass.
+- `npm run build`: pass.
+- `npm audit`: 0 vulnerabilities.
+
+## [0.3.0-shell] — 2026-11-21
 ### Added
 - Production app shell: desktop sidebar (brand, nav, daily-challenge card, local profile/sync summary) and mobile top bar + bottom nav with safe areas (`AppShell`, `Sidebar`, `MobileTopBar`, `MobileBottomNav`).
 - Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result/snapshot types; five ten-level definitions and registry (`REACTION_RUSH_LEVELS`, etc.); server caps `10,000 / 1,600 / 5,000,000 / 1,500 / 2,000`.

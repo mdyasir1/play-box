@@ -338,7 +338,12 @@ Accepted. `noUnusedLocals` and `noUnusedParameters` were removed from `tsconfig.
 - Game chrome: `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; static `/games/[gameId]/play` routes, unknown params 404.
 - Testing: Vitest 68/68, Playwright 12/12, axe smoke zero critical/serious.
 
-## 14. Verification expectations for later phases
+## 15. Phase 3 implementation notes
+
+- Home/library/stats/achievements use `useLocalSnapshot()`; static shells remain renderable without progress.
+- Real progress is displayed from `snapshot.games`; missing/empty states are real, not fake.
+- Library has real search/filter; daily challenge is informational until Phase 5.
+- Testing: Playwright covers shell overflow, navigation, library search/filter, mobile/desktop switch.
 
 - `npm run build` succeeds with strict TypeScript.
 - Unit tests cover pure engines and progression merges.

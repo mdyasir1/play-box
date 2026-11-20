@@ -167,7 +167,7 @@ P1-01 through P1-09 (see `TASK_BREAKDOWN.md`).
 
 ### Handover notes
 
-- Phase 3 is gated on owner approval.
+- Phase 4 is gated on owner approval.
 - Shared contracts (P2-03), local snapshot skeleton (P2-04), and game chrome (P2-05) are prerequisites for any game integration.
 - Static play routes make unknown routes return 404.
 - Do not edit `PROJECT_SPEC.md`.
@@ -240,11 +240,70 @@ P2-01 through P2-07 (see `TASK_BREAKDOWN.md`).
 
 ### Handover notes
 
-- Phase 3 is gated on owner approval.
-- Infrastructure is ready for UI data wiring: snapshot load/save/merge, level configs, game chrome, play routes.
+- Phase 4 is gated on owner approval.
+- Phase 3 infrastructure: real snapshot data surfaces in home/library/stats/achievements; Playwright navigation suite.
+- Do not edit `PROJECT_SPEC.md`.
+- Do not stage/commit/push; the owner manages Git manually.
+
+## Session 2026-11-21 — Phase 3 (real snapshot data, responsive shell, Playwright navigation)
+
+### Roles active
+
+| Role | Status | Notes |
+|---|---|---|
+| PM/UI/QA | Active | Home/library/stats/achievements real data, responsive shell, Playwright navigation suite |
+| G1/G2/G3 | Not started | No game engines written |
+| DB | Active | Local snapshot already exists; UI wiring only |
+
+### Assigned tasks
+
+P3-01..P3-07 (see `TASK_BREAKDOWN.md`).
+
+### Files added/changed
+
+| Area | Files |
+|---|---|
+| Hooks/client data | `src/lib/persistence/hooks.ts` (`useLocalSnapshot`) |
+| Home | `src/app/page.tsx` (real data sections, skeletons, daily challenge) |
+| Library | `src/app/games/page.tsx`, `src/app/games/games-client.tsx` (search/filter) |
+| Stats | `src/app/stats/page.tsx`, `src/app/stats/stats-client.tsx` (real snapshot stats) |
+| Achievements | `src/app/achievements/page.tsx`, `src/app/achievements/achievements-client.tsx` (real unlocked/locked definitions) |
+| E2E | `tests/e2e/navigation.spec.ts` |
+| Docs | `TASK_BREAKDOWN`, `DEVELOPMENT_PROGRESS`, `AGENT_WORK_LOG`, `BUILD_JOURNEY`, `CHANGELOG` (0.4.0), `TESTING_AND_QA`, `KNOWN_ISSUES`, `ARCHITECTURE`, `DEPLOYMENT` |
+
+### Work completed
+
+1. Added `useLocalSnapshot` client hook; made home/games/stats/achievements use real snapshot data.
+2. Home: progress summary, bests, activity, achievements highlights, daily challenge wording.
+3. Library: search, category filters, real `GameCard` progress.
+4. Stats: totals, levels, bests, activity, per-game progress.
+5. Achievements: real unlocked entries + locked definitions; honest empty state.
+6. Playwright: navigation core pages + library search/filter.
+7. Playwright: shell overflow at 320–1440 px.
+8. Adjusted server/client split and skeletons with real h1s.
+
+### Verification performed
+
+| Command / check | Result |
+|---|---|
+| `npm run lint` | Pass |
+| `npm run typecheck` | Pass |
+| `npm test` | Pass (68/68) |
+| `npm run test:e2e` | 14/14 pass |
+| `npm run build` | Pass |
+| Local production smoke | Shell pages 200; unknown game 404 |
+| Playwright overflow | Pass at 320–1440 px |
+| Playwright navigation/library | Pass |
+| `npm audit` | 0 vulnerabilities |
+| Frozen spec hash | OK |
+| Git writes | None performed |
+
+### Handover notes
+
+- Phase 4 is gated on owner approval.
 - Do not edit `PROJECT_SPEC.md`.
 - Do not stage/commit/push; the owner manages Git manually.
 
 ### Remaining work
 
-Phases P3–P14 (see `TASK_BREAKDOWN.md`).
+Phases P4–P14 (see `TASK_BREAKDOWN.md`).

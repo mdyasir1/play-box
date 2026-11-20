@@ -236,9 +236,34 @@ QA installed free `axe-core` for shell/game chrome zero critical/serious checks 
 3. **Lazy modules should have a visible skeleton.** `GameStageSkeleton` avoids layout shift before game engines arrive.
 4. **Version-sensitive dev tooling needs a local browser target.** Playwright v1.65.1 needed its v1255 headless-shell download.
 
+## Chapter 4 — Phase 3: real snapshot data, responsive shell, Playwright navigation
+
+### Step 1: Split server/client around local data
+
+Home, games, stats, achievements needed real snapshot data. The PM added `useLocalSnapshot()` (`"use client"`) and split server metadata/wrappers from client pages where needed. This avoided calling client-only snapshot code during static server prerender; skeletons now still have real headings.
+
+### Step 2: Add real data surfaces
+
+- Home now computes games played, completed levels, best scores, games with progress, and achievement highlights from the snapshot; daily entry remains honest ("In build", offline planned).
+- Library adds search/category filters using real `GAME_CATALOG` and `GameCard` progress.
+- Stats reads totals, completed levels, best scores, activity, and per-game progress.
+- Achievements splits real unlocked entries from locked definitions; empty state remains a true empty state.
+
+### Step 3: Add Playwright navigation/library/overflow checks
+
+Playwright now has `navigation.spec.ts` for core headings and library search/filter, plus shell overflow checks. Playwright assertions accept achievements as level-2 when the empty state is active, because the shell is covered by h1 on other routes.
+
+### Step 4: Final verification
+
+- `lint`/`typecheck` pass.
+- `vitest` passes.
+- Playwright: 14/14 pass.
+- Production build passes; local production smoke returns 200 for shell pages.
+- Frozen spec hash verified; docs updated; version `0.4.0`.
+
 ### Next chapter
 
-Phase 3: wire local snapshot into homepage/library, stats/achievements, and extend Playwright navigation. Entry is gated on owner approval.
+Phase 4: implement Reaction Rush engine, level config v1, unit tests, UI, result panel integration. Entry is gated on owner approval.
 
 ---
 

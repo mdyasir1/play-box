@@ -15,7 +15,7 @@ YASIR PLAYBOX gives one player a polished, dependable arcade of five skill games
 
 ## Product vision
 
-A personal pocket arcade that opens instantly, works offline after first load, respects the player's attention, and rewards improvement. The platform should be usable indefinitely without a paid subscription or account. Cloud synchronization is a convenience layer, never a prerequisite to play.
+A personal pocket arcade that opens instantly, works offline after first load, respects the player's attention, and rewards improvement. The platform should be usable indefinitely without a paid subscription or account. Cloud synchronization is a convenience layer, never a prerequisite to play. Phase 0–3 have completed shared contracts, persistence, shell, data surfaces, and Playwright responsive checks.
 
 ## Audience and usage context
 

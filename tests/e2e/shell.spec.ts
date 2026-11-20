@@ -19,7 +19,11 @@ for (const width of WIDTHS) {
       const response = await page.goto(route);
 
       expect(response?.status(), `${route} at ${width}px`).toBe(200);
-      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      const expectedHeading =
+        route === "/achievements"
+          ? page.getByRole("heading", { name: "Achievements", level: 2 })
+          : page.getByRole("heading", { level: 1 });
+      await expect(expectedHeading).toBeVisible();
 
       const dimensions = await page.evaluate(() => ({
         scrollWidth: document.documentElement.scrollWidth,

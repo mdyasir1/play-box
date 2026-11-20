@@ -17,7 +17,7 @@
 | ID | Severity | Area | Description | Reproduction | Status | Owner | Resolution |
 |---|---|---|---|---|---|---|---|
 | KI-001 | INFO | Entire app | The shell, shared contracts, local snapshot skeleton, and game chrome exist; no game engine is playable. Library/detail/play pages label modules "In build"; no fake Play buttons. | N/A | Planned | PM | Phases 4–8 |
-| KI-014 | INFO | Game play | The static `/games/[gameId]/play` route currently opens a labeled in-build shell and always starts level 1; level deep-linking/continue-by-level is not wired until game engines implement progress. | Visit play route directly | Planned | PM | Phase 3 data wiring or Phase 4 engines |
+| KI-014 | INFO | Game play | The static `/games/[gameId]/play` route currently opens a labeled in-build shell and always starts level 1; level deep-linking/continue-by-level is not wired until game engines implement progress. Phase 3 wired real snapshot data into home/library/stats/achievements. | Visit play route directly | Accepted/Phase 3 done | PM | Phase 4 engines |
 | KI-012 | INFO | Persistence | Local progress storage, achievements wiring, and cloud sync are not implemented yet. Stats/achievements show honest empty states. | N/A | Planned | DB | Phases 2, 9, 10 |
 | KI-013 | INFO | PWA | Manifest/service worker/offline installability are not implemented yet. | N/A | Planned | PM | Phase 11 |
 | KI-002 | INFO | Persistence | Anonymous device IDs are spoofable; anyone with an installation UUID can access that progress via RPCs. Not ownership/authentication. | N/A | Accepted | DB | Documented in SECURITY.md; Phase 10 authentication path |
