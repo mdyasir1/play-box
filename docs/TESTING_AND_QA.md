@@ -1,6 +1,6 @@
 # Testing and QA — YASIR PLAYBOX
 
-> Canonical home for the test strategy, test cases, and **executed** results. No test has been run yet: Phase 0 contains no application code. Results are marked `NOT RUN` until genuinely executed. Fabricated results are forbidden.
+> Canonical home for the test strategy, test cases, and **executed** results. Phase 1 executed unit/component tests, a production build, a local production smoke test, header checks, and dependency audit. E2E, RLS, axe, and Lighthouse remain unrun. Results are marked `NOT RUN` until genuinely executed. Fabricated results are forbidden.
 
 ## 1. Strategy
 
@@ -20,13 +20,17 @@ Test-first or test-alongside for all pure engine logic. UI tests are written aga
 
 | Suite | Status | Last run | Notes |
 |---|---|---|---|
-| Unit | NOT RUN | — | No code exists |
-| Component | NOT RUN | — | No code exists |
-| E2E | NOT RUN | — | No code exists |
-| Security RLS | NOT RUN | — | No Supabase project exists |
-| Accessibility | NOT RUN | — | No UI exists |
-| Performance | NOT RUN | — | No app exists |
-| Production smoke | NOT RUN | — | Not deployed |
+| Unit | **PASS** | 2026-11-21 | 11 tests in 3 files (utils, catalog, Button) |
+| Component | **PASS (smoke)** | 2026-11-21 | Button states; broader UI suite pending Phase 2+ |
+| Lint / typecheck | **PASS** | 2026-11-21 | 0 errors, 0 warnings |
+| Production build | **PASS** | 2026-11-21 | 12 static pages |
+| Local production smoke | **PASS** | 2026-11-21 | Real routes 200; unknown game 404; headers verified |
+| Dependency audit | **PASS** | 2026-11-21 | 0 vulnerabilities |
+| E2E | NOT RUN | — | Playwright not installed yet |
+| Security RLS/RPC | NOT RUN | — | No Supabase project exists |
+| Accessibility (axe/browser) | NOT RUN | — | Token contrast was calculated; full audit pending Phase 12 |
+| Performance/Lighthouse | NOT RUN | — | Deferred to Phases 8/12 |
+| Deployed production smoke | NOT RUN | — | Not deployed |
 
 ## 3. Unit test plan (per game)
 
@@ -222,4 +226,13 @@ Add rows only after real execution:
 
 | Date | Suite/Case | Environment | Result | Evidence | Notes |
 |---|---|---|---|---|---|
-| — | — | — | NOT RUN | — | Phase 0: no code |
+| 2026-11-21 | Lint | Windows, Node 22.13.1, npm 10.9.2 | PASS | `npm run lint` | 0 errors/warnings |
+| 2026-11-21 | TypeScript | same | PASS | `npm run typecheck` | strict; unused checks via ESLint |
+| 2026-11-21 | Unit/component | same | PASS 11/11 | `npm test` | utils, catalog, Button |
+| 2026-11-21 | Production build | same | PASS | `npm run build` | 12 static pages |
+| 2026-11-21 | Local production smoke | `next start -p 3100` | PASS | curl | `/`, `/games`, detail, `/stats`, `/achievements`, `/icon.svg` → 200; unknown game → 404 |
+| 2026-11-21 | Security headers | local production | PASS | `curl -I` | CSP, HSTS, nosniff, frame, referrer, permissions |
+| 2026-11-21 | Server-only guard | Node 22.13.1 (non-react-server) | PASS | `node -e require('server-only')` | Throws the expected client-import error |
+| 2026-11-21 | Dependency audit | same | PASS | `npm audit` | 0 vulnerabilities (prod and full) |
+| 2026-11-21 | Contrast tokens | sRGB calculation | PASS | ratio script | All documented pairs ≥ 4.5:1 |
+| — | E2E / axe / Lighthouse / RLS / deployed production | — | NOT RUN | — | Later phases |

@@ -1,6 +1,6 @@
 # Deployment — YASIR PLAYBOX
 
-> Status: **not deployed.** No GitHub remote, Vercel project, or Supabase project exists. This document is the runbook for Phase 10 and Phase 13. Do not mark deployment complete until every production verification item has been executed.
+> Status: **not deployed.** No GitHub remote, Vercel project, or Supabase project exists. A local production build (`next build` + `next start`) passed route and header smoke tests on 2026-11-21; that is not a deployment. This document is the runbook for Phase 10 and Phase 13. Do not mark deployment complete until every production verification item has been executed.
 
 ## 1. Prerequisites
 
@@ -135,6 +135,7 @@ Must be executed against the real URL and recorded in `TESTING_AND_QA.md`:
 | Production URL | Not deployed |
 | First production deploy date | — |
 | Migrations applied | None |
+| Local production build verification | PASS 2026-11-21 (12 static pages; routes 200/404; headers present) |
 | Deployment verification | NOT RUN |
 
 Update this table only with verified facts.

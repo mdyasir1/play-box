@@ -133,6 +133,70 @@ No tests were run because no testable code exists. That is stated plainly rather
 
 Phase 1: scaffold Next.js, enable strict tooling, verify shadcn/ui + Tailwind v4 compatibility, set up Vitest, establish tokens, logo, and splash. Entry is gated on owner approval of Phase 0.
 
+## Chapter 2 — Phase 1: scaffold and brand foundation (2026-11-21)
+
+### Step 1: Record the new rule before touching code
+
+The owner added a binding process rule: the agent must never stage, unstage, commit, push, reset, or otherwise manipulate Git. The rule was written to `docs/AGENT_INSTRUCTIONS.md` and linked from the documentation index before any Phase 1 work began. This mattered immediately: the default `create-next-app` flow can initialize Git and create a commit, so it was rejected.
+
+### Step 2: Scaffold by hand
+
+The Next.js app was assembled manually: `package.json`, TypeScript config, Tailwind v4/PostCSS, flat ESLint config, and Vitest. This avoided hidden Git actions and gave full control over versions.
+
+Engine conflicts surfaced during installation:
+
+- jsdom 31 requires Node 22.22+; jsdom 30 requires 22.14+; the environment runs 22.13.1. **Fix:** jsdom 29.1.1.
+- `@eslint/eslintrc` was installed for legacy flat-config bridging, then removed after discovering that `eslint-config-next` 16 already exports flat config arrays.
+- `@vitejs/plugin-react` 6 requires Vite 8 and extra React tooling; it was unnecessary because Vitest/esbuild handles the automatic JSX runtime. It was not installed.
+
+### Step 3: Build the visual foundation
+
+Implemented semantic tokens (midnight, charcoal surfaces, purple/electric-blue accents), self-hosted Sora + Inter via `next/font`, a custom SVG mark, app icon, and a splash that:
+
+- runs once per session,
+- can be skipped,
+- respects `prefers-reduced-motion`,
+- reveals via `requestAnimationFrame` instead of blocking hydration.
+
+The first splash implementation called `setState` directly inside an effect. The Next/React lint rules correctly rejected it as a cascading render. Moving the reveal into a rAF callback fixed the architecture rather than suppressing the rule.
+
+### Step 4: Create honest foundation routes
+
+Because games are not playable yet, the library and detail pages say so explicitly. No fake scores, statistics, or "Play" buttons were added. Stats and achievements show real empty states. This keeps the intermediate build honest while still demonstrating the design system and routing.
+
+### Step 5: Prove the toolchain
+
+The first full verification sequence found two real issues:
+
+1. **Generated types vs. strict flags:** Next 16 added `.next/dev/types/**/*.ts` to `tsconfig.json`; those generated files trip `noUnusedLocals`/`noUnusedParameters`. Removing those two flags and relying on ESLint's unused checks fixed deterministic builds without weakening project linting (ADR-012).
+2. **Header overflow risk:** showing the wordmark at 360 px plus three nav labels would exceed the viewport. The wordmark now appears only at `lg`+; the logo mark remains visible on phones.
+
+The final checks passed:
+
+- lint and typecheck clean,
+- 11 tests green,
+- production build with 12 static pages,
+- production server route smoke test (200s and a real 404),
+- CSP and hardening headers present,
+- `npm audit` clean,
+- token contrast ≥ 4.5:1.
+
+### Step 6: Respect the Git boundary
+
+No `git add`, commit, push, reset, restore, or staging command was executed in Phase 1. The agent only wrote working-tree files. The owner retains full control of the index and history.
+
+### Lessons
+
+1. **Default scaffolding is not neutral.** It can create commits; read the tool's side effects.
+2. **Engine ranges matter.** A "latest" dev dependency can be unusable on the installed Node version.
+3. **Generated code can break strict flags.** Keep strictness where it applies to project code; don't fight generated types.
+4. **Honesty in intermediate UI.** Saying "in build" is better than a button that does nothing.
+5. **Lint rules catch real design problems.** The effect-state warning led to a better splash lifecycle.
+
+### Next chapter (not started)
+
+Phase 2: shared game contracts, centralized level-config registry, local snapshot schema, game chrome, and shell refinements. Entry is gated on owner approval.
+
 ---
 
 _Entries are appended as milestones complete. This file never restates requirements; it records the path taken._
