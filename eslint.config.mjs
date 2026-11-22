@@ -23,6 +23,7 @@ const config = [
       "src/components/progress-sync.tsx",
       "src/components/splash-screen.tsx",
       "src/components/theme-toggle.tsx",
+      "src/components/bounce-cards.tsx",
     ],
     rules: {
       "react-hooks/set-state-in-effect": "off",

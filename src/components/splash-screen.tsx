@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useEffect, useCallback, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
-import { ShatterText } from "@/components/shatter-text";
-import { YgMark } from "@/components/yg-mark";
+import { ShatterText } from "./shatter-text";
 
 const STORAGE_KEY = "yg-splash-seen";
 
@@ -46,9 +46,16 @@ export function SplashScreen() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: reduceMotion ? 0.1 : 0.45 }}
-              className="mb-4"
+              className="mb-4 rounded-md bg-white p-1"
             >
-              <YgMark className="size-12 text-text" />
+              <Image
+                src="/yg.png"
+                alt="YG — Yasir Games"
+                width={100}
+                height={67}
+                className="h-16 w-auto sm:h-20"
+                priority
+              />
             </motion.div>
 
             {reduceMotion ? (

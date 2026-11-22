@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
+import { BounceCards } from "@/components/bounce-cards";
 import { useAuth } from "@/components/auth-provider";
-import { GameCard } from "@/components/game-card";
-import { GAMES } from "@/lib/games";
 import { useProgress } from "@/lib/use-progress";
+
+const IMAGES = ["/games/zip-art.svg", "/games/maze-art.svg"];
 
 export default function HomePage() {
   const { progress } = useProgress();
@@ -20,7 +21,7 @@ export default function HomePage() {
       transition={{ duration: 0.32 }}
       className="mx-auto max-w-5xl"
     >
-      <section className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <section className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="flex items-center gap-2 font-display text-[0.65rem] font-bold tracking-[0.3em] text-hot">
             <Sparkles className="size-3" aria-hidden="true" />
@@ -38,21 +39,43 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section aria-label="Games" className="grid gap-4 md:grid-cols-2">
-        {GAMES.map((game, index) => (
-          <motion.div
-            key={game.slug}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08 + index * 0.08, duration: 0.3 }}
-          >
-            <GameCard
-              game={game}
-              completed={progress.games[game.slug].completed.length}
-              lastLevel={progress.games[game.slug].lastLevel}
-            />
-          </motion.div>
-        ))}
+      <section aria-label="Games">
+        <BounceCards
+          images={IMAGES}
+          cards={[
+            {
+              href: "/games/zip",
+              title: "Zip",
+              kicker: "200 levels",
+              completed: progress.games.zip.completed.length,
+              levelCount: 200,
+              lastLevel: progress.games.zip.lastLevel,
+              tone: "zip",
+            },
+            {
+              href: "/games/maze-paint",
+              title: "Maze Paint",
+              kicker: "200 levels",
+              completed: progress.games["maze-paint"].completed.length,
+              levelCount: 200,
+              lastLevel: progress.games["maze-paint"].lastLevel,
+              tone: "maze",
+            },
+          ]}
+          containerWidth={560}
+          containerHeight={360}
+          cardSize={260}
+          spread={100}
+          rotation={10}
+          pushDistance={70}
+          hoverScale={1.06}
+          bounciness={0.6}
+          borderWidth={4}
+          borderColor="var(--color-border-strong)"
+          radius={22}
+          shadow
+          enableHover
+        />
       </section>
     </motion.div>
   );

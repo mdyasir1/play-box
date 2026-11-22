@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   },
   description: "Two puzzles by Yasir. Zip and Maze Paint, 200 levels each.",
   applicationName: "Yasir's Play-Box",
+  manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     title: "Yasir's Play-Box",
