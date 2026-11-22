@@ -14,15 +14,14 @@ export function YgMark({ className }: YgMarkProps) {
       <rect width="64" height="64" rx="16" fill="currentColor" />
       <g
         stroke="var(--color-bg)"
-        strokeWidth="3.2"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        <path d="M13 17 L21 31 L29 17" />
-        <path d="M21 31 V47" />
-        <path d="M50 21 H39 V44 H50" />
-        <path d="M50 32 H44" />
-        <path d="M50 21 C54 25 55 29 55 33 C55 38 52 42 47 44" />
+        <path d="M14 17 L22 32 L30 17" />
+        <path d="M22 32 V47" />
+        <path d="M51 25 C48 21 42 20 38 23 C33 27 32 37 36 42 C40 47 48 47 52 42" />
+        <path d="M52 34 H44" />
       </g>
     </svg>
   );

@@ -1,33 +1,66 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Music2, Pause, Play, SkipForward, Square } from "lucide-react";
+import { Music2, Square, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { NAAT_TRACKS } from "@/lib/naats";
+
+let audioUnlocked = false;
 
 export function NaatPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const track = NAAT_TRACKS[index]!;
 
   const playAt = useCallback((nextIndex: number) => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !audioUnlocked) return;
     const safeIndex = nextIndex % NAAT_TRACKS.length;
     setIndex(safeIndex);
+    setStopped(false);
     audio.src = NAAT_TRACKS[safeIndex]!.src;
     audio.currentTime = 0;
+    audio.muted = false;
     void audio.play().then(
       () => {
         setPlaying(true);
-        setStarted(true);
+        setMuted(false);
       },
-      () => setPlaying(false),
+      () => {
+        setPlaying(false);
+        setMuted(true);
+      },
     );
   }, []);
+
+  useEffect(() => {
+    const unlock = () => {
+      audioUnlocked = true;
+    };
+    window.addEventListener("pointerdown", unlock, { once: true });
+    window.addEventListener("keydown", unlock, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!audioUnlocked) return;
+    const audio = audioRef.current;
+    playAt(0);
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+      }
+    };
+  }, [playAt]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -37,33 +70,17 @@ export function NaatPlayer() {
     return () => audio.removeEventListener("ended", onEnded);
   }, [index, playAt]);
 
-  useEffect(() => {
-    if (started) return;
-    const startOnce = () => playAt(0);
-    window.addEventListener("pointerdown", startOnce, { once: true });
-    window.addEventListener("keydown", startOnce, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", startOnce);
-      window.removeEventListener("keydown", startOnce);
-    };
-  }, [playAt, started]);
-
-  const toggle = () => {
+  const toggleMute = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (playing) {
-      audio.pause();
-      setPlaying(false);
-      return;
-    }
-    if (!audio.src) {
+    if (muted || stopped || !audio.src) {
       playAt(index);
       return;
     }
-    void audio.play().then(
-      () => setPlaying(true),
-      () => setPlaying(false),
-    );
+    audio.muted = true;
+    audio.pause();
+    setPlaying(false);
+    setMuted(true);
   };
 
   const stop = () => {
@@ -74,56 +91,54 @@ export function NaatPlayer() {
     audio.removeAttribute("src");
     audio.load();
     setPlaying(false);
-    setStarted(true);
+    setStopped(true);
     setIndex(0);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-3 left-1/2 z-40 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-lg border border-border bg-bg-elevated/95 px-3 py-2 shadow-2xl backdrop-blur sm:left-auto sm:right-4 sm:translate-x-0"
+      className="fixed bottom-3 right-3 z-50 flex items-center gap-1 rounded-full border border-border bg-bg-elevated/95 p-1 shadow-2xl backdrop-blur sm:bottom-4 sm:right-4 sm:gap-2 sm:p-2"
     >
       <audio ref={audioRef} preload="none" />
-      <div className="flex items-center gap-2">
-        <span className="grid size-8 shrink-0 place-items-center rounded-md bg-maze-soft text-maze">
-          <Music2 className="size-4" aria-hidden="true" />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-[0.7rem] font-semibold text-text">
-            {started ? track.title : "Naat queue armed"}
-          </p>
-          <p className="truncate text-[0.62rem] text-text-muted">
-            {started ? `${track.artist} · ${index + 1}/${NAAT_TRACKS.length}` : "Tap anywhere to start"}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={toggle}
-          className="grid size-9 place-items-center rounded-md bg-surface text-text transition hover:bg-surface-hover"
-          aria-label={playing ? "Pause naat" : "Play naat"}
-        >
-          {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
-        </button>
-        <button
-          type="button"
-          onClick={() => playAt(index + 1)}
-          className="hidden size-9 place-items-center rounded-md border border-border text-text-secondary transition hover:text-text sm:grid"
-          aria-label="Next naat"
-          title="Next naat"
-        >
-          <SkipForward className="size-4" />
-        </button>
-        <button
-          type="button"
-          onClick={stop}
-          className="grid size-9 place-items-center rounded-md border border-danger/40 text-danger transition hover:bg-danger/10"
-          aria-label="Stop naat"
-          title="Stop naat"
-        >
-          <Square className="size-3.5" />
-        </button>
+      <span className="hidden size-8 shrink-0 place-items-center rounded-full bg-maze-soft text-maze sm:grid sm:size-9">
+        <Music2 className="size-4" aria-hidden="true" />
+      </span>
+      <div className="hidden min-w-0 max-w-[160px] sm:block">
+        <p className="truncate text-[0.68rem] font-semibold text-text">
+          {stopped ? "Naats stopped" : track.title}
+        </p>
+        <p className="truncate text-[0.6rem] text-text-secondary">
+          {stopped
+            ? "Your silence is loud"
+            : playing
+              ? `${index + 1}/${NAAT_TRACKS.length} · now playing`
+              : `${index + 1}/${NAAT_TRACKS.length} · ${track.artist}`}
+        </p>
       </div>
+      <button
+        type="button"
+        onClick={toggleMute}
+        className="grid size-8 shrink-0 place-items-center rounded-full border border-border text-text transition hover:border-border-strong hover:bg-surface-hover sm:size-9"
+        aria-label={muted || stopped ? "Unmute naat" : "Mute naat"}
+        title={muted || stopped ? "Unmute naat" : "Mute naat"}
+      >
+        {muted || stopped ? (
+          <VolumeX className="size-4" />
+        ) : (
+          <Volume2 className="size-4" />
+        )}
+      </button>
+      <button
+        type="button"
+        onClick={stop}
+        className="grid size-8 shrink-0 place-items-center rounded-full border border-danger/40 text-danger transition hover:bg-danger/10 sm:size-9"
+        aria-label="Stop naat"
+        title="Stop naat"
+      >
+        <Square className="size-3.5" />
+      </button>
     </motion.div>
   );
 }

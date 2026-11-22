@@ -234,6 +234,9 @@ export function MazePaintGame() {
         <CardTitle>Run</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
+        <p className="mb-3 text-xs text-text-secondary">
+          Fewer moves means more bragging rights. Still just a maze.
+        </p>
         <ProgressBar
           value={paintedCount}
           max={floorCount}

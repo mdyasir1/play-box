@@ -12,10 +12,10 @@ The app is local-first and supports optional Supabase cloud sync.
 
 ## Credentials status
 
-`DATABASE_URL` and `DIRECT_URL` are configured in the gitignored `.env.local`,
-and the Prisma migration has been applied. `NEXT_PUBLIC_SUPABASE_URL` and
-`NEXT_PUBLIC_SUPABASE_ANON_KEY` are still blank, so the app currently uses the
-local demo login. Real Supabase Auth activates once those two values are added.
+All Supabase and database values are configured in the gitignored `.env.local`,
+and the Prisma migration has been applied. The browser suite forces
+`NEXT_PUBLIC_AUTH_MODE=demo` so automated tests do not require a real Supabase
+user; normal app runs use Supabase Auth.
 
 ## Credentials needed from you
 

@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import { NaatPlayer } from "@/components/naat-player";
-
 export function GamePageShell({
   header,
   board,
@@ -23,7 +21,6 @@ export function GamePageShell({
         <aside className="space-y-4">{side}</aside>
       </div>
       {overlays}
-      <NaatPlayer />
     </div>
   );
 }

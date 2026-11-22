@@ -44,8 +44,8 @@ export function ResultDialog({
           <Check className="size-4" aria-hidden="true" />
         </span>
         <div>
-          <p className="text-sm font-medium">Solved</p>
-          <p className="text-xs text-text-muted">Saved for {gameName}</p>
+          <p className="text-sm font-medium">Clean finish. Suspicious.</p>
+          <p className="text-xs text-text-muted">Saved, just in case you deny it.</p>
         </div>
       </div>
 

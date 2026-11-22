@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 
 import { useAuth } from "@/components/auth-provider";
 import { Logo } from "@/components/logo";
+import { NaatPlayer } from "@/components/naat-player";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -74,6 +75,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         {children}
       </main>
+
+      {!onLogin && user ? <NaatPlayer /> : null}
     </div>
   );
 }

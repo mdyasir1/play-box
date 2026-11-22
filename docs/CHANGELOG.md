@@ -24,7 +24,7 @@ All notable changes are recorded here chronologically. Earlier entries describe 
 
 ### Verified
 
-- Lint, typecheck, 31 unit tests, production build, 23 Playwright tests, audit.
+- Lint, typecheck, 31 unit tests, production build, 26 Playwright tests, audit.
 
 ## [1.0.0] — 2026-11-22
 

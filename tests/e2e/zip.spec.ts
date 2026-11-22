@@ -90,7 +90,7 @@ test("Zip level picker reaches level 200 when unlocked", async ({ page }) => {
   const picker = page.getByRole("dialog");
   await picker.getByRole("button", { name: "151–200" }).click();
   await expect(picker.getByRole("button", { name: "Level 200, current" })).toBeVisible();
-  await expect(picker.getByText("199 of 200 complete")).toBeVisible();
+  await expect(picker.getByText(/199 of 200 cleared/)).toBeVisible();
 });
 
 test("Zip board fits a 320px viewport", async ({ page }) => {

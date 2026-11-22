@@ -1,29 +1,30 @@
 # Development Progress — Yasir's Play-Box
 
 **Version:** 2.0.0
-**Status:** Complete locally; Supabase credentials pending for cloud verification.
+**Status:** Complete locally with Supabase credentials configured.
 
 ## Delivered
 
 - 200 Zip levels and 200 Maze Paint levels, all solver/generator verified.
 - Rising difficulty by grid size, floor count, checkpoint count, and par.
 - Sequential unlock: level N+1 enables only after level N is completed.
-- Login-first architecture. Unauthenticated visitors land on `/login`.
+- Login-first architecture with first/last name at signup and profile display.
+- Responsive settings page for name and password changes.
 - Supabase Auth (email/password) with Prisma progress persistence.
-- Local demo login fallback when Supabase is not configured.
+- Sequential naat MP3 queue that starts after login, with mute/stop controls.
+- Custom glass-shard shatter-text splash inspired by React Bits Shatter Type,
+  built without a paid license.
+- Animated YG monogram and matching SVG favicon.
 - Light and dark premium themes, default dark.
-- Animated YG mark and "Yasir's Play-Box" splash screen.
-- YG SVG favicon.
-- Minimal home, game pages, and forms; no gradient-based decoration.
-- Space Grotesk display font with Inter body font.
-- 31 unit tests and 23 Playwright tests.
+- Chakra Petch gaming display font with Inter body font.
+- Minimal home with exactly two colorful game tiles; no nav clutter or footer.
+- Playful, trolling microcopy across login, home, games, dialogs, and settings.
+- 31 unit tests and 26 Playwright tests.
 
 ## Pending
 
-- Fill `.env.local` with Supabase URL, anon key, and database password.
-- Run `npx prisma migrate deploy`.
-- Verify real Supabase sign-up/sign-in and cross-device sync.
-- Optional: physical device pass and Lighthouse.
+- Optional physical-device pass and Lighthouse.
+- Optional real Supabase cross-device QA with a confirmed test user.
 
 ## Verification
 

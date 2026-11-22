@@ -47,6 +47,7 @@ for (const path of PATHS) {
     await page.goto(path);
     await expect(page.locator("main")).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await page.waitForTimeout(250);
     expect(await seriousViolations(page)).toEqual([]);
   });
 }

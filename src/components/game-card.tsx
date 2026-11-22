@@ -30,7 +30,7 @@ export function GameCard({ game, completed, lastLevel }: GameCardProps) {
         >
           <Icon className="size-7" aria-hidden="true" />
         </span>
-        <span className="rounded-full border border-border px-2.5 py-1 font-display text-[0.65rem] font-bold tracking-[0.16em] text-text-muted">
+        <span className="rounded-full border border-border px-2.5 py-1 font-display text-[0.65rem] font-bold tracking-[0.16em] text-text-secondary">
           200 levels
         </span>
       </div>
@@ -43,7 +43,7 @@ export function GameCard({ game, completed, lastLevel }: GameCardProps) {
       </p>
 
       <div className="mt-6">
-        <div className="mb-2 flex items-center justify-between text-xs text-text-muted">
+        <div className="mb-2 flex items-center justify-between text-xs text-text-secondary">
           <span>
             {completed}/{game.levelCount} cleared
           </span>
@@ -58,7 +58,7 @@ export function GameCard({ game, completed, lastLevel }: GameCardProps) {
       </div>
 
       <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-        <span className="font-display text-xs font-semibold uppercase tracking-widest text-text-muted">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-text-secondary">
           Level {String(lastLevel).padStart(3, "0")}
         </span>
         <span className="inline-flex items-center gap-1 font-display text-xs font-bold uppercase tracking-widest text-text">

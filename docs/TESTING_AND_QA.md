@@ -8,7 +8,7 @@
 | Typecheck | `npm run typecheck` | Pass |
 | Unit | `npm test` | 5 files, 31 tests |
 | Build | `npm run build` | Pass; `/`, `/login`, both games, icon |
-| Browser | `npm run test:e2e` | 23 tests |
+| Browser | `npm run test:e2e` | 26 tests |
 | Audit | `npm audit` | 0 vulnerabilities |
 
 ## Coverage

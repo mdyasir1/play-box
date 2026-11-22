@@ -46,6 +46,11 @@ export function GameHeader({
             </h1>
             <span className={`text-xs font-medium ${tier.className}`}>{tier.label}</span>
           </div>
+          <p className="mt-1 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-hot">
+            {game.slug === "zip"
+              ? "One line. No shortcuts. We checked."
+              : "Walls are not suggestions."}
+          </p>
           <p className="mt-1 text-xs text-text-muted">
             Level {String(level).padStart(3, "0")} of {levelCount}
           </p>

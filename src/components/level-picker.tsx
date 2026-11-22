@@ -40,7 +40,7 @@ export function LevelPicker({
       open={open}
       onOpenChange={onOpenChange}
       title={`${gameName} levels`}
-      description={`${completed.length} of ${levelCount} complete`}
+      description={`${completed.length} of ${levelCount} cleared. Pick one and stop overthinking.`}
       className="max-w-3xl"
     >
       <div className="mb-3 flex flex-wrap gap-1.5">

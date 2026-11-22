@@ -186,6 +186,9 @@ export function ZipGame() {
         <CardTitle>Run</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
+        <p className="mb-3 text-xs text-text-secondary">
+          Fill every square, or keep staring at it. Your call.
+        </p>
         <ProgressBar value={path.length} max={total} label="Zip board filled" />
         <dl className="mt-4 grid grid-cols-2 gap-2">
           {[
