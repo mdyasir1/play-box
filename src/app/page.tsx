@@ -23,10 +23,7 @@ export default function HomePage() {
     >
       <section className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="flex items-center gap-2 font-display text-[0.65rem] font-bold tracking-[0.3em] text-hot">
-            <Sparkles className="size-3" aria-hidden="true" />
-            By Yasir
-          </p>
+          
           <h1 className="mt-2 font-display text-4xl font-bold tracking-tight sm:text-6xl">
             Yasir&apos;s Play-Box
           </h1>

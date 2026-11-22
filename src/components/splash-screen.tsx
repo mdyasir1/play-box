@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
-import { ShatterText } from "./shatter-text";
+import SplitFlapText from "@/components/SplitFlapText";
 
 const STORAGE_KEY = "yg-splash-seen";
 
@@ -20,7 +20,7 @@ export function SplashScreen() {
   useEffect(() => {
     if (window.sessionStorage.getItem(STORAGE_KEY)) return;
     setVisible(true);
-    const timer = window.setTimeout(dismiss, reduceMotion ? 900 : 3200);
+    const timer = window.setTimeout(dismiss, reduceMotion ? 1200 : 4200);
     return () => window.clearTimeout(timer);
   }, [dismiss, reduceMotion]);
 
@@ -46,7 +46,7 @@ export function SplashScreen() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: reduceMotion ? 0.1 : 0.45 }}
-              className="mb-4 rounded-md bg-white p-1"
+              className="mb-5 rounded-md bg-white p-1"
             >
               <Image
                 src="/yg.png"
@@ -58,19 +58,35 @@ export function SplashScreen() {
               />
             </motion.div>
 
-            {reduceMotion ? (
-              <h1 className="text-center font-display text-3xl font-bold tracking-widest text-text sm:text-5xl">
-                Yasir&apos;s Play-Box
-              </h1>
-            ) : (
-              <ShatterText autoplay onShatter={dismiss} />
-            )}
+            <SplitFlapText
+              words={["YASIR READY", "SYNC ONLINE", "SIGNAL LIVE"]}
+              flipDuration={0.1}
+              stagger={0.05}
+              cycleDelay={1600}
+              charset="alphanumeric"
+              flipsPerChar={6}
+              order="left"
+              align="left"
+              tileStyle="board"
+              tileColor="#151922"
+              textColor="#f5f2ea"
+              glare={0}
+              depth={0.5}
+              tileRadius={8}
+              gap={4}
+              fontSize="clamp(20px, 6vw, 44px)"
+              loop
+              padTo={12}
+              intro
+              className="justify-center"
+              aria-label="Yasir Play-Box splash animation"
+            />
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: reduceMotion ? 0 : 0.6 }}
-              className="mt-2 text-center font-display text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-text-muted"
+              className="mt-4 text-center font-display text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-text-muted"
             >
               A personal arcade by Yasir
             </motion.p>
