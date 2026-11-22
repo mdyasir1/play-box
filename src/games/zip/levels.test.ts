@@ -33,8 +33,8 @@ describe("Zip level data", () => {
       expect(sorted.map((checkpoint) => checkpoint.value)).toEqual(
         Array.from({ length: sorted.length }, (_, index) => index + 1),
       );
-      expect(sorted.length).toBeGreaterThanOrEqual(4);
-      expect(sorted.length).toBeLessThanOrEqual(6);
+      expect(sorted.length).toBeGreaterThanOrEqual(6);
+      expect(sorted.length).toBeLessThanOrEqual(12);
       expect(new Set(sorted.map((checkpoint) => checkpoint.cell)).size).toBe(
         sorted.length,
       );

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import type * as React from "react";
 
@@ -31,30 +32,25 @@ export function MazeBoard({ level, state, onDirection }: MazeBoardProps) {
       const index = mazeCellIndex(level, row, col);
       const floor = isMazeFloor(level, row, col);
       const isPainted = painted.has(index);
-      const isRoller = row === state.row && col === state.col;
 
       cells.push(
         <div
           key={`${row}-${col}`}
           className={cn(
-            "relative rounded-[3px] transition-colors duration-150",
+            "rounded-[3px] transition-colors duration-300 ease-out",
             !floor && "bg-bg-elevated shadow-[inset_0_0_0_1px_var(--color-border)]",
             floor && !isPainted && "bg-surface-hover",
             floor &&
               isPainted &&
               "bg-cyan-soft shadow-[inset_0_0_0_1px_var(--color-cyan)]",
           )}
-        >
-          {isRoller ? (
-            <span
-              aria-hidden="true"
-              className="absolute inset-[24%] rounded-full bg-text shadow-[0_0_0_2px_var(--color-cyan)]"
-            />
-          ) : null}
-        </div>,
+        />,
       );
     }
   }
+
+  const rollerLeft = `${((state.col + 0.5) / level.width) * 100}%`;
+  const rollerTop = `${((state.row + 0.5) / level.height) * 100}%`;
 
   return (
     <div className="paper-edge rounded-lg border border-border bg-surface p-2.5 sm:p-3">
@@ -82,21 +78,34 @@ export function MazeBoard({ level, state, onDirection }: MazeBoardProps) {
             event.clientX - start.x,
             event.clientY - start.y,
           );
-          if (direction) {
-            onDirection(direction);
-          }
+          if (direction) onDirection(direction);
         }}
         onPointerCancel={() => {
           pointerRef.current = null;
         }}
       >
-        <div
-          className="grid h-full w-full gap-[3px]"
-          style={{
-            gridTemplateColumns: `repeat(${level.width}, minmax(0, 1fr))`,
-          }}
-        >
-          {cells}
+        <div className="relative h-full w-full">
+          <div
+            className="grid h-full w-full gap-[3px]"
+            style={{
+              gridTemplateColumns: `repeat(${level.width}, minmax(0, 1fr))`,
+            }}
+          >
+            {cells}
+          </div>
+          <motion.span
+            aria-hidden="true"
+            className="pointer-events-none absolute z-10 rounded-full bg-text shadow-[0_0_0_2px_var(--color-cyan),0_6px_18px_rgba(0,0,0,0.4)]"
+            style={{
+              width: `calc(${100 / level.width}% - 8px)`,
+              height: `calc(${100 / level.height}% - 8px)`,
+              translateX: "-50%",
+              translateY: "-50%",
+            }}
+            initial={false}
+            animate={{ left: rollerLeft, top: rollerTop, scale: 1 }}
+            transition={{ type: "spring", stiffness: 460, damping: 34, mass: 0.7 }}
+          />
         </div>
       </div>
 

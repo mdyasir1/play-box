@@ -27,41 +27,86 @@ function snakePath(size) {
   const path = [];
   for (let row = 0; row < size; row += 1) {
     if (row % 2 === 0) {
-      for (let col = 0; col < size; col += 1) {
-        path.push(row * size + col);
-      }
+      for (let col = 0; col < size; col += 1) path.push(row * size + col);
     } else {
-      for (let col = size - 1; col >= 0; col -= 1) {
-        path.push(row * size + col);
-      }
+      for (let col = size - 1; col >= 0; col -= 1) path.push(row * size + col);
     }
   }
   return path;
 }
 
-function twoOpt(path, size, random, passes) {
-  const length = path.length;
-  for (let pass = 0; pass < passes; pass += 1) {
-    const i = Math.floor(random() * (length - 2));
-    const j = i + 2 + Math.floor(random() * (length - i - 3));
-    if (j >= length - 1) {
-      continue;
-    }
-    const a = path[i];
-    const b = path[i + 1];
-    const c = path[j];
-    const d = path[j + 1];
-    if (adjacent(size, a, c) && adjacent(size, b, d)) {
-      let left = i + 1;
-      let right = j;
-      while (left < right) {
-        [path[left], path[right]] = [path[right], path[left]];
-        left += 1;
-        right -= 1;
+function buildNeighbors(size) {
+  const neighbors = Array.from({ length: size * size }, () => []);
+  for (let cell = 0; cell < size * size; cell += 1) {
+    const row = Math.floor(cell / size);
+    const col = cell % size;
+    for (const [dr, dc] of [
+      [-1, 0],
+      [1, 0],
+      [0, -1],
+      [0, 1],
+    ]) {
+      const nextRow = row + dr;
+      const nextCol = col + dc;
+      if (
+        nextRow >= 0 &&
+        nextRow < size &&
+        nextCol >= 0 &&
+        nextCol < size
+      ) {
+        neighbors[cell].push(nextRow * size + nextCol);
       }
     }
   }
-  return path;
+  return neighbors;
+}
+
+function countTurns(path, size) {
+  let turns = 0;
+  let previousDirection = -1;
+  for (let index = 1; index < path.length; index += 1) {
+    const from = path[index - 1];
+    const to = path[index];
+    const direction =
+      to - from === 1 ? 0 : to - from === -1 ? 1 : to - from === size ? 2 : 3;
+    if (previousDirection !== -1 && direction !== previousDirection) turns += 1;
+    previousDirection = direction;
+  }
+  return turns;
+}
+
+function hamiltonianPath(size, random) {
+  const total = size * size;
+  const neighbors = buildNeighbors(size);
+  let path = snakePath(size);
+  let best = [...path];
+  let bestTurns = countTurns(path, size);
+
+  for (let step = 0; step < total * 60; step += 1) {
+    const fromStart = random() < 0.5;
+    const endpoint = fromStart ? path[0] : path[path.length - 1];
+    const forbidden = fromStart ? path[1] : path[path.length - 2];
+    const choices = neighbors[endpoint].filter((cell) => cell !== forbidden);
+    if (choices.length === 0) continue;
+
+    const target = choices[Math.floor(random() * choices.length)];
+    const index = path.indexOf(target);
+    if (index < 0) continue;
+
+    const next = fromStart
+      ? [...path.slice(0, index).reverse(), ...path.slice(index)]
+      : [...path.slice(0, index + 1), ...path.slice(index + 1).reverse()];
+
+    if (!validateHamiltonian(next, size)) continue;
+    path = next;
+    const turns = countTurns(path, size);
+    if (turns > bestTurns) {
+      best = [...path];
+      bestTurns = turns;
+    }
+  }
+
+  return best;
 }
 
 function validateHamiltonian(path, size) {
@@ -83,51 +128,29 @@ function validateHamiltonian(path, size) {
 }
 
 function zipSize(level) {
-  if (level <= 10) return 4;
-  if (level <= 30) return 5;
-  if (level <= 55) return 6;
-  if (level <= 80) return 7;
+  if (level <= 25) return 5;
+  if (level <= 70) return 6;
+  if (level <= 125) return 7;
   return 8;
 }
 
 function zipCheckpointCount(level) {
-  if (level <= 10) return 5;
-  if (level <= 20) return 5;
-  if (level <= 30) return 4;
-  if (level <= 40) return 5;
-  if (level <= 55) return 4;
-  if (level <= 65) return 5;
-  if (level <= 80) return 4;
-  if (level <= 90) return 5;
-  return 4;
+  if (level <= 25) return 6;
+  if (level <= 70) return 8;
+  if (level <= 125) return 10;
+  if (level <= 170) return 11;
+  return 12;
 }
 
 function makeZipLevel(level) {
   const random = mulberry32(0x7a11 + level * 7919);
   const size = zipSize(level);
-  const path = snakePath(size);
-
-  if (random() < 0.5) {
-    path.reverse();
-  }
-  if (random() < 0.5) {
-    for (let row = 0; row < size; row += 1) {
-      let left = row * size;
-      let right = left + size - 1;
-      while (left < right) {
-        [path[left], path[right]] = [path[right], path[left]];
-        left += 1;
-        right -= 1;
-      }
-    }
-  }
-
-  twoOpt(path, size, random, size * size * 40);
+  const path = hamiltonianPath(size, random);
   if (!validateHamiltonian(path, size)) {
     throw new Error(`Zip level ${level} produced an invalid path`);
   }
 
-  const count = Math.min(zipCheckpointCount(level), path.length);
+  const count = Math.min(zipCheckpointCount(level), path.length - 1);
   const selected = new Set([0, path.length - 1]);
   while (selected.size < count) {
     selected.add(1 + Math.floor(random() * (path.length - 2)));
@@ -148,7 +171,7 @@ function makeZipLevel(level) {
 }
 
 function mazeSize(level) {
-  if (level <= 30) return 6;
+  if (level <= 25) return 6;
   if (level <= 90) return 7;
   return 8;
 }
@@ -156,12 +179,12 @@ function mazeSize(level) {
 function mazeTargetFloor(level, size) {
   const max = Math.max(5, (size - 2) * (size - 2) - 2);
   if (size === 6) {
-    return Math.min(max, 9 + Math.floor(((level - 1) / 30) * 5));
+    return Math.min(max, 12 + Math.floor(((level - 1) / 25) * 2));
   }
   if (size === 7) {
-    return Math.min(max, 12 + Math.floor(((level - 31) / 60) * 7));
+    return Math.min(max, 16 + Math.floor(((level - 26) / 65) * 3));
   }
-  return Math.min(max, 15 + Math.floor(((level - 91) / 110) * 4));
+  return Math.min(max, 20 + Math.floor(((level - 91) / 110) * 3));
 }
 
 function carveMaze(size, targetFloor, random) {
@@ -202,7 +225,18 @@ function carveMaze(size, targetFloor, random) {
     return count;
   };
 
-  while (floors < targetFloor && frontier.size > 0) {
+  while (floors < targetFloor) {
+    if (frontier.size === 0) {
+      const walls = [];
+      for (let row = 1; row < size - 1; row += 1) {
+        for (let col = 1; col < size - 1; col += 1) {
+          if (grid[row][col] !== "#") continue;
+          if (floorNeighbors(row, col) > 0) walls.push(row * size + col);
+        }
+      }
+      if (walls.length === 0) break;
+      frontier.add(walls[Math.floor(random() * walls.length)]);
+    }
     const candidates = [...frontier];
     let chosen = candidates[Math.floor(random() * candidates.length)];
     if (random() < 0.65) {
@@ -246,7 +280,12 @@ function carveMaze(size, targetFloor, random) {
     }
   }
 
-  const start = floorCells[Math.floor(random() * floorCells.length)];
+  const usableStarts = floorCells.filter(
+    ([row, col]) => floorNeighbors(row, col) >= 1,
+  );
+  const start = (usableStarts.length ? usableStarts : floorCells)[
+    Math.floor(random() * (usableStarts.length || floorCells.length))
+  ];
   return {
     rows: grid.map((row) => row.join("")),
     floorCells,
@@ -312,7 +351,7 @@ function mazeTransitions(rows, start) {
   return { floors, startIndex, transitions };
 }
 
-function solveMaze(rows, start, stateLimit = 1_500_000) {
+function solveMaze(rows, start, stateLimit = 6_000_000) {
   const parsed = mazeTransitions(rows, start);
   if (!parsed) {
     return null;
@@ -360,9 +399,7 @@ function solveMaze(rows, start, stateLimit = 1_500_000) {
         let cursor = nextKey;
         while (cursor !== queue[0]) {
           const parent = parents.get(cursor);
-          if (!parent) {
-            break;
-          }
+          if (!parent) break;
           moves.push(parent.move);
           cursor = parent.previous;
         }
@@ -379,14 +416,15 @@ function solveMaze(rows, start, stateLimit = 1_500_000) {
 function makeMazeLevel(level) {
   const size = mazeSize(level);
   const target = mazeTargetFloor(level, size);
-  for (let attempt = 0; attempt < 120; attempt += 1) {
+  const minPar = size === 6 ? 6 : size === 7 ? 8 : 10;
+  for (let attempt = 0; attempt < 200; attempt += 1) {
     const random = mulberry32(0x3a2e + level * 104729 + attempt * 97);
     const candidate = carveMaze(size, target, random);
     if (candidate.floorCells.length < target) {
       continue;
     }
     const solved = solveMaze(candidate.rows, candidate.start);
-    if (!solved) {
+    if (!solved || solved.par < minPar) {
       continue;
     }
     return {
@@ -410,7 +448,7 @@ for (const level of zipLevels) {
   if (!validateHamiltonian(level.solution, level.size)) {
     throw new Error(`Invalid zip level ${level.id}`);
   }
-  if (level.checkpoints.length < 3) {
+  if (level.checkpoints.length < 6) {
     throw new Error(`Too few checkpoints on ${level.id}`);
   }
 }

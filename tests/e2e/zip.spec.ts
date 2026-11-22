@@ -43,7 +43,7 @@ test("Zip rejects an invalid starting cell", async ({ page }) => {
 
   await expect(page.getByText("Start the path at number 1.")).toBeVisible();
   await expect(
-    page.getByRole("region", { name: "Game board" }).getByText("0/16"),
+    page.getByRole("region", { name: "Game board" }).getByText(`0/${first.size * first.size}`),
   ).toBeVisible();
 });
 

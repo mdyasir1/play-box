@@ -8,18 +8,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
-      "####.#",
+      "##...#",
+      "##.#.#",
       "#....#",
-      "###..#",
+      "#.#..#",
       "######"
     ],
     "start": [
-      1,
-      4
+      2,
+      2
     ],
-    "par": 6,
-    "solution": "LRDLUL"
+    "par": 7,
+    "solution": "URDLULD"
   },
   {
     "id": "maze-002",
@@ -28,18 +28,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "##.###",
-      "#....#",
       "#..###",
-      "##..##",
+      "#.#..#",
+      "#..#.#",
+      "#....#",
       "######"
     ],
     "start": [
       3,
-      1
+      2
     ],
     "par": 8,
-    "solution": "URLDRUDR"
+    "solution": "LURLDRUL"
   },
   {
     "id": "maze-003",
@@ -48,18 +48,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "######",
+      "#..###",
       "#...##",
-      "###..#",
       "#....#",
+      "#...##",
       "######"
     ],
     "start": [
-      4,
-      2
+      3,
+      4
     ],
-    "par": 6,
-    "solution": "LRULUL"
+    "par": 7,
+    "solution": "LURDLRU"
   },
   {
     "id": "maze-004",
@@ -68,18 +68,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
-      "###..#",
-      "##.#.#",
-      "##...#",
+      "#...##",
+      "##..##",
+      "#..#.#",
+      "#....#",
       "######"
     ],
     "start": [
-      2,
-      4
+      1,
+      1
     ],
-    "par": 6,
-    "solution": "LURDLU"
+    "par": 9,
+    "solution": "RDLDLUDRU"
   },
   {
     "id": "maze-005",
@@ -88,18 +88,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#.####",
       "#..###",
+      "#....#",
       "#....#",
       "##..##",
       "######"
     ],
     "start": [
-      2,
-      1
+      3,
+      4
     ],
     "par": 7,
-    "solution": "RDRURLU"
+    "solution": "LURDRUR"
   },
   {
     "id": "maze-006",
@@ -108,18 +108,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#.####",
+      "#..#.#",
+      "#.##.#",
       "#....#",
-      "#.#.##",
-      "#..###",
+      "##...#",
       "######"
     ],
     "start": [
       3,
-      3
+      2
     ],
-    "par": 6,
-    "solution": "URLUDR"
+    "par": 8,
+    "solution": "RUDLULUR"
   },
   {
     "id": "maze-007",
@@ -128,18 +128,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "##.###",
-      "##...#",
-      "##.#.#",
+      "#.#..#",
+      "#.#.##",
       "#....#",
+      "#...##",
       "######"
     ],
     "start": [
-      1,
-      2
+      3,
+      1
     ],
-    "par": 5,
-    "solution": "DLRUL"
+    "par": 7,
+    "solution": "RLUDRUR"
   },
   {
     "id": "maze-008",
@@ -148,18 +148,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "####.#",
+      "#..###",
+      "#.#..#",
       "#....#",
-      "#....#",
-      "###.##",
+      "#..#.#",
       "######"
     ],
     "start": [
-      3,
-      3
+      1,
+      1
     ],
-    "par": 6,
-    "solution": "DULDRU"
+    "par": 9,
+    "solution": "RLDRURDUL"
   },
   {
     "id": "maze-009",
@@ -168,18 +168,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#.####",
       "#...##",
-      "##..##",
+      "#...##",
       "#....#",
+      "##..##",
       "######"
     ],
     "start": [
-      3,
-      3
+      1,
+      2
     ],
-    "par": 9,
-    "solution": "LULUDRDLR"
+    "par": 6,
+    "solution": "DRULDR"
   },
   {
     "id": "maze-010",
@@ -188,18 +188,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###.##",
-      "###..#",
-      "##...#",
       "#....#",
+      "###..#",
+      "#....#",
+      "###..#",
       "######"
     ],
     "start": [
       3,
-      2
+      1
     ],
-    "par": 7,
-    "solution": "DLRULUD"
+    "par": 6,
+    "solution": "RUDLUL"
   },
   {
     "id": "maze-011",
@@ -208,18 +208,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###.##",
-      "#...##",
-      "#.#.##",
       "#....#",
+      "#....#",
+      "#...##",
+      "##.###",
       "######"
     ],
     "start": [
-      1,
-      3
+      2,
+      2
     ],
-    "par": 5,
-    "solution": "DRLUR"
+    "par": 8,
+    "solution": "DULDRURD"
   },
   {
     "id": "maze-012",
@@ -228,18 +228,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
-      "##...#",
       "#....#",
-      "###.##",
+      "#.#..#",
+      "#.#..#",
+      "#.##.#",
       "######"
     ],
     "start": [
-      3,
-      2
+      2,
+      4
     ],
     "par": 7,
-    "solution": "UDLRULD"
+    "solution": "LDRDULD"
   },
   {
     "id": "maze-013",
@@ -248,18 +248,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
-      "#.##.#",
+      "#...##",
       "#....#",
       "##...#",
+      "##.#.#",
       "######"
     ],
     "start": [
-      1,
-      3
+      2,
+      2
     ],
-    "par": 7,
-    "solution": "RDLURLU"
+    "par": 9,
+    "solution": "DULRDRDUL"
   },
   {
     "id": "maze-014",
@@ -268,18 +268,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "##...#",
-      "##.###",
       "#..#.#",
+      "##...#",
+      "#...##",
       "#....#",
       "######"
     ],
     "start": [
       3,
-      1
+      3
     ],
-    "par": 8,
-    "solution": "RURLDLRU"
+    "par": 12,
+    "solution": "URUDLULRDRLU"
   },
   {
     "id": "maze-015",
@@ -288,18 +288,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###.##",
+      "#.#..#",
       "#....#",
       "###..#",
       "#....#",
       "######"
     ],
     "start": [
-      3,
-      3
+      2,
+      2
     ],
-    "par": 6,
-    "solution": "UDLRUL"
+    "par": 9,
+    "solution": "LUDRDULDL"
   },
   {
     "id": "maze-016",
@@ -308,18 +308,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#..###",
-      "#.####",
       "#....#",
-      "#....#",
+      "##...#",
+      "#..#.#",
+      "#..#.#",
       "######"
     ],
     "start": [
-      4,
+      2,
       2
     ],
-    "par": 6,
-    "solution": "URDLUR"
+    "par": 10,
+    "solution": "RLDLURULRD"
   },
   {
     "id": "maze-017",
@@ -331,15 +331,15 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#.#..#",
       "#...##",
       "##...#",
-      "##.#.#",
+      "#....#",
       "######"
     ],
     "start": [
-      1,
-      1
+      3,
+      3
     ],
     "par": 11,
-    "solution": "DRURLDRDULD"
+    "solution": "URLDLRULULU"
   },
   {
     "id": "maze-018",
@@ -348,18 +348,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "##..##",
-      "##..##",
+      "#...##",
+      "##...#",
       "#..#.#",
       "#....#",
       "######"
     ],
     "start": [
-      4,
-      3
+      1,
+      1
     ],
-    "par": 9,
-    "solution": "RUDLURURD"
+    "par": 8,
+    "solution": "RDLRDLUR"
   },
   {
     "id": "maze-019",
@@ -368,18 +368,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
-      "##...#",
-      "##...#",
+      "#.#..#",
+      "#...##",
       "#....#",
+      "##...#",
       "######"
     ],
     "start": [
-      2,
-      2
+      3,
+      3
     ],
-    "par": 6,
-    "solution": "DLRULD"
+    "par": 10,
+    "solution": "LUDRDLURUR"
   },
   {
     "id": "maze-020",
@@ -391,15 +391,15 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#..#.#",
       "#....#",
       "##...#",
-      "###..#",
+      "##...#",
       "######"
     ],
     "start": [
-      2,
-      2
+      4,
+      3
     ],
-    "par": 9,
-    "solution": "UDRUDLULU"
+    "par": 7,
+    "solution": "ULURDRU"
   },
   {
     "id": "maze-021",
@@ -408,18 +408,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#...##",
       "#....#",
-      "##...#",
-      "##.#.#",
+      "#.#.##",
+      "#....#",
+      "#.#..#",
       "######"
     ],
     "start": [
       3,
-      4
+      2
     ],
-    "par": 8,
-    "solution": "DULURDLD"
+    "par": 7,
+    "solution": "RDLURLD"
   },
   {
     "id": "maze-022",
@@ -428,18 +428,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#.##.#",
+      "#....#",
+      "#..###",
       "#....#",
       "#.#..#",
-      "#...##",
       "######"
     ],
     "start": [
-      1,
-      4
+      2,
+      1
     ],
-    "par": 7,
-    "solution": "DLULUDR"
+    "par": 10,
+    "solution": "RDRDLULDUR"
   },
   {
     "id": "maze-023",
@@ -448,7 +448,7 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "###..#",
+      "##...#",
       "#....#",
       "###..#",
       "#....#",
@@ -459,7 +459,7 @@ export const MAZE_LEVELS: MazeLevel[] = [
       3
     ],
     "par": 7,
-    "solution": "LRDULDL"
+    "solution": "DLRULDL"
   },
   {
     "id": "maze-024",
@@ -468,18 +468,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 6,
     "rows": [
       "######",
-      "#...##",
+      "#....#",
       "#.##.#",
       "#....#",
       "#.#..#",
       "######"
     ],
     "start": [
-      3,
+      2,
       1
     ],
-    "par": 9,
-    "solution": "RUDLULDUR"
+    "par": 7,
+    "solution": "URDLULD"
   },
   {
     "id": "maze-025",
@@ -504,102 +504,107 @@ export const MAZE_LEVELS: MazeLevel[] = [
   {
     "id": "maze-026",
     "number": 26,
-    "width": 6,
-    "height": 6,
+    "width": 7,
+    "height": 7,
     "rows": [
-      "######",
-      "#..###",
-      "#....#",
-      "#.#..#",
-      "#....#",
-      "######"
+      "#######",
+      "#.##..#",
+      "#.....#",
+      "#....##",
+      "#.#.###",
+      "#..####",
+      "#######"
     ],
     "start": [
-      2,
+      4,
       3
     ],
-    "par": 7,
-    "solution": "DLURDRD"
+    "par": 10,
+    "solution": "ULRULDLUDR"
   },
   {
     "id": "maze-027",
     "number": 27,
-    "width": 6,
-    "height": 6,
+    "width": 7,
+    "height": 7,
     "rows": [
-      "######",
-      "#....#",
-      "#.#.##",
-      "#.#..#",
-      "#....#",
-      "######"
+      "#######",
+      "#####.#",
+      "##.##.#",
+      "#..#..#",
+      "#..#..#",
+      "#.....#",
+      "#######"
+    ],
+    "start": [
+      5,
+      4
+    ],
+    "par": 9,
+    "solution": "UDLURUDRU"
+  },
+  {
+    "id": "maze-028",
+    "number": 28,
+    "width": 7,
+    "height": 7,
+    "rows": [
+      "#######",
+      "#...###",
+      "##...##",
+      "#....##",
+      "#..#.##",
+      "#..#.##",
+      "#######"
+    ],
+    "start": [
+      4,
+      4
+    ],
+    "par": 10,
+    "solution": "DULDULRDLD"
+  },
+  {
+    "id": "maze-029",
+    "number": 29,
+    "width": 7,
+    "height": 7,
+    "rows": [
+      "#######",
+      "#....##",
+      "#.....#",
+      "#.#.###",
+      "#.#...#",
+      "#.#####",
+      "#######"
     ],
     "start": [
       1,
       3
     ],
-    "par": 7,
-    "solution": "DURLDRU"
-  },
-  {
-    "id": "maze-028",
-    "number": 28,
-    "width": 6,
-    "height": 6,
-    "rows": [
-      "######",
-      "#....#",
-      "#.#..#",
-      "###..#",
-      "#....#",
-      "######"
-    ],
-    "start": [
-      2,
-      3
-    ],
-    "par": 6,
-    "solution": "DLRULD"
-  },
-  {
-    "id": "maze-029",
-    "number": 29,
-    "width": 6,
-    "height": 6,
-    "rows": [
-      "######",
-      "#....#",
-      "#....#",
-      "#.#..#",
-      "#.#.##",
-      "######"
-    ],
-    "start": [
-      2,
-      4
-    ],
-    "par": 7,
-    "solution": "LDURDLD"
+    "par": 10,
+    "solution": "DRLULRDRLD"
   },
   {
     "id": "maze-030",
     "number": 30,
-    "width": 6,
-    "height": 6,
+    "width": 7,
+    "height": 7,
     "rows": [
-      "######",
-      "#..#.#",
-      "#....#",
-      "#.#.##",
-      "#....#",
-      "######"
+      "#######",
+      "#.....#",
+      "#.##..#",
+      "#.##..#",
+      "#.#...#",
+      "####.##",
+      "#######"
     ],
     "start": [
-      3,
-      3
+      2,
+      5
     ],
-    "par": 8,
-    "solution": "DRLURDRU"
+    "par": 9,
+    "solution": "LDULDURDL"
   },
   {
     "id": "maze-031",
@@ -608,19 +613,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
+      "#..####",
+      "#...#.#",
+      "#.....#",
       "#.#.###",
-      "#....##",
-      "##....#",
-      "##.####",
-      "##.####",
+      "#.#..##",
       "#######"
     ],
     "start": [
-      1,
+      5,
       3
     ],
-    "par": 8,
-    "solution": "DRLDURLU"
+    "par": 10,
+    "solution": "RLULDURDRU"
   },
   {
     "id": "maze-032",
@@ -629,19 +634,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..####",
-      "#.#####",
-      "#.....#",
-      "##..#.#",
-      "##.####",
+      "#.#..##",
+      "#.#..##",
+      "#.#...#",
+      "#.#.###",
+      "#....##",
       "#######"
     ],
     "start": [
-      4,
+      3,
       3
     ],
     "par": 9,
-    "solution": "LDURDULUR"
+    "solution": "URDRLDRLU"
   },
   {
     "id": "maze-033",
@@ -650,19 +655,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#...###",
+      "#..#..#",
       "#.....#",
-      "#.#.###",
-      "#.#.###",
-      "#######",
+      "#..#.##",
+      "#..#.##",
+      "##.####",
       "#######"
     ],
     "start": [
       2,
-      4
+      3
     ],
-    "par": 6,
-    "solution": "RLDURD"
+    "par": 12,
+    "solution": "RULDURDLDURD"
   },
   {
     "id": "maze-034",
@@ -671,19 +676,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "##..###",
+      "##.####",
       "##...##",
-      "#..####",
-      "#...###",
-      "#..####",
+      "#.....#",
+      "#....##",
+      "#..#.##",
       "#######"
     ],
     "start": [
       4,
-      1
+      2
     ],
     "par": 9,
-    "solution": "RLUDRURDR"
+    "solution": "RDULUDLUR"
   },
   {
     "id": "maze-035",
@@ -692,19 +697,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#######",
-      "#.#####",
+      "##..#.#",
       "#.....#",
-      "##....#",
-      "##..###",
+      "##...##",
+      "###..##",
+      "##...##",
       "#######"
     ],
     "start": [
-      5,
-      2
+      3,
+      3
     ],
-    "par": 8,
-    "solution": "RULUDRDL"
+    "par": 10,
+    "solution": "LURDLRULRU"
   },
   {
     "id": "maze-036",
@@ -713,19 +718,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####..#",
-      "####.##",
-      "##....#",
-      "#####.#",
-      "##....#",
+      "#..####",
+      "#..#.##",
+      "#....##",
+      "#...###",
+      "#.#...#",
       "#######"
     ],
     "start": [
-      2,
-      4
+      3,
+      1
     ],
-    "par": 8,
-    "solution": "URLDLRDL"
+    "par": 11,
+    "solution": "DURDRDRLURU"
   },
   {
     "id": "maze-037",
@@ -734,19 +739,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####.##",
-      "##....#",
+      "#.....#",
+      "#.##.##",
       "#....##",
-      "####..#",
-      "#####.#",
+      "#.##..#",
+      "#..####",
       "#######"
     ],
     "start": [
-      2,
-      5
+      3,
+      4
     ],
-    "par": 8,
-    "solution": "LDLRUDRD"
+    "par": 10,
+    "solution": "LRDRLURLDR"
   },
   {
     "id": "maze-038",
@@ -755,19 +760,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###.###",
-      "###..##",
-      "##...##",
-      "###.###",
+      "##..###",
+      "#...###",
+      "##.#.##",
       "#.....#",
+      "#..#..#",
       "#######"
     ],
     "start": [
-      3,
-      4
+      4,
+      2
     ],
-    "par": 8,
-    "solution": "LRULUDLR"
+    "par": 14,
+    "solution": "URDLRULDLURDLU"
   },
   {
     "id": "maze-039",
@@ -776,19 +781,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#######",
-      "#..####",
-      "##.##.#",
+      "###...#",
+      "##...##",
+      "##....#",
       "#.....#",
-      "#...###",
+      "###.###",
       "#######"
     ],
     "start": [
       4,
-      2
+      3
     ],
-    "par": 9,
-    "solution": "ULRDRLURU"
+    "par": 10,
+    "solution": "LRULURURLD"
   },
   {
     "id": "maze-040",
@@ -797,19 +802,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
+      "##....#",
+      "#...#.#",
       "#..####",
-      "#...###",
-      "#...###",
-      "#.#.###",
-      "#...###",
+      "#..####",
+      "#....##",
       "#######"
     ],
     "start": [
-      1,
-      1
+      2,
+      3
     ],
-    "par": 7,
-    "solution": "DRULURD"
+    "par": 9,
+    "solution": "URDULDRLU"
   },
   {
     "id": "maze-041",
@@ -818,19 +823,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#######",
-      "##.####",
-      "#...#.#",
+      "#.#..##",
       "#.....#",
-      "##..#.#",
+      "#.#.#.#",
+      "#...#.#",
+      "#####.#",
       "#######"
     ],
     "start": [
-      4,
-      2
+      2,
+      1
     ],
     "par": 9,
-    "solution": "UDRULDRUD"
+    "solution": "UDRURDLRD"
   },
   {
     "id": "maze-042",
@@ -839,19 +844,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#....##",
-      "#.#..##",
-      "#..####",
-      "#.#####",
-      "#...###",
+      "##..###",
+      "#...#.#",
+      "##.##.#",
+      "#.....#",
+      "#..##.#",
       "#######"
     ],
     "start": [
-      3,
+      5,
       2
     ],
-    "par": 8,
-    "solution": "LDRLURDL"
+    "par": 13,
+    "solution": "URDLRULDLURUD"
   },
   {
     "id": "maze-043",
@@ -860,19 +865,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####..#",
-      "##....#",
-      "##..#.#",
+      "#...#.#",
       "###...#",
-      "#####.#",
+      "##.##.#",
+      "##....#",
+      "##.#..#",
       "#######"
     ],
     "start": [
       1,
-      5
+      1
     ],
-    "par": 9,
-    "solution": "DULDLDRDR"
+    "par": 10,
+    "solution": "RDRUDLULUD"
   },
   {
     "id": "maze-044",
@@ -881,19 +886,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####..#",
-      "##.##.#",
+      "#.##..#",
+      "#..#..#",
       "##....#",
       "###.#.#",
       "##..#.#",
       "#######"
     ],
     "start": [
-      5,
-      2
+      3,
+      3
     ],
-    "par": 9,
-    "solution": "RULUDRDUL"
+    "par": 13,
+    "solution": "DLRURDULDLULU"
   },
   {
     "id": "maze-045",
@@ -902,19 +907,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#....##",
-      "#.#...#",
-      "#...###",
-      "#.#.###",
-      "#######",
+      "#.....#",
+      "##....#",
+      "###...#",
+      "##...##",
+      "####.##",
       "#######"
     ],
     "start": [
-      3,
+      2,
       2
     ],
-    "par": 8,
-    "solution": "LDURDRLD"
+    "par": 10,
+    "solution": "RUDLDLRDUL"
   },
   {
     "id": "maze-046",
@@ -924,18 +929,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "#######",
       "####..#",
-      "####..#",
-      "##...##",
+      "##....#",
+      "#....##",
       "####.##",
       "#.....#",
       "#######"
     ],
     "start": [
-      3,
+      2,
       2
     ],
-    "par": 8,
-    "solution": "RURDLDLR"
+    "par": 11,
+    "solution": "RUDLDLRUDLR"
   },
   {
     "id": "maze-047",
@@ -944,19 +949,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "##.####",
-      "#..##.#",
-      "#...#.#",
-      "###...#",
-      "####..#",
+      "#.##..#",
+      "#.##..#",
+      "#.....#",
+      "#####.#",
+      "##....#",
       "#######"
     ],
     "start": [
-      3,
-      1
+      2,
+      5
     ],
-    "par": 10,
-    "solution": "URUDRDRUDL"
+    "par": 8,
+    "solution": "DLRULDLU"
   },
   {
     "id": "maze-048",
@@ -965,19 +970,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..####",
-      "#.#####",
-      "#....##",
+      "###.###",
+      "###...#",
+      "#.....#",
       "#.#..##",
-      "#...###",
+      "#.....#",
       "#######"
     ],
     "start": [
-      5,
-      2
+      4,
+      3
     ],
     "par": 9,
-    "solution": "RURDULDUR"
+    "solution": "RDRLURULU"
   },
   {
     "id": "maze-049",
@@ -986,19 +991,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..####",
-      "#.#####",
-      "#...###",
-      "#...###",
-      "#.....#",
+      "##....#",
+      "#...#.#",
+      "#....##",
+      "#....##",
+      "##.####",
       "#######"
     ],
     "start": [
-      5,
-      2
+      4,
+      4
     ],
-    "par": 7,
-    "solution": "URDRLUR"
+    "par": 12,
+    "solution": "UDLURDULDURD"
   },
   {
     "id": "maze-050",
@@ -1007,19 +1012,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
+      "#...#.#",
+      "#..#..#",
+      "##...##",
       "#...###",
-      "#.#.###",
-      "#...###",
-      "#.#####",
-      "#.....#",
+      "###...#",
       "#######"
     ],
     "start": [
-      3,
-      3
+      1,
+      1
     ],
-    "par": 6,
-    "solution": "LRULDR"
+    "par": 15,
+    "solution": "RLDRDLRDRLURURU"
   },
   {
     "id": "maze-051",
@@ -1028,19 +1033,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###..##",
-      "#...#.#",
-      "###...#",
-      "#####.#",
-      "##....#",
+      "##.#.##",
+      "#....##",
+      "#..####",
+      "#.....#",
+      "#.#...#",
       "#######"
     ],
     "start": [
-      2,
-      1
+      1,
+      2
     ],
-    "par": 9,
-    "solution": "RURLDRUDL"
+    "par": 10,
+    "solution": "DRDLULDURU"
   },
   {
     "id": "maze-052",
@@ -1049,19 +1054,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#####.#",
-      "###.#.#",
-      "##..#.#",
-      "#..#..#",
-      "#....##",
+      "##...##",
+      "#...#.#",
+      "###...#",
+      "#.....#",
+      "###..##",
       "#######"
     ],
     "start": [
-      5,
-      3
+      1,
+      2
     ],
-    "par": 13,
-    "solution": "LURURUDLDRURU"
+    "par": 12,
+    "solution": "RLDLRDRURUDL"
   },
   {
     "id": "maze-053",
@@ -1070,19 +1075,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###...#",
-      "##..#.#",
       "##....#",
-      "##..###",
-      "###..##",
+      "#....##",
+      "#.#.###",
+      "#....##",
+      "#...###",
       "#######"
     ],
     "start": [
-      3,
-      2
+      4,
+      3
     ],
     "par": 10,
-    "solution": "UDRDRLURDL"
+    "solution": "RLUDRURLDR"
   },
   {
     "id": "maze-054",
@@ -1091,19 +1096,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#######",
-      "#.#.###",
-      "#....##",
+      "##.#..#",
+      "#.....#",
       "#.#...#",
-      "#...#.#",
+      "####.##",
+      "##....#",
       "#######"
     ],
     "start": [
-      3,
-      3
+      2,
+      2
     ],
-    "par": 11,
-    "solution": "LRDRDULUDLU"
+    "par": 14,
+    "solution": "UDLDURDLRULDLR"
   },
   {
     "id": "maze-055",
@@ -1112,19 +1117,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..####",
-      "#...###",
+      "#.##..#",
       "#.#...#",
-      "#..#..#",
-      "####.##",
+      "#....##",
+      "##...##",
+      "#...###",
       "#######"
     ],
     "start": [
-      4,
-      4
+      3,
+      3
     ],
-    "par": 13,
-    "solution": "DURDULULURLDR"
+    "par": 12,
+    "solution": "DLRURULDLULU"
   },
   {
     "id": "maze-056",
@@ -1133,19 +1138,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###...#",
-      "###...#",
       "##....#",
-      "###..##",
+      "###...#",
+      "#.....#",
+      "#.#..##",
       "####..#",
       "#######"
     ],
     "start": [
-      2,
+      4,
       3
     ],
-    "par": 10,
-    "solution": "UDRDRLURDL"
+    "par": 12,
+    "solution": "UDRDRLULRDLD"
   },
   {
     "id": "maze-057",
@@ -1154,10 +1159,10 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#######",
-      "##.##.#",
-      "##....#",
-      "#....##",
+      "#...###",
+      "#.#####",
+      "#...#.#",
+      "#...#.#",
       "#.....#",
       "#######"
     ],
@@ -1165,8 +1170,8 @@ export const MAZE_LEVELS: MazeLevel[] = [
       4,
       1
     ],
-    "par": 10,
-    "solution": "RURUDLUDLR"
+    "par": 9,
+    "solution": "RULURLDRU"
   },
   {
     "id": "maze-058",
@@ -1175,19 +1180,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
+      "#...###",
       "##..###",
-      "###.###",
       "##...##",
       "#.#...#",
       "#.....#",
       "#######"
     ],
     "start": [
-      3,
-      3
+      1,
+      2
     ],
     "par": 11,
-    "solution": "LRDLUDRULUL"
+    "solution": "DRDLUDRULUL"
   },
   {
     "id": "maze-059",
@@ -1196,19 +1201,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####..#",
-      "#..#.##",
       "##....#",
-      "##....#",
-      "###..##",
+      "#...###",
+      "#.....#",
+      "#.#.#.#",
+      "#..####",
       "#######"
     ],
     "start": [
-      5,
-      4
+      4,
+      5
     ],
     "par": 11,
-    "solution": "URLDLURDLUL"
+    "solution": "ULDRLURDULR"
   },
   {
     "id": "maze-060",
@@ -1217,19 +1222,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#....##",
+      "#..####",
+      "#.#..##",
+      "#...###",
       "#.....#",
-      "#...#.#",
-      "##.####",
-      "##.####",
+      "#....##",
       "#######"
     ],
     "start": [
-      1,
+      3,
       2
     ],
-    "par": 10,
-    "solution": "DULDRURDRD"
+    "par": 12,
+    "solution": "RURLDLRURLUR"
   },
   {
     "id": "maze-061",
@@ -1239,18 +1244,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "#######",
       "#######",
-      "##..###",
+      "##...##",
       "#...#.#",
       "#.....#",
-      "#....##",
+      "#.....#",
       "#######"
     ],
     "start": [
-      3,
-      5
+      4,
+      4
     ],
-    "par": 9,
-    "solution": "DLURULDLR"
+    "par": 10,
+    "solution": "LURURLDLRU"
   },
   {
     "id": "maze-062",
@@ -1260,18 +1265,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "#######",
       "##....#",
-      "##..#.#",
-      "###...#",
-      "###...#",
-      "###..##",
+      "#.##.##",
+      "#.#..##",
+      "#.#...#",
+      "#....##",
       "#######"
     ],
     "start": [
-      2,
+      4,
       5
     ],
-    "par": 8,
-    "solution": "DULDRDRU"
+    "par": 10,
+    "solution": "LUDLUDRULR"
   },
   {
     "id": "maze-063",
@@ -1281,18 +1286,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "#######",
       "###...#",
+      "##.##.#",
+      "#..#..#",
+      "#..#..#",
       "#....##",
-      "#.....#",
-      "#.#.###",
-      "###.###",
       "#######"
     ],
     "start": [
-      1,
-      4
+      4,
+      1
     ],
-    "par": 10,
-    "solution": "DRLDURURLD"
+    "par": 11,
+    "solution": "URUDLRURDUL"
   },
   {
     "id": "maze-064",
@@ -1301,19 +1306,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#.#####",
-      "#...###",
-      "#.#.#.#",
-      "#.#...#",
+      "##...##",
+      "#.....#",
+      "#...#.#",
+      "##.####",
       "#....##",
       "#######"
     ],
     "start": [
       2,
-      3
+      4
     ],
-    "par": 9,
-    "solution": "DULUDRURU"
+    "par": 12,
+    "solution": "RDULDRURLDLR"
   },
   {
     "id": "maze-065",
@@ -1322,19 +1327,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#.#..##",
-      "#.....#",
+      "###..##",
       "##....#",
-      "##.##.#",
-      "#####.#",
+      "##....#",
+      "###...#",
+      "##....#",
       "#######"
     ],
     "start": [
       2,
       4
     ],
-    "par": 12,
-    "solution": "ULDRLDULUDRD"
+    "par": 9,
+    "solution": "DULDLRULD"
   },
   {
     "id": "maze-066",
@@ -1346,16 +1351,16 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#..####",
       "#.#.#.#",
       "#.....#",
-      "#..####",
+      "#...###",
       "##....#",
       "#######"
     ],
     "start": [
-      2,
-      3
+      5,
+      2
     ],
-    "par": 12,
-    "solution": "DRUDLURLDRDR"
+    "par": 13,
+    "solution": "URUDLURLDRUDR"
   },
   {
     "id": "maze-067",
@@ -1366,17 +1371,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#######",
       "####.##",
       "##.#..#",
-      "##....#",
+      "#.....#",
       "##....#",
       "#...#.#",
       "#######"
     ],
     "start": [
-      1,
+      4,
       4
     ],
-    "par": 10,
-    "solution": "DLUDLRURUD"
+    "par": 12,
+    "solution": "UDLUDLRULRUD"
   },
   {
     "id": "maze-068",
@@ -1387,17 +1392,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#######",
       "#..##.#",
       "##....#",
-      "##.#..#",
+      "#..#..#",
       "###...#",
       "##...##",
       "#######"
     ],
     "start": [
-      2,
-      3
+      4,
+      4
     ],
-    "par": 12,
-    "solution": "RUDLDLRULDUL"
+    "par": 14,
+    "solution": "RUDLDLRULULRDL"
   },
   {
     "id": "maze-069",
@@ -1406,19 +1411,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#....##",
-      "#..#..#",
-      "##.##.#",
-      "###...#",
+      "#..##.#",
       "##..#.#",
+      "#.....#",
+      "#....##",
+      "#.#.###",
       "#######"
     ],
     "start": [
-      4,
-      4
+      2,
+      2
     ],
     "par": 14,
-    "solution": "LDLRURDULULDRD"
+    "solution": "RDULULRDRLDURU"
   },
   {
     "id": "maze-070",
@@ -1427,19 +1432,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..#.##",
-      "#....##",
-      "#.#####",
-      "#....##",
+      "#.....#",
+      "#...#.#",
+      "##....#",
+      "###.###",
       "#....##",
       "#######"
     ],
     "start": [
-      4,
+      2,
       3
     ],
-    "par": 9,
-    "solution": "LRDLURDRU"
+    "par": 11,
+    "solution": "URDLULDRDLR"
   },
   {
     "id": "maze-071",
@@ -1448,7 +1453,7 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###..##",
+      "#....##",
       "###.#.#",
       "##..#.#",
       "#.....#",
@@ -1457,10 +1462,10 @@ export const MAZE_LEVELS: MazeLevel[] = [
     ],
     "start": [
       4,
-      5
+      4
     ],
-    "par": 9,
-    "solution": "LRUDLURUR"
+    "par": 10,
+    "solution": "LRUDLURULR"
   },
   {
     "id": "maze-072",
@@ -1469,19 +1474,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#....##",
-      "#.##..#",
-      "#.....#",
-      "###...#",
       "####.##",
+      "##....#",
+      "#..#..#",
+      "#.....#",
+      "#.#...#",
       "#######"
     ],
     "start": [
-      3,
-      2
+      2,
+      4
     ],
-    "par": 9,
-    "solution": "RUDLULURD"
+    "par": 11,
+    "solution": "UDLULDURURD"
   },
   {
     "id": "maze-073",
@@ -1494,15 +1499,15 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#....##",
       "#.....#",
       "##.#.##",
-      "##.####",
+      "##...##",
       "#######"
     ],
     "start": [
-      3,
-      1
+      2,
+      2
     ],
-    "par": 9,
-    "solution": "RLURDURLD"
+    "par": 10,
+    "solution": "LDRLURDLUR"
   },
   {
     "id": "maze-074",
@@ -1511,19 +1516,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#..#.##",
-      "#.#...#",
+      "#..#..#",
       "#.....#",
-      "##.#..#",
-      "###..##",
+      "#.#...#",
+      "##..#.#",
+      "##.##.#",
       "#######"
     ],
     "start": [
-      3,
-      2
+      1,
+      4
     ],
     "par": 16,
-    "solution": "DULURLDRULRDLUDL"
+    "solution": "DLDLDURULDURDRUD"
   },
   {
     "id": "maze-075",
@@ -1532,19 +1537,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#.#...#",
-      "#...#.#",
-      "##....#",
-      "##...##",
+      "#.....#",
+      "###...#",
+      "#.....#",
       "###..##",
+      "##...##",
       "#######"
     ],
     "start": [
-      5,
-      3
+      4,
+      4
     ],
-    "par": 12,
-    "solution": "URDLDRDULULU"
+    "par": 10,
+    "solution": "LUDLRULRDL"
   },
   {
     "id": "maze-076",
@@ -1553,19 +1558,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
+      "##...##",
+      "#...###",
+      "#.#..##",
       "#....##",
-      "###...#",
       "#.....#",
-      "##....#",
-      "####.##",
       "#######"
     ],
     "start": [
       4,
-      5
+      2
     ],
     "par": 10,
-    "solution": "LULRULULRD"
+    "solution": "RULURLDLDR"
   },
   {
     "id": "maze-077",
@@ -1574,19 +1579,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "##...##",
-      "#....##",
-      "#.#...#",
+      "#..#.##",
       "#.....#",
-      "###.###",
+      "#....##",
+      "##..###",
+      "#....##",
       "#######"
     ],
     "start": [
-      1,
-      4
+      4,
+      3
     ],
-    "par": 9,
-    "solution": "LDRLDRULD"
+    "par": 13,
+    "solution": "URLDRUDLURDLR"
   },
   {
     "id": "maze-078",
@@ -1599,15 +1604,15 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#....##",
       "#.....#",
       "#..#..#",
-      "##..###",
+      "##..#.#",
       "#######"
     ],
     "start": [
-      1,
-      3
+      3,
+      1
     ],
-    "par": 11,
-    "solution": "DRDLULDRUDR"
+    "par": 14,
+    "solution": "URDRDULDRURLDR"
   },
   {
     "id": "maze-079",
@@ -1616,19 +1621,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###..##",
-      "#.#...#",
+      "#.#..##",
       "#.....#",
-      "#.#.#.#",
-      "#.##..#",
+      "##....#",
+      "#....##",
+      "##..###",
       "#######"
     ],
     "start": [
-      2,
-      3
+      3,
+      2
     ],
     "par": 13,
-    "solution": "RDLRULDURDLUD"
+    "solution": "ULUDRDLDRURDL"
   },
   {
     "id": "maze-080",
@@ -1637,19 +1642,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "###.###",
-      "#....##",
-      "#....##",
-      "##....#",
-      "##....#",
+      "#.#...#",
+      "#.....#",
+      "#.#..##",
+      "#.##..#",
+      "#.##..#",
       "#######"
     ],
     "start": [
-      5,
-      3
+      4,
+      5
     ],
     "par": 11,
-    "solution": "UDLULDURDRU"
+    "solution": "DLULDURDLUD"
   },
   {
     "id": "maze-081",
@@ -1658,19 +1663,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#.##..#",
+      "#..#.##",
       "#.....#",
-      "#.#...#",
-      "#.##.##",
-      "#.#..##",
+      "#....##",
+      "#...###",
+      "#...###",
       "#######"
     ],
     "start": [
-      1,
-      5
+      2,
+      4
     ],
-    "par": 12,
-    "solution": "LDLRURDLULUD"
+    "par": 10,
+    "solution": "UDLDURDRUR"
   },
   {
     "id": "maze-082",
@@ -1679,19 +1684,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "####.##",
       "##...##",
-      "##....#",
+      "#.#.###",
+      "#....##",
+      "#.#...#",
       "#.....#",
-      "#...#.#",
       "#######"
     ],
     "start": [
-      4,
+      3,
       1
     ],
-    "par": 11,
-    "solution": "DRLURDULURU"
+    "par": 10,
+    "solution": "RLUDRULULR"
   },
   {
     "id": "maze-083",
@@ -1700,19 +1705,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 7,
     "rows": [
       "#######",
-      "#...###",
-      "#..####",
-      "#.....#",
-      "#..##.#",
-      "#.....#",
+      "#....##",
+      "#.##..#",
+      "##....#",
+      "###...#",
+      "#...#.#",
       "#######"
     ],
     "start": [
-      5,
-      2
+      4,
+      3
     ],
-    "par": 7,
-    "solution": "URLDRUL"
+    "par": 13,
+    "solution": "DLRULRDULDULD"
   },
   {
     "id": "maze-084",
@@ -1868,20 +1873,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
       "##....##",
-      "#####..#",
-      "##.....#",
-      "##...#.#",
+      "#......#",
+      "#.#.#..#",
+      "###....#",
+      "###..###",
+      "########",
       "########"
     ],
     "start": [
-      6,
+      3,
       3
     ],
-    "par": 9,
-    "solution": "RLURDULUL"
+    "par": 12,
+    "solution": "ULRDLDRURULD"
   },
   {
     "id": "maze-092",
@@ -1890,20 +1895,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##..####",
+      "########",
       "###.####",
+      "##....##",
       "##.....#",
-      "###....#",
-      "####..##",
-      "#####.##",
+      "#......#",
+      "#.#..#.#",
       "########"
     ],
     "start": [
-      5,
-      5
+      4,
+      3
     ],
-    "par": 10,
-    "solution": "LRDULRDLUL"
+    "par": 14,
+    "solution": "UDRULRDLDURDUL"
   },
   {
     "id": "maze-093",
@@ -1914,18 +1919,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "########",
       "########",
       "##...###",
-      "#.#.####",
-      "#....###",
-      "###...##",
-      "#...####",
+      "##...###",
+      "#......#",
+      "#.#....#",
+      "##..#.##",
       "########"
     ],
     "start": [
       4,
-      3
+      5
     ],
-    "par": 13,
-    "solution": "LUDRDRLDLRULR"
+    "par": 16,
+    "solution": "DURDLDLRURDULDLD"
   },
   {
     "id": "maze-094",
@@ -1934,20 +1939,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "##.#####",
-      "##....##",
-      "#..#...#",
-      "#....#.#",
+      "#...####",
+      "#...#.##",
+      "#.....##",
+      "#....###",
+      "##...###",
+      "###.####",
       "########"
     ],
     "start": [
-      5,
-      4
+      2,
+      2
     ],
-    "par": 12,
-    "solution": "RDULURLUDRLU"
+    "par": 11,
+    "solution": "DRURUDLDURD"
   },
   {
     "id": "maze-095",
@@ -1956,20 +1961,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#####..#",
-      "###...##",
-      "##.....#",
+      "##.##.##",
+      "#..#...#",
+      "#....###",
+      "#...####",
       "##...###",
-      "####..##",
+      "#..#.###",
       "########"
     ],
     "start": [
-      4,
-      3
+      1,
+      5
     ],
-    "par": 12,
-    "solution": "URURLDRLDRDR"
+    "par": 16,
+    "solution": "DRLDLUDRDRDULUDL"
   },
   {
     "id": "maze-096",
@@ -1978,20 +1983,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####.###",
-      "##...###",
-      "##....##",
-      "#...#..#",
-      "###..###",
       "########",
+      "###.####",
+      "#...#.##",
+      "#.#.#..#",
+      "#.#....#",
+      "#......#",
       "########"
     ],
     "start": [
-      2,
-      3
+      5,
+      5
     ],
-    "par": 14,
-    "solution": "LDLRDRLURUDRDR"
+    "par": 11,
+    "solution": "LUDLURDRULU"
   },
   {
     "id": "maze-097",
@@ -2000,20 +2005,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#####.##",
-      "####...#",
-      "###....#",
-      "###..#.#",
-      "###....#",
+      "##.....#",
+      "#.....##",
+      "#...#.##",
+      "##.##.##",
+      "#..#####",
+      "#..#####",
       "########"
     ],
     "start": [
-      3,
-      5
+      2,
+      3
     ],
-    "par": 8,
-    "solution": "UDLDRULD"
+    "par": 11,
+    "solution": "DLURDURLDLU"
   },
   {
     "id": "maze-098",
@@ -2022,20 +2027,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "###..###",
+      "##....##",
+      "#..#...#",
+      "#.#....#",
+      "#.##.#.#",
       "######.#",
-      "######.#",
-      "####...#",
-      "####.#.#",
-      "##.....#",
-      "####...#",
       "########"
     ],
     "start": [
-      5,
-      6
+      1,
+      4
     ],
-    "par": 7,
-    "solution": "LRUDLUR"
+    "par": 17,
+    "solution": "DULDLDLDURURDLRUD"
   },
   {
     "id": "maze-099",
@@ -2044,20 +2049,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####...#",
-      "####...#",
-      "####..##",
-      "####...#",
-      "####...#",
-      "#####.##",
+      "###....#",
+      "##...###",
+      "#.....##",
+      "##.#..##",
+      "#....###",
+      "##.#####",
       "########"
     ],
     "start": [
-      1,
-      5
+      5,
+      2
     ],
-    "par": 9,
-    "solution": "DULRDLDRU"
+    "par": 13,
+    "solution": "DURURLDLRDLDL"
   },
   {
     "id": "maze-100",
@@ -2066,20 +2071,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "####.#.#",
-      "###....#",
-      "#....#.#",
-      "###....#",
+      "##..#..#",
+      "###...##",
+      "##....##",
+      "##.#...#",
+      "###..#.#",
+      "#####..#",
       "########"
     ],
     "start": [
-      5,
-      3
+      4,
+      4
     ],
-    "par": 10,
-    "solution": "LRUDLURUDL"
+    "par": 20,
+    "solution": "DLRULULRDLDURURLDRDL"
   },
   {
     "id": "maze-101",
@@ -2089,19 +2094,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "########",
       "########",
-      "########",
       "###..###",
-      "#....###",
+      "###....#",
+      "#....#.#",
       "##.....#",
       "#..#.#.#",
       "########"
     ],
     "start": [
-      5,
-      4
+      4,
+      1
     ],
     "par": 13,
-    "solution": "DULDRDULDLRUL"
+    "solution": "RDULDRDULDLDL"
   },
   {
     "id": "maze-102",
@@ -2110,20 +2115,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.#....#",
-      "#....#.#",
-      "#...####",
-      "###..###",
-      "########",
-      "########",
+      "##..####",
+      "#..#####",
+      "#....###",
+      "#....###",
+      "##.#.###",
+      "#......#",
       "########"
     ],
     "start": [
-      3,
-      2
+      5,
+      4
     ],
-    "par": 12,
-    "solution": "URLUDRDRLURD"
+    "par": 13,
+    "solution": "ULDRLURURLDLR"
   },
   {
     "id": "maze-103",
@@ -2132,20 +2137,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.....##",
+      "#..##..#",
       "##.#...#",
-      "#....###",
-      "##.#####",
-      "##.#####",
-      "########",
+      "#.....##",
+      "##.#.###",
+      "##....##",
+      "#####.##",
       "########"
     ],
     "start": [
-      3,
-      2
+      4,
+      4
     ],
-    "par": 9,
-    "solution": "DULRDRLDL"
+    "par": 18,
+    "solution": "URULDLRURDLDRDULUL"
   },
   {
     "id": "maze-104",
@@ -2154,20 +2159,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#####",
-      "##..####",
-      "#...####",
-      "#..#####",
-      "#...####",
-      "#...####",
+      "########",
+      "##..#.##",
+      "###.#..#",
+      "###....#",
+      "#.....##",
+      "#..#...#",
       "########"
     ],
     "start": [
-      6,
-      1
+      5,
+      3
     ],
-    "par": 10,
-    "solution": "URULULRDRU"
+    "par": 16,
+    "solution": "ULRDLDRURUDRLURU"
   },
   {
     "id": "maze-105",
@@ -2176,20 +2181,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###...##",
-      "##.##..#",
-      "##.....#",
-      "##.#.###",
-      "####.###",
-      "####.###",
+      "#...####",
+      "#.#....#",
+      "#....#.#",
+      "##....##",
+      "#..#.###",
+      "########",
       "########"
     ],
     "start": [
-      5,
-      4
+      3,
+      6
     ],
-    "par": 12,
-    "solution": "DURULULRDLUD"
+    "par": 14,
+    "solution": "ULULDRDULDRLDL"
   },
   {
     "id": "maze-106",
@@ -2198,20 +2203,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#...####",
-      "##...###",
-      "#......#",
-      "##.#.###",
-      "##.#####",
       "########",
+      "###.####",
+      "##..#.##",
+      "#......#",
+      "#.....##",
+      "##.....#",
       "########"
     ],
     "start": [
-      3,
-      4
+      4,
+      3
     ],
-    "par": 10,
-    "solution": "DULDULRDLR"
+    "par": 11,
+    "solution": "RLDRUDRLURU"
   },
   {
     "id": "maze-107",
@@ -2220,20 +2225,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.....##",
-      "#.##..##",
+      "##....##",
       "##.....#",
-      "####.###",
-      "####.###",
-      "########",
+      "####.#.#",
+      "#..#.#.#",
+      "##...###",
+      "###..###",
       "########"
     ],
     "start": [
-      2,
-      4
+      6,
+      3
     ],
-    "par": 9,
-    "solution": "DULDURDLR"
+    "par": 14,
+    "solution": "ULULRDRDURLDRD"
   },
   {
     "id": "maze-108",
@@ -2242,20 +2247,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#..#####",
-      "#..#####",
-      "#.....##",
-      "##..#.##",
-      "###...##",
+      "#...#..#",
+      "#......#",
+      "#.#..#.#",
+      "#...####",
+      "###.####",
+      "###.####",
       "########"
     ],
     "start": [
-      5,
-      2
+      3,
+      4
     ],
-    "par": 7,
-    "solution": "ULDRDLU"
+    "par": 12,
+    "solution": "URDULDLDRDUL"
   },
   {
     "id": "maze-109",
@@ -2264,20 +2269,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#....###",
-      "##...###",
-      "#....###",
-      "##..####",
-      "##..####",
-      "########",
+      "######.#",
+      "###.##.#",
+      "###..#.#",
+      "##...#.#",
+      "#..#...#",
+      "#.....##",
       "########"
     ],
     "start": [
-      5,
-      3
+      6,
+      2
     ],
-    "par": 8,
-    "solution": "UDLULRDL"
+    "par": 14,
+    "solution": "RURUDLULUDLDLU"
   },
   {
     "id": "maze-110",
@@ -2286,20 +2291,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#......#",
-      "#.###..#",
-      "#####.##",
-      "##.....#",
-      "########",
-      "########",
+      "#.##.###",
+      "#....###",
+      "##....##",
+      "#...#.##",
+      "#..#####",
+      "##....##",
       "########"
     ],
     "start": [
-      1,
+      4,
       1
     ],
-    "par": 8,
-    "solution": "DURDLDLR"
+    "par": 16,
+    "solution": "DURULUDRUDRDULDR"
   },
   {
     "id": "maze-111",
@@ -2308,20 +2313,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "#.....##",
+      "##.....#",
       "#..#...#",
-      "##...#.#",
-      "####...#",
-      "#####..#",
-      "#####.##",
+      "#...####",
+      "#.#.####",
       "########",
       "########"
     ],
     "start": [
       2,
-      4
+      3
     ],
-    "par": 13,
-    "solution": "LULRDRURDLDUL"
+    "par": 15,
+    "solution": "ULRDLRULDRDULUD"
   },
   {
     "id": "maze-112",
@@ -2330,20 +2335,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#...####",
-      "###..###",
-      "####.###",
       "####..##",
-      "##.#.###",
-      "##.....#",
+      "###....#",
+      "###.#.##",
+      "#......#",
+      "#.#.#..#",
+      "###.#.##",
       "########"
     ],
     "start": [
       4,
-      4
+      1
     ],
-    "par": 13,
-    "solution": "RLULULRDRDRLU"
+    "par": 12,
+    "solution": "DURDLDULDRLD"
   },
   {
     "id": "maze-113",
@@ -2352,20 +2357,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "######.#",
-      "######.#",
+      "####.###",
+      "####.###",
       "####...#",
-      "####..##",
-      "###....#",
-      "##....##",
+      "##.....#",
+      "#.#....#",
+      "#.....##",
       "########"
     ],
     "start": [
-      5,
-      3
+      6,
+      5
     ],
-    "par": 11,
-    "solution": "RLDLRULDURU"
+    "par": 13,
+    "solution": "URDLULRULUDLU"
   },
   {
     "id": "maze-114",
@@ -2374,20 +2379,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
       "#...####",
       "#.######",
-      "#.....##",
-      "#......#",
+      "#....###",
+      "#..###.#",
+      "#...##.#",
+      "##.....#",
       "########"
     ],
     "start": [
       5,
-      2
+      6
     ],
-    "par": 6,
-    "solution": "RDRLUR"
+    "par": 11,
+    "solution": "UDLURLURLDR"
   },
   {
     "id": "maze-115",
@@ -2396,20 +2401,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##..#..#",
-      "##.....#",
-      "####...#",
-      "#####.##",
       "#####..#",
-      "########",
+      "####..##",
+      "#....#.#",
+      "##.....#",
+      "####..##",
+      "##....##",
       "########"
     ],
     "start": [
       3,
-      5
+      1
     ],
-    "par": 11,
-    "solution": "DRLURDLULUR"
+    "par": 15,
+    "solution": "RURURLDLDLRULRU"
   },
   {
     "id": "maze-116",
@@ -2418,20 +2423,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "######.#",
-      "####...#",
-      "#####..#",
-      "####...#",
-      "###...##",
-      "##..#.##",
+      "#.#..###",
+      "#....###",
+      "#.#.#..#",
+      "#.....##",
+      "#.#..###",
+      "#.######",
       "########"
     ],
     "start": [
-      3,
-      6
+      1,
+      4
     ],
-    "par": 12,
-    "solution": "LDULRUDLDLDL"
+    "par": 16,
+    "solution": "DLRULDRURURLDLUD"
   },
   {
     "id": "maze-117",
@@ -2440,20 +2445,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#...####",
-      "##.#####",
-      "##.#####",
-      "#....###",
-      "##...###",
-      "#...####",
+      "####...#",
+      "###...##",
+      "###....#",
+      "##.#.#.#",
+      "##..##.#",
+      "###....#",
       "########"
     ],
     "start": [
-      6,
-      2
+      2,
+      3
     ],
-    "par": 10,
-    "solution": "LRULRDLULR"
+    "par": 19,
+    "solution": "DRDLULUDRDRULURURLD"
   },
   {
     "id": "maze-118",
@@ -2462,20 +2467,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
       "####..##",
-      "##...#.#",
-      "##.....#",
-      "##..#..#",
+      "###..###",
+      "##..#.##",
+      "#.....##",
+      "#....###",
+      "#....###",
       "########"
     ],
     "start": [
-      5,
-      3
+      4,
+      2
     ],
-    "par": 12,
-    "solution": "DLURURLDRUDL"
+    "par": 18,
+    "solution": "DURURURLDLDLUDRURU"
   },
   {
     "id": "maze-119",
@@ -2487,17 +2492,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#......#",
       "#.#....#",
       "#.#.#..#",
-      "#####.##",
-      "########",
-      "########",
+      "###.#.##",
+      "###..###",
+      "####.###",
       "########"
     ],
     "start": [
       2,
-      5
+      4
     ],
-    "par": 10,
-    "solution": "LDULDURDLD"
+    "par": 14,
+    "solution": "LDRDULURDLDULD"
   },
   {
     "id": "maze-120",
@@ -2506,20 +2511,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###.#..#",
+      "##..#..#",
       "#......#",
       "###....#",
       "###..#.#",
-      "########",
-      "########",
+      "#####..#",
+      "#####.##",
       "########"
     ],
     "start": [
-      2,
-      5
+      3,
+      4
     ],
-    "par": 10,
-    "solution": "LRDULDLUDR"
+    "par": 14,
+    "solution": "DLULDLRULDRDLD"
   },
   {
     "id": "maze-121",
@@ -2528,20 +2533,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####.##",
-      "###.#..#",
-      "###.##.#",
-      "###....#",
-      "####.#.#",
-      "###....#",
+      "#...####",
+      "#.....##",
+      "#...#.##",
+      "##.....#",
+      "##.##.##",
+      "##.#####",
       "########"
     ],
     "start": [
-      6,
-      4
+      3,
+      5
     ],
     "par": 11,
-    "solution": "ULUDRDLRULU"
+    "solution": "DULDURDRLUD"
   },
   {
     "id": "maze-122",
@@ -2550,20 +2555,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####..#",
-      "######.#",
-      "#####..#",
+      "###.#..#",
+      "###.#.##",
       "###....#",
-      "###....#",
-      "##..#.##",
+      "##.....#",
+      "####...#",
+      "###...##",
       "########"
     ],
     "start": [
-      3,
-      6
+      4,
+      2
     ],
     "par": 13,
-    "solution": "LDURDLDLRURUL"
+    "solution": "RULUDRDLDLRUR"
   },
   {
     "id": "maze-123",
@@ -2572,20 +2577,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "##.#####",
-      "##.#####",
-      "##.#...#",
-      "#..#.#.#",
       "#......#",
+      "##.....#",
+      "####..##",
+      "###...##",
+      "###...##",
+      "#####.##",
       "########"
     ],
     "start": [
-      6,
-      6
+      1,
+      4
     ],
-    "par": 8,
-    "solution": "ULDRLURU"
+    "par": 10,
+    "solution": "DLURDULRDL"
   },
   {
     "id": "maze-124",
@@ -2594,20 +2599,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.#..###",
-      "#.....##",
-      "#...#..#",
-      "##..####",
-      "##.#####",
       "########",
+      "#.##..##",
+      "#..##..#",
+      "##.....#",
+      "#....#.#",
+      "#.##.#.#",
       "########"
     ],
     "start": [
-      3,
-      6
+      5,
+      3
     ],
-    "par": 12,
-    "solution": "LULUDRURLDLD"
+    "par": 18,
+    "solution": "LDURDURDULULRDLULU"
   },
   {
     "id": "maze-125",
@@ -2616,20 +2621,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###....#",
-      "######.#",
-      "###....#",
+      "##.....#",
+      "###..#.#",
+      "####...#",
       "###.#..#",
-      "######.#",
+      "###...##",
       "####...#",
       "########"
     ],
     "start": [
-      3,
-      5
+      2,
+      4
     ],
-    "par": 11,
-    "solution": "DULDURULRDL"
+    "par": 15,
+    "solution": "LRDULRDLUDRLULU"
   },
   {
     "id": "maze-126",
@@ -2638,20 +2643,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####.#.#",
-      "###..#.#",
+      "####.###",
+      "###..###",
+      "###..###",
+      "###....#",
+      "#....#.#",
       "#......#",
-      "###.#..#",
-      "####..##",
       "########"
     ],
     "start": [
-      4,
-      3
+      2,
+      4
     ],
-    "par": 12,
-    "solution": "DURUDLRUDLDL"
+    "par": 10,
+    "solution": "UDLURDRULU"
   },
   {
     "id": "maze-127",
@@ -2660,20 +2665,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "####.###",
+      "##...###",
       "#.....##",
-      "####...#",
+      "#.#....#",
       "##...#.#",
-      "###.#..#",
-      "#####.##",
-      "########",
+      "####.#.#",
       "########"
     ],
     "start": [
       3,
-      3
+      2
     ],
-    "par": 12,
-    "solution": "DULRULRDRDLD"
+    "par": 17,
+    "solution": "UDLDURDRDULUDLRUD"
   },
   {
     "id": "maze-128",
@@ -2684,18 +2689,18 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "########",
       "#.##...#",
       "#......#",
-      "###.#..#",
-      "###...##",
-      "########",
+      "#...#..#",
+      "##....##",
+      "###.#.##",
       "########",
       "########"
     ],
     "start": [
-      3,
-      6
+      4,
+      5
     ],
-    "par": 10,
-    "solution": "LDLULUDRUL"
+    "par": 14,
+    "solution": "LRDURDULDLUDRD"
   },
   {
     "id": "maze-129",
@@ -2704,20 +2709,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#####.##",
-      "##.##.##",
-      "#..#..##",
-      "#....#.#",
-      "###....#",
+      "#.....##",
+      "#...#..#",
+      "##.....#",
+      "###.##.#",
+      "###.##.#",
+      "###.##.#",
       "########"
     ],
     "start": [
       5,
-      1
+      6
     ],
-    "par": 14,
-    "solution": "URUDRURUDLDLRU"
+    "par": 11,
+    "solution": "DULDLURLDRD"
   },
   {
     "id": "maze-130",
@@ -2726,20 +2731,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####..#",
-      "#####..#",
-      "###....#",
+      "####...#",
+      "##..#..#",
+      "##.....#",
       "####...#",
       "###...##",
-      "#####..#",
+      "###.#..#",
       "########"
     ],
     "start": [
-      6,
-      5
+      2,
+      6
     ],
-    "par": 13,
-    "solution": "RLURDLULRDLDL"
+    "par": 19,
+    "solution": "DLDLDURDRLULRDLULUR"
   },
   {
     "id": "maze-131",
@@ -2748,20 +2753,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##....##",
-      "#..#.###",
+      "###.#.##",
+      "##.....#",
+      "#...#..#",
+      "#..##.##",
       "#.....##",
-      "###..###",
-      "###.####",
-      "###.####",
+      "##.#####",
       "########"
     ],
     "start": [
-      4,
-      4
+      2,
+      5
     ],
-    "par": 11,
-    "solution": "UDLDURLURUR"
+    "par": 12,
+    "solution": "LDURDLUDLURU"
   },
   {
     "id": "maze-132",
@@ -2770,20 +2775,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "#..#####",
+      "##...###",
+      "#...#.##",
       "#......#",
-      "##...#.#",
-      "#..#...#",
-      "####.###",
-      "########",
-      "########",
+      "##.##..#",
+      "#...####",
       "########"
     ],
     "start": [
-      2,
+      4,
       2
     ],
-    "par": 11,
-    "solution": "RLDLRULRDLD"
+    "par": 19,
+    "solution": "RDLUDRULURURLULRDLR"
   },
   {
     "id": "maze-133",
@@ -2792,20 +2797,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####.###",
-      "###...##",
-      "####..##",
-      "#.#....#",
-      "#....#.#",
+      "###.####",
+      "#.#.####",
+      "#...#.##",
+      "##.....#",
+      "#..#...#",
+      "#.#...##",
       "########"
     ],
     "start": [
-      4,
-      5
+      2,
+      3
     ],
-    "par": 14,
-    "solution": "ULRDRDULDLUDRU"
+    "par": 21,
+    "solution": "UDLDLDURULUDRDRDLDLRU"
   },
   {
     "id": "maze-134",
@@ -2814,20 +2819,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####.##",
+      "####...#",
       "#####..#",
       "####...#",
       "###...##",
-      "####...#",
-      "##...#.#",
+      "#..#...#",
+      "#....#.#",
       "########"
     ],
     "start": [
       4,
-      3
+      5
     ],
-    "par": 13,
-    "solution": "RUDRDULDLRURU"
+    "par": 18,
+    "solution": "LRUDRDULDLURDRURUL"
   },
   {
     "id": "maze-135",
@@ -2836,20 +2841,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "##..####",
+      "#......#",
+      "##...#.#",
+      "#..#..##",
       "#.######",
-      "#...#.##",
-      "##.#..##",
-      "#.....##",
-      "#..#.###",
-      "########",
+      "#....###",
       "########"
     ],
     "start": [
-      3,
-      4
+      2,
+      2
     ],
-    "par": 12,
-    "solution": "DURUDLDRURLU"
+    "par": 18,
+    "solution": "DLDRLURURDRDRLULRD"
   },
   {
     "id": "maze-136",
@@ -2859,19 +2864,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "########",
       "##.#####",
-      "#..#####",
-      "#..#####",
-      "#.#.####",
-      "#.....##",
-      "#...#.##",
+      "#...####",
+      "#....#.#",
+      "#..###.#",
+      "#...##.#",
+      "##.....#",
       "########"
     ],
     "start": [
-      5,
-      5
+      3,
+      4
     ],
-    "par": 11,
-    "solution": "DULURUDLDRU"
+    "par": 12,
+    "solution": "LURLDRDLUDRU"
   },
   {
     "id": "maze-137",
@@ -2880,20 +2885,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#..#####",
-      "#.######",
-      "#...####",
-      "#...#..#",
-      "#.....##",
+      "###...##",
+      "###...##",
+      "##...#.#",
+      "####...#",
+      "###....#",
+      "##....##",
       "########"
     ],
     "start": [
-      5,
-      2
+      1,
+      3
     ],
-    "par": 10,
-    "solution": "RULURLDRUR"
+    "par": 14,
+    "solution": "RDLDLRDLRURUDL"
   },
   {
     "id": "maze-138",
@@ -2902,20 +2907,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.#...##",
-      "#...####",
-      "##...###",
+      "#...#..#",
+      "#.#....#",
+      "####...#",
       "##....##",
-      "###.#.##",
-      "########",
+      "##.#.###",
+      "####..##",
       "########"
     ],
     "start": [
-      3,
-      4
+      2,
+      3
     ],
-    "par": 13,
-    "solution": "DRDULULUDRDUR"
+    "par": 19,
+    "solution": "ULDURDRDLDRLURULDLD"
   },
   {
     "id": "maze-139",
@@ -2924,20 +2929,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "######.#",
-      "####.#.#",
-      "##.#.#.#",
-      "##.....#",
       "####...#",
-      "#####..#",
+      "###....#",
+      "###....#",
+      "###....#",
+      "##....##",
+      "##.#.###",
       "########"
     ],
     "start": [
-      5,
-      6
+      2,
+      5
     ],
-    "par": 10,
-    "solution": "LUDRUDLULU"
+    "par": 12,
+    "solution": "DULDURDLUDLD"
   },
   {
     "id": "maze-140",
@@ -2946,20 +2951,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####..#",
-      "###..#.#",
-      "###....#",
-      "####...#",
-      "###...##",
-      "#####.##",
+      "#......#",
+      "#..#.###",
+      "#....###",
+      "##.#..##",
+      "##..####",
+      "#...####",
       "########"
     ],
     "start": [
-      1,
-      5
+      5,
+      3
     ],
-    "par": 11,
-    "solution": "RDLUDLRDULU"
+    "par": 13,
+    "solution": "DLRULURLDRUDR"
   },
   {
     "id": "maze-141",
@@ -2968,20 +2973,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "#.....##",
-      "#.#.####",
-      "#.....##",
+      "#..#..##",
+      "##.....#",
       "#....###",
+      "#...####",
+      "#...####",
+      "#.#.####",
       "########"
     ],
     "start": [
-      4,
+      6,
       3
     ],
-    "par": 8,
-    "solution": "URLDRULR"
+    "par": 13,
+    "solution": "URLULRDLDURUR"
   },
   {
     "id": "maze-142",
@@ -2990,20 +2995,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "#.#.####",
-      "#....#.#",
-      "#......#",
-      "#..#.###",
+      "###....#",
+      "####.#.#",
+      "####..##",
+      "##.....#",
+      "#.....##",
+      "#...####",
       "########"
     ],
     "start": [
-      3,
+      5,
       3
     ],
-    "par": 11,
-    "solution": "DRUDLUDRURD"
+    "par": 14,
+    "solution": "URLDRLURULULRD"
   },
   {
     "id": "maze-143",
@@ -3012,20 +3017,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.#..###",
-      "#...#.##",
-      "#.....##",
-      "##..####",
-      "##.#####",
-      "##.#####",
+      "#.#...##",
+      "#....#.#",
+      "##.....#",
+      "##..#..#",
+      "####..##",
+      "####.###",
       "########"
     ],
     "start": [
-      4,
+      2,
       3
     ],
-    "par": 12,
-    "solution": "URLDLDULUDRU"
+    "par": 18,
+    "solution": "URLDLULUDRDRUDLDLD"
   },
   {
     "id": "maze-144",
@@ -3034,20 +3039,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#...####",
-      "#......#",
-      "#..#.###",
-      "#..#####",
-      "##..####",
-      "########",
+      "##.....#",
+      "####.###",
+      "##....##",
+      "####...#",
+      "##.....#",
+      "###..#.#",
       "########"
     ],
     "start": [
-      2,
-      4
+      3,
+      3
     ],
-    "par": 12,
-    "solution": "DURLUDRDRLUR"
+    "par": 14,
+    "solution": "LRDLRDULDLRULR"
   },
   {
     "id": "maze-145",
@@ -3056,20 +3061,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####...#",
-      "####.#.#",
-      "####...#",
-      "##....##",
-      "##..#..#",
+      "###.####",
+      "###....#",
+      "##.....#",
+      "#.##...#",
+      "#....###",
+      "#.#..###",
       "########"
     ],
     "start": [
-      6,
-      6
+      5,
+      1
     ],
-    "par": 9,
-    "solution": "LURULDLDR"
+    "par": 16,
+    "solution": "RURLUDLRDLDLULUD"
   },
   {
     "id": "maze-146",
@@ -3078,20 +3083,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.######",
-      "#.#..###",
-      "#...####",
-      "#....###",
-      "###...##",
-      "#...####",
+      "#####..#",
+      "###..#.#",
+      "##.#...#",
+      "##.....#",
+      "#####..#",
+      "#.....##",
       "########"
     ],
     "start": [
-      3,
-      1
+      2,
+      3
     ],
-    "par": 13,
-    "solution": "RLUDRDRLURLDL"
+    "par": 14,
+    "solution": "RDLUDRULRDLUDL"
   },
   {
     "id": "maze-147",
@@ -3100,20 +3105,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####..##",
-      "####...#",
-      "##..#..#",
-      "###..#.#",
-      "####...#",
-      "#####..#",
+      "#.#...##",
+      "#...#.##",
+      "##.....#",
+      "###.#..#",
+      "###....#",
+      "#####.##",
       "########"
     ],
     "start": [
-      4,
-      4
+      5,
+      3
     ],
-    "par": 16,
-    "solution": "DRULURDRDLULULUL"
+    "par": 12,
+    "solution": "URDULDRULULU"
   },
   {
     "id": "maze-148",
@@ -3122,20 +3127,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#......#",
-      "#.#....#",
-      "###...##",
-      "#####.##",
-      "####..##",
-      "########",
+      "#.....##",
+      "#...#.##",
+      "#.....##",
+      "##..#..#",
+      "##.#####",
+      "#..#####",
       "########"
     ],
     "start": [
-      3,
-      4
+      2,
+      2
     ],
-    "par": 11,
-    "solution": "ULDURDLDRDL"
+    "par": 14,
+    "solution": "RDLDLRURLDRUDR"
   },
   {
     "id": "maze-149",
@@ -3144,20 +3149,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#####",
-      "#....###",
-      "##.#####",
+      "##...###",
+      "#...####",
+      "#..#.###",
       "#.....##",
-      "#..#..##",
-      "##.#####",
+      "###...##",
+      "#....###",
       "########"
     ],
     "start": [
-      4,
-      4
+      6,
+      3
     ],
-    "par": 11,
-    "solution": "DRULDRDULDR"
+    "par": 15,
+    "solution": "ULURURLDRDLDLRU"
   },
   {
     "id": "maze-150",
@@ -3166,20 +3171,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.#....#",
-      "#.....##",
-      "##...###",
+      "####...#",
+      "##....##",
+      "#..#...#",
+      "#....#.#",
+      "#.#..###",
       "###.####",
-      "###.####",
-      "###..###",
       "########"
     ],
     "start": [
       3,
       4
     ],
-    "par": 11,
-    "solution": "LULUDRURLDR"
+    "par": 16,
+    "solution": "URLDLDULDURURDRD"
   },
   {
     "id": "maze-151",
@@ -3188,20 +3193,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "###....#",
-      "#.....##",
-      "##.#.#.#",
+      "#..#.###",
       "##.....#",
+      "#....#.#",
+      "#....#.#",
+      "#.##.###",
+      "####.###",
       "########"
     ],
     "start": [
-      4,
-      4
+      3,
+      3
     ],
-    "par": 11,
-    "solution": "DRUDLULRULR"
+    "par": 16,
+    "solution": "URDULULRDRLDURUD"
   },
   {
     "id": "maze-152",
@@ -3210,20 +3215,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#####",
-      "#.######",
+      "#...####",
+      "##.#####",
+      "#...#.##",
+      "#.....##",
       "#....###",
-      "#....###",
-      "#..#####",
       "##....##",
       "########"
     ],
     "start": [
       6,
-      3
+      4
     ],
-    "par": 9,
-    "solution": "RLURDLDUR"
+    "par": 14,
+    "solution": "URUDLDURDRLULR"
   },
   {
     "id": "maze-153",
@@ -3232,20 +3237,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###.#..#",
-      "##....##",
+      "#####..#",
+      "####...#",
+      "##.....#",
       "###....#",
-      "####.###",
-      "###...##",
-      "###..###",
+      "####...#",
+      "##...#.#",
       "########"
     ],
     "start": [
-      6,
+      3,
       3
     ],
-    "par": 15,
-    "solution": "URLDRULRURLDRLU"
+    "par": 12,
+    "solution": "DULRDULDLUDL"
   },
   {
     "id": "maze-154",
@@ -3254,20 +3259,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#..#.###",
-      "##.#..##",
-      "##.....#",
-      "#####..#",
-      "##....##",
+      "####.###",
+      "###..#.#",
+      "##..##.#",
+      "#...#..#",
+      "#.....##",
+      "##.#...#",
       "########"
     ],
     "start": [
       4,
       2
     ],
-    "par": 13,
-    "solution": "ULRDRDLDLRULU"
+    "par": 20,
+    "solution": "DURDRURUDLDRLULURURU"
   },
   {
     "id": "maze-155",
@@ -3276,20 +3281,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#.###",
-      "#....###",
-      "#.....##",
-      "##..#.##",
-      "###..###",
       "########",
+      "#..#####",
+      "##...###",
+      "#....#.#",
+      "#......#",
+      "#.....##",
       "########"
     ],
     "start": [
-      2,
-      2
+      5,
+      3
     ],
     "par": 13,
-    "solution": "RUDRDULURDRDR"
+    "solution": "RUDLDRLURULUL"
   },
   {
     "id": "maze-156",
@@ -3298,20 +3303,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#....#.#",
-      "#......#",
+      "#...#.##",
+      "#.#...##",
       "##.....#",
-      "####.###",
-      "########",
-      "########",
+      "#....#.#",
+      "####.#.#",
+      "######.#",
       "########"
     ],
     "start": [
-      1,
-      6
+      3,
+      5
     ],
-    "par": 9,
-    "solution": "DLURDULDR"
+    "par": 15,
+    "solution": "UDRDULDLRDULULD"
   },
   {
     "id": "maze-157",
@@ -3321,19 +3326,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "########",
       "####...#",
-      "###....#",
-      "###.##.#",
-      "####.#.#",
-      "###....#",
-      "#####..#",
+      "#..#...#",
+      "#......#",
+      "##.#..##",
+      "##.##..#",
+      "#####.##",
       "########"
     ],
     "start": [
-      4,
-      4
+      5,
+      5
     ],
-    "par": 12,
-    "solution": "DLRULDLDURDL"
+    "par": 13,
+    "solution": "RLDULDURDLURD"
   },
   {
     "id": "maze-158",
@@ -3342,20 +3347,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####..##",
-      "##.....#",
+      "####...#",
+      "#.#....#",
+      "#.....##",
       "##.#...#",
-      "#....#.#",
+      "##.##..#",
       "######.#",
       "########"
     ],
     "start": [
-      2,
-      4
+      3,
+      2
     ],
-    "par": 10,
-    "solution": "RDLRDULDLR"
+    "par": 15,
+    "solution": "DULUDRDRDULURDL"
   },
   {
     "id": "maze-159",
@@ -3364,20 +3369,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "#.##.###",
-      "#..#.###",
-      "#.....##",
-      "##.#...#",
-      "##...###",
+      "#.#..###",
+      "#.#..#.#",
+      "#......#",
+      "####...#",
+      "###...##",
+      "###..###",
       "########"
     ],
     "start": [
       5,
-      6
+      5
     ],
-    "par": 9,
-    "solution": "LUDLULUDR"
+    "par": 13,
+    "solution": "LDRULDLUDRUDL"
   },
   {
     "id": "maze-160",
@@ -3386,20 +3391,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
       "###.####",
+      "###.##.#",
       "##...#.#",
-      "#...#..#",
+      "#......#",
       "#.....##",
-      "###..###",
+      "#.#..###",
       "########"
     ],
     "start": [
-      5,
-      2
+      6,
+      4
     ],
-    "par": 15,
-    "solution": "URLDLURUDRURURU"
+    "par": 13,
+    "solution": "LUDRULDRLDURU"
   },
   {
     "id": "maze-161",
@@ -3408,20 +3413,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "###...##",
-      "##.....#",
-      "#.###..#",
+      "#.....##",
+      "####...#",
       "#......#",
+      "#.##.#.#",
+      "#..#.#.#",
+      "########",
       "########"
     ],
     "start": [
-      4,
-      3
+      2,
+      4
     ],
-    "par": 9,
-    "solution": "URDLUDRUL"
+    "par": 12,
+    "solution": "RDULDULRDLDR"
   },
   {
     "id": "maze-162",
@@ -3430,20 +3435,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##....##",
-      "##.....#",
-      "####...#",
-      "####.#.#",
-      "####.#.#",
-      "######.#",
+      "##...#.#",
+      "##.#...#",
+      "#.....##",
+      "#...#.##",
+      "#.#.#.##",
+      "#.######",
       "########"
     ],
     "start": [
-      2,
-      3
+      3,
+      5
     ],
-    "par": 9,
-    "solution": "RDULURDLD"
+    "par": 15,
+    "solution": "DURUDLULDRDURLD"
   },
   {
     "id": "maze-163",
@@ -3452,20 +3457,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#....###",
-      "#.#....#",
-      "###...##",
-      "####.###",
-      "###....#",
       "########",
+      "##...###",
+      "#....###",
+      "##..#..#",
+      "#...#..#",
+      "#.#....#",
       "########"
     ],
     "start": [
-      1,
+      4,
       3
     ],
-    "par": 13,
-    "solution": "DRURLULDURDLR"
+    "par": 16,
+    "solution": "DRULDLURDLRULDLD"
   },
   {
     "id": "maze-164",
@@ -3474,20 +3479,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####..##",
-      "####..##",
-      "####...#",
-      "##..##.#",
+      "#####..#",
       "###....#",
-      "###.#..#",
+      "####...#",
+      "####.#.#",
+      "###....#",
+      "#......#",
       "########"
     ],
     "start": [
-      2,
+      5,
       5
     ],
     "par": 11,
-    "solution": "ULDRDLULDUL"
+    "solution": "LDLRULDLDUL"
   },
   {
     "id": "maze-165",
@@ -3497,19 +3502,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "rows": [
       "########",
       "#.....##",
-      "##.....#",
-      "#....#.#",
-      "###..###",
-      "########",
+      "#......#",
+      "#......#",
+      "#.#..#.#",
+      "###.####",
       "########",
       "########"
     ],
     "start": [
-      2,
-      3
+      3,
+      4
     ],
-    "par": 12,
-    "solution": "DRULRDRDULDL"
+    "par": 13,
+    "solution": "DLDULRDLRDULD"
   },
   {
     "id": "maze-166",
@@ -3518,20 +3523,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##.....#",
-      "#####..#",
-      "#####..#",
-      "####...#",
-      "####.#.#",
-      "####...#",
+      "#.#...##",
+      "#.....##",
+      "#....###",
+      "##....##",
+      "###.####",
+      "#....###",
       "########"
     ],
     "start": [
       4,
-      5
+      2
     ],
-    "par": 6,
-    "solution": "ULRDLU"
+    "par": 14,
+    "solution": "RLURLUDRURLDLR"
   },
   {
     "id": "maze-167",
@@ -3540,20 +3545,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##....##",
-      "###.#.##",
-      "#.....##",
-      "#...####",
-      "##...###",
-      "########",
+      "#......#",
+      "####...#",
+      "##...#.#",
+      "#####..#",
+      "###...##",
+      "###....#",
       "########"
     ],
     "start": [
-      1,
-      3
+      2,
+      4
     ],
-    "par": 10,
-    "solution": "DRLULDURUL"
+    "par": 15,
+    "solution": "RLDLRULRDLDRLUR"
   },
   {
     "id": "maze-168",
@@ -3562,20 +3567,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#####..#",
-      "##.....#",
-      "##.#.#.#",
-      "####...#",
-      "###...##",
-      "###.####",
+      "#.#.####",
+      "#.#.####",
+      "#.....##",
+      "#.#...##",
+      "#.#..###",
+      "#......#",
       "########"
     ],
     "start": [
-      5,
-      3
+      6,
+      4
     ],
-    "par": 13,
-    "solution": "DURULULDURDUL"
+    "par": 10,
+    "solution": "ULRDLUDRLU"
   },
   {
     "id": "maze-169",
@@ -3584,20 +3589,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####.###",
-      "####.###",
       "##....##",
-      "##.#...#",
+      "#...####",
+      "#......#",
+      "#....###",
       "#..#.###",
-      "##....##",
+      "#.##.###",
       "########"
     ],
     "start": [
-      5,
-      2
+      1,
+      5
     ],
     "par": 11,
-    "solution": "LRURDRLUDLR"
+    "solution": "LDLDURDRDUR"
   },
   {
     "id": "maze-170",
@@ -3606,20 +3611,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "####...#",
-      "##...#.#",
-      "#......#",
-      "#.#..###",
-      "###.####",
-      "########",
+      "#...##.#",
+      "##.....#",
+      "#...####",
+      "#.....##",
+      "#.#.#.##",
+      "#.#.####",
       "########"
     ],
     "start": [
-      1,
-      4
+      2,
+      5
     ],
-    "par": 11,
-    "solution": "DLDULRURDLD"
+    "par": 15,
+    "solution": "RUDLDRDULDURDUL"
   },
   {
     "id": "maze-171",
@@ -3628,20 +3633,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#...####",
-      "##.#####",
-      "#...####",
+      "#####.##",
+      "###.#..#",
+      "#...#..#",
+      "#......#",
+      "#####..#",
       "#.....##",
-      "#..#.###",
-      "##.#.###",
       "########"
     ],
     "start": [
-      5,
-      4
+      4,
+      1
     ],
-    "par": 13,
-    "solution": "DURLURLDRDULR"
+    "par": 12,
+    "solution": "URUDLRUDLUDL"
   },
   {
     "id": "maze-172",
@@ -3650,20 +3655,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###....#",
-      "####...#",
-      "####...#",
-      "##....##",
-      "##.##.##",
-      "#####.##",
+      "#....###",
+      "#......#",
+      "#.....##",
+      "#.#..###",
+      "#.#.####",
+      "#..#####",
       "########"
     ],
     "start": [
       2,
-      4
+      2
     ],
-    "par": 10,
-    "solution": "DLDURDULRD"
+    "par": 13,
+    "solution": "DRURLDRLURDLD"
   },
   {
     "id": "maze-173",
@@ -3672,20 +3677,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "###.####",
-      "###.####",
-      "#.#.#..#",
+      "##.#..##",
+      "#.....##",
+      "##.#.###",
       "#......#",
-      "#....#.#",
+      "#..#.###",
+      "##...###",
       "########"
     ],
     "start": [
-      3,
-      3
+      4,
+      6
     ],
-    "par": 12,
-    "solution": "UDLUDRULRDUL"
+    "par": 10,
+    "solution": "LDRUDRURDL"
   },
   {
     "id": "maze-174",
@@ -3694,20 +3699,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####.###",
-      "#.#...##",
-      "#.....##",
-      "##...###",
       "#..#...#",
+      "##...#.#",
+      "###....#",
+      "####...#",
+      "####...#",
+      "###..#.#",
       "########"
     ],
     "start": [
-      4,
-      1
+      3,
+      5
     ],
-    "par": 19,
-    "solution": "UDRULDLDLRURULDRUDR"
+    "par": 16,
+    "solution": "DULULULRDRDLRURD"
   },
   {
     "id": "maze-175",
@@ -3716,20 +3721,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "#......#",
+      "#...#..#",
+      "#....###",
       "##....##",
       "#...####",
-      "#.#....#",
-      "#.#.#..#",
-      "###.##.#",
       "########",
       "########"
     ],
     "start": [
-      4,
-      5
+      1,
+      4
     ],
-    "par": 11,
-    "solution": "RDULDURLDLD"
+    "par": 14,
+    "solution": "LDRDRLUDLRURDL"
   },
   {
     "id": "maze-176",
@@ -3738,20 +3743,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "###.#.##",
-      "#......#",
       "###...##",
-      "#....###",
       "##...###",
+      "##....##",
+      "####...#",
+      "##...#.#",
+      "#..#...#",
       "########"
     ],
     "start": [
-      3,
-      5
+      6,
+      1
     ],
-    "par": 13,
-    "solution": "UDLUDLULRDULR"
+    "par": 14,
+    "solution": "RURDRULURLDRLU"
   },
   {
     "id": "maze-177",
@@ -3763,17 +3768,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "##.....#",
       "#.....##",
       "#.#....#",
-      "###..#.#",
-      "########",
-      "########",
+      "##...#.#",
+      "####.#.#",
+      "####.###",
       "########"
     ],
     "start": [
-      2,
-      2
+      4,
+      4
     ],
-    "par": 14,
-    "solution": "LDURDRDULDRULR"
+    "par": 15,
+    "solution": "LRDURLDLDURDLRD"
   },
   {
     "id": "maze-178",
@@ -3782,20 +3787,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "###.####",
-      "#.#.#.##",
-      "#.....##",
-      "#...##.#",
-      "##.....#",
+      "#......#",
+      "##.#...#",
+      "##..#.##",
+      "###....#",
+      "###.#..#",
+      "###..###",
       "########"
     ],
     "start": [
-      4,
-      2
+      3,
+      5
     ],
-    "par": 12,
-    "solution": "RUDLUDRUDLRU"
+    "par": 14,
+    "solution": "DRULDRLULULRDL"
   },
   {
     "id": "maze-179",
@@ -3804,20 +3809,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##..####",
-      "###.####",
-      "###...##",
-      "##.....#",
-      "#....###",
-      "##.#..##",
+      "#...####",
+      "##....##",
+      "#.....##",
+      "##.##.##",
+      "#.....##",
+      "#...####",
       "########"
     ],
     "start": [
-      6,
-      5
+      2,
+      3
     ],
-    "par": 15,
-    "solution": "LULULRDLRURDRLD"
+    "par": 13,
+    "solution": "RLDULRDLRDLDR"
   },
   {
     "id": "maze-180",
@@ -3826,20 +3831,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##.#.###",
-      "#.....##",
-      "##.....#",
-      "###..#.#",
-      "###.##.#",
-      "###.####",
+      "#####..#",
+      "###....#",
+      "##.###.#",
+      "##.#...#",
+      "#......#",
+      "##..#..#",
       "########"
     ],
     "start": [
-      1,
-      4
+      3,
+      2
     ],
-    "par": 12,
-    "solution": "DLDULRDLUDRD"
+    "par": 14,
+    "solution": "DRULRULDLRDLUL"
   },
   {
     "id": "maze-181",
@@ -3848,20 +3853,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####.###",
-      "##...###",
-      "##.#...#",
       "#....#.#",
-      "##.....#",
+      "#.#....#",
+      "#...##.#",
+      "#..###.#",
+      "#.######",
+      "#....###",
       "########"
     ],
     "start": [
-      6,
-      3
+      4,
+      1
     ],
-    "par": 12,
-    "solution": "ULRUDLURDRUL"
+    "par": 14,
+    "solution": "RURULDRLURDRUD"
   },
   {
     "id": "maze-182",
@@ -3870,20 +3875,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##.#...#",
-      "##...#.#",
       "###...##",
       "####..##",
       "##....##",
-      "##.#####",
+      "###....#",
+      "#.#....#",
+      "#...#.##",
       "########"
     ],
     "start": [
-      1,
-      5
+      3,
+      4
     ],
-    "par": 14,
-    "solution": "RDULDLDURULULU"
+    "par": 16,
+    "solution": "UDRULDLUDRULRDUL"
   },
   {
     "id": "maze-183",
@@ -3892,20 +3897,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "#...####",
+      "#..#####",
+      "#..#.###",
+      "##...###",
       "#......#",
       "#....#.#",
-      "#.#...##",
-      "###.#.##",
-      "#####.##",
-      "########",
       "########"
     ],
     "start": [
-      2,
-      1
+      5,
+      3
     ],
-    "par": 13,
-    "solution": "RDRDULDULDURD"
+    "par": 15,
+    "solution": "ULURLDRDRUDLURD"
   },
   {
     "id": "maze-184",
@@ -3917,17 +3922,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "#..#####",
       "#..###.#",
       "#......#",
-      "#...####",
+      "#......#",
       "##...###",
-      "###.####",
+      "###..###",
       "########"
     ],
     "start": [
-      2,
-      2
+      4,
+      5
     ],
     "par": 11,
-    "solution": "DRLULDRDURU"
+    "solution": "LURDRDLURUD"
   },
   {
     "id": "maze-185",
@@ -3936,20 +3941,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##....##",
-      "#....###",
       "###....#",
-      "##....##",
-      "###..###",
-      "########",
+      "#.....##",
+      "#......#",
+      "##..#.##",
+      "##...###",
+      "###.####",
       "########"
     ],
     "start": [
-      4,
-      5
+      2,
+      2
     ],
-    "par": 13,
-    "solution": "LRURLUDRURLDL"
+    "par": 15,
+    "solution": "DRLULDRLURDURLD"
   },
   {
     "id": "maze-186",
@@ -3958,20 +3963,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###.####",
-      "###.####",
-      "###....#",
-      "#....#.#",
-      "####...#",
       "#....###",
+      "##.#..##",
+      "#...####",
+      "#......#",
+      "#...####",
+      "##...###",
       "########"
     ],
     "start": [
-      6,
-      1
+      4,
+      6
     ],
-    "par": 10,
-    "solution": "RURDLULUDL"
+    "par": 12,
+    "solution": "LDURDRLULRDR"
   },
   {
     "id": "maze-187",
@@ -3980,20 +3985,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
+      "####...#",
+      "###.#.##",
       "###...##",
-      "##..#.##",
       "##.#...#",
-      "##.....#",
-      "##..##.#",
+      "##.#...#",
+      "#......#",
       "########"
     ],
     "start": [
-      4,
+      5,
       2
     ],
-    "par": 13,
-    "solution": "URURDLDRURDUL"
+    "par": 16,
+    "solution": "UDLRULDULUDRDULR"
   },
   {
     "id": "maze-188",
@@ -4002,20 +4007,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###.#.##",
-      "###...##",
-      "###..#.#",
-      "###....#",
+      "#....#.#",
+      "#..#...#",
+      "##.##..#",
+      "##....##",
       "####...#",
-      "####...#",
+      "####..##",
       "########"
     ],
     "start": [
       5,
       4
     ],
-    "par": 12,
-    "solution": "RUDLURUDLUDR"
+    "par": 16,
+    "solution": "RLULULDURDRUDLDL"
   },
   {
     "id": "maze-189",
@@ -4024,20 +4029,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "###.#..#",
+      "####..##",
       "###....#",
-      "####.#.#",
-      "####...#",
-      "###....#",
-      "#####..#",
+      "#....#.#",
+      "#..#...#",
+      "###..#.#",
+      "###...##",
       "########"
     ],
     "start": [
-      6,
-      5
+      4,
+      6
     ],
-    "par": 12,
-    "solution": "ULUDLRDULDLU"
+    "par": 17,
+    "solution": "LDRLURURDRDULDLDR"
   },
   {
     "id": "maze-190",
@@ -4046,20 +4051,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.###.##",
-      "#..##.##",
+      "####..##",
+      "##.....#",
       "#.....##",
-      "#...####",
-      "#...####",
-      "#..#####",
+      "####...#",
+      "##.....#",
+      "####.#.#",
       "########"
     ],
     "start": [
-      5,
-      1
+      3,
+      3
     ],
-    "par": 10,
-    "solution": "RURUDLUDRU"
+    "par": 15,
+    "solution": "URLDLRUDLRDULUD"
   },
   {
     "id": "maze-191",
@@ -4068,20 +4073,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "##.#..##",
       "##...###",
-      "#.#...##",
-      "#...#.##",
+      "##.....#",
+      "#.....##",
       "##...###",
       "###...##",
-      "####.###",
       "########"
     ],
     "start": [
-      5,
-      4
+      4,
+      2
     ],
-    "par": 17,
-    "solution": "DULULUDRDRLULRDRD"
+    "par": 15,
+    "solution": "LRURLUDRURLDRLU"
   },
   {
     "id": "maze-192",
@@ -4090,20 +4095,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#####",
-      "#...####",
-      "#..#####",
-      "#...####",
-      "#.#.#.##",
+      "########",
+      "###..#.#",
+      "##..#..#",
       "#.....##",
+      "##.....#",
+      "#....#.#",
       "########"
     ],
     "start": [
-      2,
-      2
+      6,
+      1
     ],
-    "par": 11,
-    "solution": "RLDURDRDLRU"
+    "par": 18,
+    "solution": "RULRURUDLDRDULURUR"
   },
   {
     "id": "maze-193",
@@ -4112,20 +4117,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "##.....#",
-      "#...##.#",
-      "#.#.##.#",
-      "###.#..#",
-      "#####.##",
-      "#####..#",
+      "#....###",
+      "#.#....#",
+      "#...#..#",
+      "##...###",
+      "###..###",
+      "###...##",
       "########"
     ],
     "start": [
-      5,
-      5
+      4,
+      4
     ],
-    "par": 13,
-    "solution": "DRLURULDLDURD"
+    "par": 15,
+    "solution": "DULULURDRDLULDR"
   },
   {
     "id": "maze-194",
@@ -4134,20 +4139,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "########",
-      "#...#.##",
-      "#...#.##",
-      "##..#..#",
+      "#..#####",
+      "#..#...#",
+      "#..#.###",
       "#......#",
+      "##...###",
+      "###...##",
       "########"
     ],
     "start": [
-      6,
-      2
+      3,
+      4
     ],
-    "par": 11,
-    "solution": "ULDURDLRULU"
+    "par": 12,
+    "solution": "URLDRLURLURD"
   },
   {
     "id": "maze-195",
@@ -4159,17 +4164,17 @@ export const MAZE_LEVELS: MazeLevel[] = [
       "##.#.#.#",
       "#....#.#",
       "##.....#",
-      "###.##.#",
-      "###.##.#",
-      "###.####",
+      "##..##.#",
+      "###..#.#",
+      "##..##.#",
       "########"
     ],
     "start": [
       5,
-      3
+      4
     ],
-    "par": 12,
-    "solution": "DULRUDLUDRUD"
+    "par": 19,
+    "solution": "LULRUDLUDRDLRURDRUD"
   },
   {
     "id": "maze-196",
@@ -4178,20 +4183,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "########",
-      "####.###",
-      "#.##..##",
       "#.....##",
-      "#..#.#.#",
+      "###.#.##",
       "##.....#",
+      "#...####",
+      "###.#.##",
+      "#.....##",
       "########"
     ],
     "start": [
-      4,
-      5
+      5,
+      3
     ],
     "par": 13,
-    "solution": "ULUDRUDLURLUD"
+    "solution": "ULRDRLDLRDLRU"
   },
   {
     "id": "maze-197",
@@ -4200,20 +4205,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "#####.##",
+      "##.##.##",
+      "##.#..##",
+      "##.#...#",
       "#......#",
-      "###....#",
-      "###.##.#",
-      "###....#",
-      "######.#",
-      "######.#",
+      "#......#",
       "########"
     ],
     "start": [
-      1,
-      4
+      2,
+      2
     ],
-    "par": 8,
-    "solution": "DRLDRDUL"
+    "par": 10,
+    "solution": "DRLURULURU"
   },
   {
     "id": "maze-198",
@@ -4222,20 +4227,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
+      "##.#.#.#",
       "#......#",
-      "#.#.#..#",
-      "#.#...##",
-      "#.#..###",
-      "####.###",
-      "########",
+      "#....###",
+      "###....#",
+      "###.####",
+      "##....##",
       "########"
     ],
     "start": [
-      1,
-      3
+      2,
+      2
     ],
-    "par": 11,
-    "solution": "DRDURULDURD"
+    "par": 17,
+    "solution": "UDLURUDLDRUDRLDLR"
   },
   {
     "id": "maze-199",
@@ -4244,20 +4249,20 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#.######",
-      "#.######",
-      "#...#.##",
+      "#..#.###",
       "#.....##",
+      "#..#...#",
+      "#.#..###",
+      "#.#.####",
       "#....###",
-      "#...####",
       "########"
     ],
     "start": [
-      4,
-      4
+      2,
+      3
     ],
     "par": 13,
-    "solution": "DLRURUDLUDRUL"
+    "solution": "RDRLUDLDRLURD"
   },
   {
     "id": "maze-200",
@@ -4266,19 +4271,19 @@ export const MAZE_LEVELS: MazeLevel[] = [
     "height": 8,
     "rows": [
       "########",
-      "#..#...#",
-      "#.....##",
-      "#.#....#",
-      "###.####",
-      "##..####",
+      "#...#..#",
+      "###....#",
+      "#......#",
+      "#....#.#",
+      "###..###",
       "########",
       "########"
     ],
     "start": [
-      1,
-      1
+      2,
+      6
     ],
-    "par": 13,
-    "solution": "DURDRURLDRLDL"
+    "par": 12,
+    "solution": "DULDLDRUDLUL"
   }
 ];

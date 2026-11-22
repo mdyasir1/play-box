@@ -33,8 +33,8 @@ describe("Maze Paint level data", () => {
       }
       const [row, col] = level.start;
       expect(level.rows[row]?.[col]).toBe(".");
-      expect(mazeFloorCount(level)).toBeGreaterThanOrEqual(9);
-      expect(mazeFloorCount(level)).toBeLessThanOrEqual(19);
+      expect(mazeFloorCount(level)).toBeGreaterThanOrEqual(12);
+      expect(mazeFloorCount(level)).toBeLessThanOrEqual(22);
     }
   });
 
