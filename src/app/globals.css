@@ -5,7 +5,6 @@
   --color-bg-elevated: #0c1120;
   --color-surface: #121a2e;
   --color-surface-hover: #18233d;
-  --color-surface-active: #1e2a48;
   --color-border: #26314d;
   --color-border-strong: #3b4c74;
   --color-text: #f5f7ff;
@@ -13,7 +12,7 @@
   --color-text-muted: #93a1c1;
   --color-accent: #9b7bff;
   --color-accent-strong: #7c5cff;
-  --color-accent-blue: #4cc9f0;
+  --color-cyan: #4cc9f0;
   --color-success: #3ddc97;
   --color-warning: #ffc857;
   --color-danger: #ff6b81;
@@ -21,8 +20,6 @@
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-card: 1rem;
 }
 
 @layer base {
@@ -42,13 +39,13 @@
     background-color: var(--color-bg);
     background-image:
       radial-gradient(
-        60% 40% at 50% -10%,
+        55% 42% at 50% -12%,
         rgb(124 92 255 / 0.18),
-        transparent 70%
+        transparent 72%
       ),
       radial-gradient(
-        45% 30% at 88% 8%,
-        rgb(76 201 240 / 0.09),
+        38% 30% at 90% 4%,
+        rgb(76 201 240 / 0.08),
         transparent 70%
       );
     background-attachment: fixed;
@@ -106,10 +103,30 @@
   }
 }
 
-@keyframes ypb-rise {
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -117,80 +134,22 @@
   }
 }
 
-@keyframes ypb-splash-mark {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-    filter: blur(8px);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(0);
-  }
+@keyframes soft-pulse {
+  0%,
   100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
+    box-shadow: 0 0 0 0 rgb(155 123 255 / 0.35);
   }
-}
-
-@keyframes ypb-splash-sheen {
-  0% {
-    transform: translateX(-140%);
-    opacity: 0;
-  }
-  35% {
-    opacity: 0.85;
-  }
-  100% {
-    transform: translateX(140%);
-    opacity: 0;
-  }
-}
-
-@keyframes ypb-splash-text {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes ypb-splash-ring {
-  0% {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  40% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.35);
+  50% {
+    box-shadow: 0 0 0 6px rgb(155 123 255 / 0);
   }
 }
 
 .animate-rise {
-  animation: ypb-rise 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: rise 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-.animate-splash-mark {
-  animation: ypb-splash-mark 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.animate-splash-text {
-  animation: ypb-splash-text 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 260ms both;
-}
-
-.animate-splash-ring {
-  animation: ypb-splash-ring 1200ms ease-out 120ms both;
-}
-
-.animate-splash-sheen {
-  animation: ypb-splash-sheen 1100ms ease-in-out 380ms both;
+.animate-soft-pulse {
+  animation: soft-pulse 1.8s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

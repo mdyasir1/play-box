@@ -1,71 +1,60 @@
 # YASIR PLAYBOX — Documentation Index
 
-**Project:** YASIR PLAYBOX — "Your Personal Arcade."
-**Current phase:** Phase 2 complete (shared layout, navigation, contracts, persistence skeleton, and game chrome). Games are not playable yet.
-**Frozen specification:** `docs/PROJECT_SPEC.md` v1.0
-**Frozen hash:** `ef76a2655afa94b19b79d7f95782499767693505a08ede1d84592b59cc97bd33`
+**Product:** YASIR PLAYBOX — "Your Personal Arcade."
+**Version:** 1.0.0
+**Status:** Complete two-game build, verified locally on 2026-11-22.
+**Scope:** Zip and Maze Paint only; 100 levels each; local progress; no account or database.
 
-## Documents
+## Scope change
 
-| Document | Canonical content | Must NOT contain |
-|---|---|---|
-| `AGENT_INSTRUCTIONS.md` | Binding process rules for AI agents, including the no-Git-write policy | Product requirements, progress |
-| `PROJECT_SPEC.md` | Authoritative product requirements (frozen) | Progress, test results, journey, implementation notes |
-| `PROJECT_OVERVIEW.md` | Product summary for new readers | New requirements, progress, bug tracking |
-| `ARCHITECTURE.md` | System/module architecture, data flow, contracts, ADRs | Game rules, level numbers, progress percentages |
-| `GAME_DESIGN.md` | Per-game objective, rules, controls, UI, edge cases | Level curves/thresholds (canonical in LEVEL_PROGRESSION) |
-| `LEVEL_PROGRESSION.md` | All level curves, unlock rules, scoring, persistence semantics | Game tutorial content, bug tracking |
-| `UI_DESIGN_SYSTEM.md` | Brand, tokens, typography, components, animation, accessibility | Screenshots/status claims |
-| `DATABASE.md` | Schema, constraints, RLS, RPCs, migrations, sync design | Narrative project history |
-| `SECURITY.md` | Threat model, controls, accepted risks, retention | Feature requirements duplication |
-| `TESTING_AND_QA.md` | Test strategy, cases, executed results, regression history | Live bug ownership ledger (use KNOWN_ISSUES) |
-| `DEPLOYMENT.md` | Account setup, env vars, migrations, deploy, rollback, verification | Development progress |
-| `DEVELOPMENT_PROGRESS.md` | Current phase snapshot, honest percentage, tasks, blockers, next actions | Historical narrative (use BUILD_JOURNEY) |
-| `AGENT_WORK_LOG.md` | Per-session role assignments, files touched, handover | Product requirements |
-| `BUILD_JOURNEY.md` | How the project was built: steps, milestones, decisions, lessons | Specification restatement, duplicate design docs |
-| `TASK_BREAKDOWN.md` | WBS: task IDs, owners, dependencies, acceptance criteria | Completed-result claims |
-| `CHANGELOG.md` | Dated, versioned change entries | Current status, task planning |
-| `KNOWN_ISSUES.md` | Live defect/limitation ledger | Test plans, architecture |
+The project owner replaced the previous five-game plan with a focused two-game
+build on 2026-11-22. The old source, tests, and plans were removed. References
+to a frozen five-game specification and Supabase persistence are historical
+only. The current authority is `PROJECT_SPEC.md` version 2.0.
+
+The freeze protocol is retired. `docs/.freeze/PROJECT_SPEC.sha256` is an
+unmodified historical record and no longer matches the current specification.
+
+## Current documents
+
+| Document | Canonical content |
+|---|---|
+| `AGENT_INSTRUCTIONS.md` | Binding no-Git-write policy and agent process rules |
+| `PROJECT_SPEC.md` | Current two-game product requirements and acceptance criteria |
+| `PROJECT_OVERVIEW.md` | Product summary for new readers |
+| `ARCHITECTURE.md` | Modules, data flow, persistence, and testing boundaries |
+| `GAME_DESIGN.md` | Zip and Maze Paint rules, controls, and edge cases |
+| `LEVEL_PROGRESSION.md` | Level distributions, scoring, and progression semantics |
+| `UI_DESIGN_SYSTEM.md` | Tokens, typography, components, responsive rules, accessibility |
+| `DATABASE.md` | Local-only persistence schema; why Supabase is not used |
+| `SECURITY.md` | Local-only threat model and controls |
+| `TESTING_AND_QA.md` | Executed unit, browser, accessibility, build, and audit results |
+| `DEPLOYMENT.md` | Build and hosting runbook with no environment variables |
+| `DEVELOPMENT_PROGRESS.md` | Current completion snapshot and evidence |
+| `TASK_BREAKDOWN.md` | Completed implementation work packages |
+| `CHANGELOG.md` | Version history; earlier entries are historical |
+| `KNOWN_ISSUES.md` | Current limitations and accepted risks |
+| `AGENT_WORK_LOG.md` | Session log; earlier sessions are historical |
+| `BUILD_JOURNEY.md` | How the rebuild was planned and delivered |
 
 ## Content ownership rules
 
-1. One fact has one canonical home. Other documents link to it.
-2. `PROJECT_SPEC.md` is immutable. It is never edited, even for typos, without an explicit unfreeze decision recorded in `CHANGELOG.md`.
-3. Requirement changes after freeze are recorded in `CHANGELOG.md` plus an append-only amendment document approved by the project owner.
-4. A document must not copy another document's section wholesale.
-5. Every claim of completion must name the verified artifact or command output.
-
-## Freeze protocol
-
-- The spec was hashed with SHA-256 and marked read-only on Windows (`attrib +R`).
-- The hash record is `.freeze/PROJECT_SPEC.sha256`.
-- Verify from `docs/`:
-
-```bash
-sha256sum -c .freeze/PROJECT_SPEC.sha256
-```
-
-PowerShell alternative:
-
-```powershell
-Get-FileHash docs\PROJECT_SPEC.md -Algorithm SHA256
-```
-
-- The recorded hash must match. If it does not, the spec was modified and the change must be investigated before any release.
-- To read the spec despite the read-only flag, do not clear the flag; copy it if a working reference is needed.
-
-## Role emulation disclosure
-
-The build environment exposes one read-only exploration sub-agent, not eight writing agents. The eight required roles are therefore executed as sequential work packages by the main agent, with separate review/QA passes. `AGENT_WORK_LOG.md` records this honestly. No document may claim that specialized agents exist when they do not.
+1. One fact has one canonical home; other documents link to it.
+2. Every completion claim must name a command, test, or artifact.
+3. Do not describe unbuilt features as complete.
+4. Requirements changes are recorded in `CHANGELOG.md` and `PROJECT_SPEC.md`.
+5. Old five-game sections are retained only as clearly labelled history.
 
 ## Manual Git control
 
-Per the project owner's binding instruction, the AI agent must never stage, unstage, commit, push, reset, restore, or otherwise write to Git. All staging, commits, and pushes are performed manually by the owner. See `AGENT_INSTRUCTIONS.md` §1 for the full policy.
+Per the owner's binding instruction, the AI agent must never stage, unstage,
+commit, push, reset, restore, or otherwise write to Git. The owner performs all
+Git operations manually. See `AGENT_INSTRUCTIONS.md` section 1.
 
 ## Start here
 
-- Rules for agents: `AGENT_INSTRUCTIONS.md`
 - Product: `PROJECT_OVERVIEW.md`
 - Requirements: `PROJECT_SPEC.md`
-- Plan and tasks: `TASK_BREAKDOWN.md`, `DEVELOPMENT_PROGRESS.md`
-- How decisions were made: `BUILD_JOURNEY.md`
+- Architecture: `ARCHITECTURE.md`
+- Verification: `TESTING_AND_QA.md`
+- Current status: `DEVELOPMENT_PROGRESS.md`

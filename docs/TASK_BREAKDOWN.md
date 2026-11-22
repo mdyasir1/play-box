@@ -1,205 +1,55 @@
 # Task Breakdown — YASIR PLAYBOX
 
-> Work breakdown structure with owners, dependencies, and acceptance criteria. Status is updated as work is genuinely completed. Roles are emulated work packages (see `DEVELOPMENT_PROGRESS.md`), not separate writing agents.
+> Completed work packages for the two-game rebuild. Status reflects verified
+> artifacts, not intentions.
 
-## Owners (role labels)
+## Completed
 
-| Code | Role |
-|---|---|
-| PM | Project manager / architect / integrator (single writer) |
-| UI | UI/UX and design system work package |
-| G1 | Reaction Rush + Word Master work package |
-| G2 | Number Merge + Memory Challenge work package |
-| G3 | Neon Survival work package |
-| DB | Database/persistence work package |
-| QA | Independent QA/security pass (fresh review, automated tests) |
-| DOC | Documentation work package |
+| ID | Work package | Acceptance evidence | Status |
+|---|---|---|---|
+| R-01 | Replace the five-game scope with two games | Old source/tests removed; new structure documented | DONE |
+| R-02 | Rebuild project structure | Next.js app routes for home, Zip, Maze Paint | DONE |
+| R-03 | Generate Zip levels | 100 levels in `src/games/zip/levels.ts` | DONE |
+| R-04 | Validate Zip levels | Hamiltonian and checkpoint tests pass | DONE |
+| R-05 | Generate Maze Paint levels | 100 levels in `src/games/maze-paint/levels.ts` | DONE |
+| R-06 | Validate Maze Paint levels | BFS shortest-solution replay tests pass | DONE |
+| R-07 | Implement Zip engine | Start, extend, order, backtrack, validation tests pass | DONE |
+| R-08 | Implement Maze Paint engine | Slide, paint, complete, controls, replay tests pass | DONE |
+| R-09 | Implement local progress | Versioned parse/save/merge tests pass | DONE |
+| R-10 | Build home page | Two games, progress summary, rules, links | DONE |
+| R-11 | Build app shell | Responsive header, nav, footer, skip link | DONE |
+| R-12 | Build Zip interface | Drag/tap/keyboard board, side stats, undo/restart | DONE |
+| R-13 | Build Maze Paint interface | Swipe/D-pad/keyboard board, side stats, undo/restart | DONE |
+| R-14 | Build level picker | 100-level modal for each game | DONE |
+| R-15 | Build result flow | Next/replay/levels with score stats | DONE |
+| R-16 | Hydration-safe level restore | Saved level does not switch board during dialog | DONE |
+| R-17 | Keyboard/dialog isolation | Maze input ignored while picker/dialog is open | DONE |
+| R-18 | Responsive hardening | 320 px overflow tests pass; wordmark hidden | DONE |
+| R-19 | Accessibility hardening | Axe serious/critical count is zero | DONE |
+| R-20 | Browser test suite | 17 Playwright cases pass | DONE |
+| R-21 | Unit test suite | 5 files, 30 tests pass | DONE |
+| R-22 | Build and dependency cleanup | Build passes; audit is clean; unused deps removed | DONE |
+| R-23 | Documentation rewrite | Current docs match the two-game build | DONE |
 
-**Single-writer rule:** PM performs all file writes. G1/G2/G3/DB/UI/DOC operate as sequential implementation passes. QA reviews and runs tests independently after each gate. No parallel file edits occur.
+## Release gates
 
-## Critical path
+| Gate | Requirement | Status |
+|---|---|---|
+| G1 | Lint, typecheck, unit tests | PASS |
+| G2 | Production build | PASS |
+| G3 | Browser flow, persistence, overflow | PASS |
+| G4 | Accessibility scan | PASS |
+| G5 | Dependency audit | PASS |
+| G6 | Owner review and commit | Waiting on owner |
 
-```
-P0 → P1 → P2 → P3 → P4 → P5 → P6 → P7 → P8 → P9 → P10 → P11 → P12 → P13 → P14
-                     └──────────── shared contracts required before P4 ────────────┘
-P10 requires P9 progression semantics. P11 depends on P3 + P10. P13 depends on P12 sign-off.
-```
+## Explicitly not planned
 
-Games are sequential because there is one writer. Within each game, pure-engine tests precede UI.
+- Additional games.
+- Accounts or cloud sync.
+- Achievements, leaderboards, daily challenges.
+- PWA install or offline cache.
+- Paid services or analytics.
+- Native mobile applications.
 
----
-
-## Phase 0 — Inspection, architecture, documentation
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P0-01 | Inspect environment, repo, tooling, credentials | PM | — | **DONE** | Versions and constraints recorded; empty dir + no git verified |
-| P0-02 | Initialize git repo and `.gitignore` | PM | P0-01 | **DONE** | `git init` succeeded; ignores secrets/build output |
-| P0-03 | Create docs tree and all mandated documents | DOC | P0-01 | **DONE** | 17 Markdown files + freeze record exist |
-| P0-04 | Write frozen authoritative specification | PM | P0-03 | **DONE** | 22 sections; hash recorded; read-only; hash verifies |
-| P0-05 | Architecture, game design, level curves, DB/security design | PM | P0-03 | **DONE** | All required sections present and consistent |
-| P0-06 | WBS, dependencies, risks, progress baseline | PM | P0-05 | **DONE** | This file + risk tables + honest progress |
-| P0-07 | Phase 0 review gate | QA/owner | P0-01..06 | **DONE** | Owner approved Phase 0 and instructed Phase 1 to proceed (2026-11-21) |
-
-## Phase 1 — Scaffold and brand foundation
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria / evidence |
-|---|---|---|---|---|---|
-| P1-01 | Initialize Next.js 16.4.6 app with App Router, TS, `src/`, npm | PM | P0-07 | **DONE** | Manual scaffold (no create-next-app Git actions); `next build` passes; production server returns 200 |
-| P1-02 | Enable TS strict, ESLint, scripts (`dev/build/start/lint/typecheck/test`) | PM | P1-01 | **DONE** | `npm run lint` and `npm run typecheck` pass; scripts installed. Unused checks moved to ESLint after Next-generated dev types conflicted with TS flags (ADR-012) |
-| P1-03 | Install approved dependencies only; commit lockfile | PM | P1-01 | **DONE** | 475 packages installed; `package-lock.json` present; `npm audit` reports 0 vulnerabilities (dev and production scopes) |
-| P1-04 | Tailwind CSS v4 + semantic tokens + fonts (Sora/Inter via `next/font`) | UI | P1-02 | **DONE** | Semantic tokens in `globals.css`; Sora/Inter self-hosted; measured contrast AA (see UI_DESIGN_SYSTEM) |
-| P1-05 | shadcn/ui init and 3-primitive compatibility smoke test | UI | P1-03, P1-04 | **DONE** | CLI not used by design (ADR-011); vendored Button/Badge/Card/Dialog on Radix + CVA; production build and component tests pass |
-| P1-06 | Vitest + React Testing Library + jsdom setup with smoke test | QA | P1-02 | **DONE** | `npm test` passes: 3 files, 11 tests; coverage command configured; jsdom pinned 29.1.1 for Node 22.13 compatibility |
-| P1-07 | Logo, favicon, icon set, splash screen component | UI | P1-04 | **DONE** | SVG logo, `icon.svg`, animated splash; once per session, skippable, reduced-motion static. Full PWA icons remain Phase 11 |
-| P1-08 | Error boundary, not-found, loading primitives | PM | P1-01 | **DONE** | `error.tsx`, `not-found.tsx`, `loading.tsx` implemented; unknown game route returns 404 |
-| P1-09 | Security headers + `.env.example` + service-role import guard | PM | P1-01 | **DONE** | CSP/HSTS/nosniff/frame/referrer/permissions headers verified via `curl -I`; `.env.example` contains names only; `server-only` guard verified to throw outside the react-server condition |
-
-## Phase 2 — Shared layout, navigation, contracts, persistence skeleton
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P2-01 | App shell: desktop sidebar, mobile top bar + bottom nav, safe areas | UI | P1-04, P1-05 | **DONE** | `AppShell` + sidebar/mobile nav; Playwright verifies no horizontal overflow on `/`, `/games`, game detail, play, stats, achievements at 320–1440 px; nav switches at 1024 px; skip link is the first keyboard stop |
-| P2-02 | Core components: Button, GameCard, LevelBadge, ProgressBar, StatTile, Empty/Error/Skeleton, Modal/Sheet, Toast, SyncStatus | UI | P1-04 | **DONE** | Button loading state; LevelBadge/ProgressBar/StatTile/DifficultyChip/ErrorState/Skeleton/Toast/SyncStatus added; Dialog is a mobile bottom sheet; component tests pass |
-| P2-03 | Shared contracts: `GameId`, `GameDefinition`, `LevelConfig`, result types; level-config registry | PM | P1-02 | **DONE** | Five definitions and ten level configs per game in `src/games/*`; registry validates caps, sequential levels, and versioned configs; type/curve tests pass |
-| P2-04 | Local snapshot schema + safe storage + migrations skeleton | DB | P2-03 | **DONE** | Versioned snapshot validation, quarantine, quota trim, canonical installation ID, old/new schema handling, and monotonic result merge; tests cover corrupt JSON, unknown fields, quota, and idempotency |
-| P2-05 | Game chrome: header, instructions, pause overlay, result panel | UI | P2-02 | **DONE** | `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; keyboard/touch buttons, Escape resume, aria-live result summary, no color-only state |
-| P2-06 | Route scaffolding + lazy game loading | PM | P2-01 | **DONE** | Static `/games/[gameId]/play` for all five games; unknown game returns 404; per-game `next/dynamic` loaders with skeleton; production build emits five static play routes |
-| P2-07 | Component/a11y smoke tests (axe) | QA | P2-02, P2-05 | **DONE** | `axe-core` 4.14.1; shell and game chrome have zero critical/serious violations; 12 Playwright shell checks pass; full browser/axe audit remains Phase 12 |
-
-## Phase 3 — Homepage and library
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P3-01 | Homepage: splash handoff, hero, featured, continue, all games, daily, progress, bests, activity, achievements | UI | P2-01, P2-02 | **DONE** | Uses real snapshot: progress summary, bests, activity, achievements highlights; daily entry is honest ("In build", "Offline daily mode planned"); no fabricated player totals |
-| P3-02 | Library: search, filters, descriptions, difficulty, level, best, progress, Play | UI | P2-02 | **DONE** | Playwright library spec verifies `type=search` box, all category buttons, search filters real cards; GameCard uses definition difficulty and snapshot progress |
-| P3-03 | Stats page with real values and empty state | UI | P2-02 | **DONE** | Stats uses snapshot `totalPlays`, completed levels, best scores, activity, per-game progress; skeleton has real h1; no invented metrics |
-| P3-04 | Achievements page (locked/unlocked) | UI | P2-02 | **DONE** | Unlocked entries come from `snapshot.achievements`; locked entries from real definitions with "need real progression" text; empty state is honest |
-| P3-05 | Daily challenge entry (UTC policy, offline message) | UI | P2-02 | **DONE** | Home has UTC boundary text, Word Master entry, and disabled/pending offline text |
-| P3-06 | Responsive pass at 10 target widths | QA | P3-01..05 | **DONE** | Playwright verifies no horizontal overflow on shell pages at 320–1440 px; mobile/desktop nav switch at 1024 |
-| P3-07 | Playwright navigation smoke suite | QA | P3-01..05 | **DONE** | `tests/e2e/navigation.spec.ts` passes: core pages render headings, library search/filter works; 14/14 Playwright tests pass |
-
-## Phase 4 — Reaction Rush
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P4-01 | Pure engine + level config v1 (10 levels) | G1 | P2-03 | PENDING | No DOM imports; config matches LEVEL_PROGRESSION |
-| P4-02 | Unit tests: timing, false start, average, pass/fail boundaries, visibility | QA | P4-01 | PENDING | All planned §3.1 cases green |
-| P4-03 | Game UI: states, tap zone, round dots, HUD, instructions | G1 | P2-05, P4-01 | PENDING | Touch + keyboard; aria announcements |
-| P4-04 | Result panel + local progress integration | G1 | P4-03, P2-04 | PENDING | Win unlocks; loss does not; best score only on win |
-| P4-05 | Mobile/perf/a11y pass | QA | P4-03 | PENDING | No overflow; reduced motion; 60 fps feedback |
-| P4-06 | Independent QA gate | QA | P4-02..05 | PENDING | Happy/loss/replay/refresh/offline cases pass; bugs logged |
-
-## Phase 5 — Word Master
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P5-01 | Source and license a dictionary; build fair answer tiers + allowed guesses | G1 | P4 gate | PENDING | License recorded; no proper nouns/offensive/archaic; counts met |
-| P5-02 | Evaluator + duplicate-letter tests | G1/QA | P5-01 | PENDING | §3.2 cases green; no double counting |
-| P5-03 | Level UI: grid, physical + on-screen keyboard, hints, errors | G1 | P2-05, P5-02 | PENDING | Playable at 320 px; correct focus/keyboard behavior |
-| P5-04 | Daily route + server-side answers, UTC reset, rate limits | DB | P5-02 | PENDING | No future answers in client; malformed input rejected |
-| P5-05 | Practice mode, share grid, daily streak | G1 | P5-03, P5-04 | PENDING | Practice offline; share contains no letters; streak correct |
-| P5-06 | Independent QA gate | QA | P5-01..05 | PENDING | Win/loss/replay/refresh/offline daily handling verified |
-
-## Phase 6 — Number Merge
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P6-01 | Board engine: moves, merges, spawn, score, win/loss + tests | G2 | P5 gate | PENDING | All directions/edge cases per §3.3 |
-| P6-02 | Undo stack + level configs (10 levels) | G2 | P6-01 | PENDING | Undo restores exactly; counter rules; config match |
-| P6-03 | UI: swipe, keyboard, animations, board scaling | G2 | P6-01, P2-05 | PENDING | Touch/keyboard parity; no scroll; DPR-correct |
-| P6-04 | Result + progression integration | G2 | P6-03, P2-04 | PENDING | Target on last move wins; deadlock/limit loses |
-| P6-05 | Independent QA gate | QA | P6-01..04 | PENDING | Movement matrix, undo, refresh, mobile pass |
-
-## Phase 7 — Memory Challenge
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P7-01 | Sequence engine + configs (4/6 pads, 10 levels) + tests | G2 | P6 gate | PENDING | Generation, playback order, validation, boundaries |
-| P7-02 | Audio (Web Audio) + haptics + mute persistence | G2 | P7-01 | PENDING | Unlock on gesture; graceful silence; no autoplay errors |
-| P7-03 | UI: pads, watch/input states, pause between sequences | G2 | P7-01, P2-05 | PENDING | Taps during playback ignored; hidden-tab replay |
-| P7-04 | Result/progression integration | G2 | P7-03, P2-04 | PENDING | Score/bonus/best sequence correct; loss no unlock |
-| P7-05 | Independent QA gate | QA | P7-01..04 | PENDING | Wrong pad, rapid taps, audio blocked, refresh pass |
-
-## Phase 8 — Neon Survival
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P8-01 | Canvas lifecycle: sizing, DPR cap, single RAF, fixed step, cleanup | G3 | P7 gate | PENDING | No duplicate loops; no leaks on unmount; resize correct |
-| P8-02 | Movement, spawner, collision, power-ups + unit tests | G3 | P8-01 | PENDING | No tunneling; caps; shield/slow semantics |
-| P8-03 | Touch drag, keyboard, pause/resume, visibility | G3 | P8-01 | PENDING | First pointer only; safe areas; auto-pause |
-| P8-04 | HUD/result + 10 level configs + perf pass | G3 | P8-02, P8-03 | PENDING | Win at target; collision loss; stable fps/memory |
-| P8-05 | Independent QA gate | QA | P8-01..04 | PENDING | 5-minute run, rotation, pause spam, mobile pass |
-
-## Phase 9 — Progression and achievements
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P9-01 | Monotonic merge policy + tests (win/loss/duplicate/regression) | DB | P4–P8 | PENDING | PROG-01..16 local cases pass |
-| P9-02 | Achievement definitions, evaluation, idempotent unlocks | PM | P9-01 | PENDING | Real results only; duplicates impossible |
-| P9-03 | Wire stats/activity/history to real snapshot | UI | P9-01, P3-03 | PENDING | Values match results; no fabricated data |
-| P9-04 | Schema version migration and quarantine UI | DB | P9-01 | PENDING | Old/corrupt data handled without loss |
-| P9-05 | Cross-game Playwright: play → unlock → refresh | QA | P4–P8, P9-01 | PENDING | All five games unlock and persist after reload |
-
-## Phase 10 — Supabase anonymous persistence
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P10-01 | Create Supabase Free project; store keys outside repo | Owner/DB | P9 | PENDING | Project exists; anon key only in client; service key server-only |
-| P10-02 | Apply migrations 0001/0002 + seed definitions/achievements/daily words | DB | P10-01 | PENDING | Migrations applied; seed verified; history recorded |
-| P10-03 | RLS + RPC implementation and security probes | DB | P10-02 | PENDING | SECURITY.md §9 probes pass; no direct anon table access |
-| P10-04 | Remote adapter, queue, backoff, rejection handling | DB | P10-03, P2-04 | PENDING | Offline queue, dedupe, no retry on validation errors |
-| P10-05 | Sync status UI and conflict merge | UI/DB | P10-04 | PENDING | Never regresses local; clear status; no gameplay blocking |
-| P10-06 | Failure simulation QA | QA | P10-04 | PENDING | DB down/offline/rate-limit recover without data loss |
-
-## Phase 11 — PWA and offline
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P11-01 | Manifest, icons (192/512/maskable), theme metadata | UI | P3 | PENDING | Installability criteria met; icons render |
-| P11-02 | Service worker: shell/static caching, no API caching | PM | P3, P10 | PENDING | Offline relaunch after one online visit; API excluded |
-| P11-03 | Update flow with deferral during gameplay | PM | P11-02 | PENDING | Prompt shown; no mid-game reload |
-| P11-04 | Install instructions and offline messaging | UI | P11-01 | PENDING | Android/iOS guidance; honest first-visit limitation |
-| P11-05 | PWA QA on Android Chrome + iOS Safari | QA | P11-01..04 | PENDING | Standalone launch, offline, safe areas, update flow |
-
-## Phase 12 — Comprehensive QA and security review
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P12-01 | Full regression across all games/platform | QA | P1–P11 | PENDING | Suite green; results recorded with evidence |
-| P12-02 | Security review + bundle/secret scan + RLS probes | QA | P10 | PENDING | No secrets; probes pass; findings logged |
-| P12-03 | Accessibility audit (axe + keyboard + screen reader) | QA | P3–P11 | PENDING | No critical/serious issues; limitations documented |
-| P12-04 | Performance/Lighthouse + memory tests | QA | P8, P11 | PENDING | Budgets measured and recorded |
-| P12-05 | Fix P0/P1/P2 and verify fixes | PM/QA | P12-01..04 | PENDING | No open P0/P1; P2 fixed or accepted with rationale |
-| P12-06 | QA sign-off | QA | P12-05 | PENDING | Signed release readiness recorded in TESTING_AND_QA |
-
-## Phase 13 — Deployment
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P13-01 | GitHub remote; push with approval | PM | P12-06 | PENDING | Repo created; secrets excluded; build passes |
-| P13-02 | Vercel project, env vars, Hobby eligibility confirmed | PM | P13-01 | PENDING | Deploy succeeds; envs scoped correctly |
-| P13-03 | Production verification (all games, progression, offline, install) | QA | P13-02 | PENDING | Checklist in DEPLOYMENT.md executed and recorded |
-| P13-04 | Rollback rehearsal | PM | P13-03 | PENDING | Previous deployment promoted; production healthy |
-| P13-05 | Monitoring/usage baseline | PM | P13-03 | PENDING | Supabase/Vercel usage recorded; no paid upgrade |
-
-## Phase 14 — Handover
-
-| ID | Task | Owner | Deps | Status | Acceptance criteria |
-|---|---|---|---|---|---|
-| P14-01 | Update all documentation to final state | DOC | P13 | PENDING | No stale sections; progress and changelog current |
-| P14-02 | QA, security, performance reports finalized | QA | P12–P13 | PENDING | Real results only; known issues listed |
-| P14-03 | Final known-issues review | PM | P14-02 | PENDING | Accepted P3s documented; no hidden P0/P1 |
-| P14-04 | Handover package + future authentication plan | PM | P14-01..03 | PENDING | Source, docs, deployment details, migration plan delivered |
-
-## Dependency and risk gates
-
-| Gate | Blocks until |
-|---|---|
-| G0 Phase 0 review | Phase 1 |
-| G1 Shared contracts + local store | Any game integration beyond engine work |
-| G2 Per-game QA | Next game's integration with shared chrome |
-| G3 Progression policy | Any cloud sync work |
-| G4 RLS/RPC probes | PWA release candidate |
-| G5 Full regression + security | Deployment |
-| G6 Production verification | Handover |
+Any of these requires a new owner decision, a specification update, and a new
+plan.

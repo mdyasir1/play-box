@@ -1,352 +1,154 @@
 # Architecture — YASIR PLAYBOX
 
-> Status: Phase 0 approved direction; Phase 1 scaffold complete; Phase 2 shared layout, contracts, persistence skeleton, and game chrome complete. Any section marked **planned** describes the contract game work phases must implement.
+> Current architecture for the two-game rebuild. Game rules live in
+> `GAME_DESIGN.md`; level data lives in `LEVEL_PROGRESSION.md`.
 
-## 1. System overview
+## Stack
 
-```
-┌──────────────────────────────── Browser (PWA) ────────────────────────────────┐
-│  Next.js App Router                                                           │
-│  ├─ Static platform shell (home, library, stats, achievements)                │
-│  ├─ Client game modules (lazy-loaded per route)                               │
-│  ├─ Local persistence (localStorage) ──┐                                      │
-│  ├─ Sync queue ────────────────────────┤                                      │
-│  └─ Service worker (asset cache, offline shell)                               │
-└───────────────────────────────────────┼───────────────────────────────────────┘
-                                        │ HTTPS (anon key only)
-                                        ▼
-┌──────────────────────────── Supabase Free (optional) ─────────────────────────┐
-│  Postgres                                                                     │
-│  ├─ Tables: device_progress, game_sessions, achievements, ...                 │
-│  ├─ RLS enabled; no direct anon table writes                                  │
-│  └─ SECURITY DEFINER RPCs: get_progress, submit_result (validated, idempotent)│
-└───────────────────────────────────────────────────────────────────────────────┘
-```
+- Next.js 16.4.6 with the App Router and Turbopack build.
+- React 19.3.1 with client components for interactive game pages.
+- TypeScript 5.9.3 in strict mode with `noUncheckedIndexedAccess`.
+- Tailwind CSS 4.3.5 with semantic CSS variables.
+- Radix Dialog for modal behavior.
+- Lucide React for icons.
+- Vitest 5.1.1 and Playwright 1.65.1 for verification.
+- No runtime backend, database, API route, or environment variable.
 
-Cloud availability never blocks gameplay. The browser is the primary gameplay and progression authority; the cloud is a redundant backup and cross-session recovery aid.
+## Source layout
 
-## 2. Key architectural decisions
-
-| ID | Decision | Rationale |
-|---|---|---|
-| ADR-001 | npm as package manager | Only npm is installed (npm 10.9.2). Avoids extra toolchain cost. |
-| ADR-002 | Next.js App Router + TypeScript strict | Required stack; static-first rendering; cheap Vercel deployment. |
-| ADR-003 | HTML Canvas for Neon Survival, no Phaser | Zero-cost, small bundle, full control; Phaser is unnecessary for a single-obstacle dodger. |
-| ADR-004 | Local-first persistence with optional sync | Gameplay must survive offline, DB downtime, and quota exhaustion. |
-| ADR-005 | Anonymous installation ID is not identity | Prevents security theater; documented as convenience-only. |
-| ADR-006 | Daily Word answer validated server-side | Prevents shipping future daily answers in the client bundle. Daily mode requires network; practice remains offline. |
-| ADR-007 | Centralized, versioned level configs | Difficulty tuning without rewriting engines; testable curves. |
-| ADR-008 | Single-writer work packages | Environment has no write-capable sub-agents; parallel writes would corrupt shared files. |
-| ADR-009 | Pin versions; verify shadcn/ui + Tailwind v4 in Phase 1 | Version drift is a real risk on a fresh project. **Verified in Phase 1.** |
-| ADR-010 | Game routes lazy-loaded client modules | Keeps initial JavaScript small on mobile; each game owns its bundle. |
-| ADR-011 | Build UI primitives manually in shadcn style instead of running the CLI | Deterministic, non-interactive setup; Radix + CVA + Tailwind v4 already proven by the build. |
-| ADR-012 | Enforce unused symbols with ESLint, not TypeScript flags | Next-generated `.next/dev/types` files fail `noUnusedLocals`; linting covers project code without breaking generated types. |
-| ADR-013 | Use axe-core for component a11y smoke tests and Playwright for responsive shell checks | Free, local, and deterministic; jsdom axe covers structural/ARIA rules, while Playwright verifies real 320–1440 px overflow and navigation switching. Full color/browser audit remains Phase 12. |
-
-Full decisions and consequences are appended below in §10.
-
-## 3. Planned folder structure
-
-```
-PlayBox/
-├─ docs/                          # This documentation system
-├─ public/
-│  ├─ icons/                      # PWA icons (192, 512, maskable)
-│  ├─ screenshots/                # Manifest screenshots
-│  └─ audio/                      # Small locally stored SFX (Memory, UI)
-├─ src/
-│  ├─ app/
-│  │  ├─ layout.tsx               # Root: fonts, theme, providers, metadata
-│  │  ├─ page.tsx                 # Homepage
-│  │  ├─ manifest.ts              # Web app manifest
-│  │  ├─ globals.css              # Tailwind v4 tokens
-│  │  ├─ not-found.tsx
-│  │  ├─ error.tsx
-│  │  ├─ loading.tsx
-│  │  ├─ (platform)/
-│  │  │  ├─ games/page.tsx        # Library
-│  │  │  ├─ games/[gameId]/page.tsx
-│  │  │  ├─ stats/page.tsx
-│  │  │  └─ achievements/page.tsx
-│  │  └─ api/
-│  │     ├─ daily-word/route.ts   # Server-validated daily word
-│  │     └─ health/route.ts       # Optional deployment verification
-│  ├─ components/
-│  │  ├─ ui/                      # shadcn/ui primitives
-│  │  ├─ layout/                  # App shell, sidebar, bottom nav
-│  │  ├─ brand/                   # Logo, splash screen
-│  │  ├─ platform/                # GameCard, ProgressRing, StatTile...
-│  │  └─ game/                    # Shared game chrome: header, result, pause
-│  ├─ games/
-│  │  ├─ reaction-rush/
-│  │  │  ├─ definition.ts
-│  │  │  ├─ level-config.ts
-│  │  │  ├─ engine.ts             # Pure logic, no DOM
-│  │  │  ├─ Game.tsx              # Client UI adapter
-│  │  │  └─ engine.test.ts
-│  │  ├─ word-master/ ...         # dictionary/, evaluator.ts, daily.ts
-│  │  ├─ number-merge/ ...        # board.ts, moves.ts, spawn.ts
-│  │  ├─ memory-challenge/ ...    # sequence.ts, audio.ts
-│  │  └─ neon-survival/ ...       # canvas.ts, loop.ts, spawner.ts, input.ts
-│  ├─ lib/
-│  │  ├─ persistence/
-│  │  │  ├─ types.ts
-│  │  │  ├─ storage.ts            # Safe wrapper, versioned keys
-│  │  │  ├─ migrations.ts
-│  │  │  ├─ queue.ts              # Pending submissions, backoff
-│  │  │  ├─ local-adapter.ts
-│  │  │  └─ remote-adapter.ts     # Supabase RPC only
-│  │  ├─ progression/
-│  │  │  ├─ types.ts
-│  │  │  ├─ policy.ts             # Unlock/merge rules
-│  │  │  ├─ achievements.ts
-│  │  │  └─ activity.ts
-│  │  ├─ supabase/client.ts
-│  │  └─ utils/ (cn, result, time, random, device)
-│  └─ types/
-├─ supabase/migrations/           # Versioned SQL
-├─ tests/e2e/                     # Playwright
-├─ tests/setup.ts
-└─ public/sw.js (or generated)    # Service worker
+```text
+src/
+  app/
+    layout.tsx                 Root metadata, fonts, app shell
+    page.tsx                   Home page (client: progress display)
+    games/zip/page.tsx         Zip route
+    games/maze-paint/page.tsx  Maze Paint route
+    error.tsx, loading.tsx, not-found.tsx
+  components/
+    app-shell.tsx              Header, navigation, footer, skip link
+    game-page-shell.tsx        Header + board + side rail layout
+    game-header.tsx            Level navigation and level picker trigger
+    level-picker.tsx           100-level modal grid
+    result-dialog.tsx          Completion actions and statistics
+    zip-board.tsx              Zip grid, path rendering, drag mapping
+    zip-game.tsx               Zip state, scoring, progress integration
+    maze-board.tsx             Maze rendering, swipe handling
+    maze-paint-game.tsx        Maze state, scoring, keyboard integration
+    ui/                        Button, Card, Modal, ProgressBar
+  games/
+    zip/{types,engine,levels,test files}
+    maze-paint/{types,engine,levels,test files}
+  lib/
+    games.ts                   Game catalog and level counts
+    progress.ts                Versioned localStorage schema and helpers
+    use-progress.ts            Client hydration and save callbacks
+    level-meta.ts              Difficulty tier labels
+    format.ts                  Time and score formatting
+    utils.ts                   clsx + tailwind-merge helper
+script/
+  generate-levels.mjs          Deterministic level generator and validator
+tests/
+  setup.ts                     Vitest setup
+  e2e/                         Playwright browser and accessibility suites
 ```
 
-File ownership is assigned per work package. Shared contracts (`lib/persistence/types.ts`, `lib/progression/types.ts`, game definition types) are frozen before game work starts.
+## Rendering boundaries
 
-## 4. Shared interfaces (contracts for Phase 1)
+- Static routes render the shell and a stable first frame on the server.
+- Game pages are client components because they own interactive state.
+- `useProgress` starts with valid default progress, then hydrates from
+  localStorage after mount. Games wait for `ready` before restoring a saved
+  level so the server and client first render match.
+- The level is selected once per session into `selectedLevel`; completing a
+  level updates saved progress without replacing the board behind the dialog.
 
-### 4.1 Game identity and level config
+## Game engines
 
-```ts
-export type GameId =
-  | "reaction-rush"
-  | "word-master"
-  | "number-merge"
-  | "memory-challenge"
-  | "neon-survival";
+Engines are pure TypeScript functions without React or storage dependencies.
 
-export type DifficultyLabel =
-  | "Intro" | "Easy" | "Normal" | "Hard" | "Expert" | "Master";
+### Zip
 
-export interface GameDefinition {
-  id: GameId;
-  name: string;
-  tagline: string;
-  description: string;
-  category: "reflex" | "word" | "puzzle" | "memory" | "action";
-  configVersion: string;
-  maxLevel: number;
-  accentVar: string;          // CSS custom property, not a raw hex in cards
-  instructions: string[];     // accessible, plain language
-}
+`beginZip` validates the start. `extendZip` validates adjacency, reuse, and
+checkpoint order. `validateZipSolution` checks the complete Hamiltonian
+solution. `ZipGame` owns the React state, history, timer, and result flow.
 
-export interface LevelConfig<TCustom = unknown> {
-  level: number;
-  difficultyLabel: DifficultyLabel;
-  completionKind: "average-reaction" | "solve" | "reach-tile" | "sequence-length" | "survive";
-  completionValue: number;
-  maxScore: number;           // server-side plausibility cap
-  custom: TCustom;
-}
+### Maze Paint
+
+`slideMaze` computes a full slide, its painted set, and whether movement
+occurred. `mazeIsComplete` compares painted floor count with total floor count.
+`MazePaintGame` owns position history, move count, timer, keyboard listener,
+and result flow.
+
+## Data flow
+
+```text
+User input
+  -> board component
+  -> pure move result
+  -> game component state + refs
+  -> localStorage save (on completion or level selection)
+  -> home page progress summary on next load
 ```
 
-### 4.2 Progression
+Refs mirror mutable state that must be read inside pointer, keyboard, or timer
+callbacks without stale closures. React state remains the render source.
 
-```ts
-export interface GameProgress {
-  unlockedLevel: number;                  // 1..maxLevel
-  completedLevels: number[];              // ascending, unique
-  bestScore: number;                      // overall, max over valid wins
-  perLevelBest: Record<number, number>;
-  totalPlays: number;
-}
+## Persistence
 
-export interface ProgressSnapshot {
-  schemaVersion: number;                  // current: 1
-  installationId: string;                 // UUID v4 from crypto.randomUUID()
-  games: Record<GameId, GameProgress>;
-  achievements: Record<string, string>;   // achievementId -> ISO unlock time
-  activity: ActivityEntry[];              // capped ring buffer, e.g. 50
-  pending: ResultSubmission[];            // queue, capped
-  updatedAt: string;
-}
-```
+- Key: `playbox.v3.progress`.
+- Version: `3`.
+- Games: `zip` and `maze-paint`.
+- Per game: sorted completed level list, best score map, current level.
+- Parsing rejects corrupt JSON, wrong versions, invalid level numbers, and
+  non-finite scores. The app falls back to clean defaults.
+- Writes are synchronous localStorage calls; failures are ignored safely.
 
-### 4.3 Result submission
+## Level generation
 
-```ts
-export interface ResultSubmission {
-  idempotencyKey: string;                 // crypto.randomUUID(), never reused
-  gameId: GameId;
-  level: number;
-  score: number;
-  durationMs: number;
-  result: "win" | "loss";
-  completedAt: string;                    // ISO-8601 UTC
-  clientVersion: string;
-  levelConfigVersion: string;
-}
+`script/generate-levels.mjs` is deterministic:
 
-export interface SyncOutcome {
-  status: "synced" | "queued" | "offline" | "rejected";
-  reason?: "validation" | "rate-limited" | "unavailable";
-  serverProgress?: ProgressSnapshot;      // merge candidate
-}
-```
+1. Zip paths start from a snake Hamiltonian path, receive seeded 2-opt
+   improvement, are validated for adjacency and coverage, then get 4-5 spaced
+   checkpoints.
+2. Maze layouts are carved with a seeded randomized frontier, then solved with
+   BFS over `(position, painted-mask)` states. A level is emitted only when a
+   complete shortest solution exists.
+3. Generated TypeScript modules are committed. Runtime never runs the solver.
 
-### 4.4 Persistence adapter
+## Styling and components
 
-```ts
-export interface PersistenceAdapter {
-  loadLocal(): ProgressSnapshot;                    // synchronous, safe fallback
-  saveLocal(snapshot: ProgressSnapshot): void;      // throws only on quota, never silently loses old data
-  applyResult(result: ResultSubmission): ProgressSnapshot; // pure merge policy
-  sync(snapshot: ProgressSnapshot): Promise<SyncOutcome>;
-  flushQueue(): Promise<SyncOutcome>;
-}
-```
+- `globals.css` defines brand colors, fonts, focus rings, reduced-motion rules,
+  keyframes, and background atmosphere.
+- Shared UI primitives live in `src/components/ui`.
+- Game layouts use `GamePageShell`: a board column and a 340 px side rail on
+  desktop, stacked on smaller screens.
+- No CSS-in-JS runtime and no animation library.
 
-Game engines never import Supabase. Only the persistence layer knows the backend.
+## Error boundaries
 
-### 4.5 Game engine boundary
+- `error.tsx` offers retry and home actions.
+- `not-found.tsx` offers home and Zip actions.
+- `loading.tsx` supplies a skeleton.
+- Unknown routes are handled by Next.js.
 
-- `engine.ts` is pure TypeScript: no React, DOM, timers, or `window`.
-- The React component drives time/input and calls pure functions.
-- `definition.ts` and `level-config.ts` contain no rendering.
-- Every engine exports deterministic helpers for tests (e.g., seeded RNG or injected RNG).
+## Security boundaries
 
-## 5. Rendering and data flow
+- No secrets, API keys, database, or server actions.
+- Security headers are set in `next.config.ts`: CSP, nosniff, frame denial,
+  referrer policy, permissions policy, cross-origin policies, and HSTS in
+  production.
+- Fonts are self-hosted through `next/font`.
+- The only stored data is non-sensitive game progress.
 
-1. **Build-time/static:** homepage shell, game library metadata, stats/achievements layout.
-2. **Client hydration:** local snapshot loaded synchronously; UI reflects local truth immediately.
-3. **Game start:** level config resolved from centralized config; engine initialized with a session seed.
-4. **During play:** all state local; no network calls.
-5. **Completion:** pure merge policy updates local snapshot and writes it once; result enqueued.
-6. **Sync:** adapter attempts RPC with idempotency key; on failure, exponential backoff (1s → 2s → 4s... capped at 60s, ±20% jitter). Queue persists across reloads.
-7. **Merge:** server returns authoritative max progress; client merges monotonically (never downgrades unlocked level or best score).
-8. **Achievements:** evaluated locally from real results; server re-checks plausibility on sync; duplicates impossible by key.
+## Testing boundaries
 
-No polling. Sync triggers: app foreground, online event, queue flush on interval while foreground only, and completion.
-
-## 6. Persistence architecture
-
-- **Primary:** `localStorage` under a versioned key `ypb:v1:progress`.
-- **Write discipline:** read → validate → migrate → merge → write. Never write an unvalidated object.
-- **Corruption handling:** parse failure → quarantine corrupt value under `ypb:v1:corrupt:<timestamp>`, start a fresh snapshot, surface a non-blocking notice.
-- **Quota:** on `QuotaExceededError`, trim activity to the most recent 10 entries and retry; if still failing, keep in-memory and show a warning. Never delete achievements or levels.
-- **Identity:** installation ID generated once via `crypto.randomUUID()`; stored separately under `ypb:v1:installation`; not used as authentication.
-- **Pending queue:** array of `ResultSubmission`, max 100; deduplicate by `idempotencyKey`; each result merged locally immediately so gameplay is never blocked.
-- **Cross-tab:** listen to `storage` events and reload the snapshot to avoid stale overwrites; last valid write wins with monotonic merge on level/score fields.
-- **Phase 10:** the persistence adapter gains the account-scoped implementation; game and UI layers remain unchanged.
-
-## 7. Database communication
-
-- Browser uses only the Supabase URL and **anon** key (public by design).
-- Direct table privileges for `anon` are revoked. All reads/writes go through RPCs:
-  - `get_progress(p_installation_id uuid)` → progress rows.
-  - `submit_result(p_installation_id uuid, p_payload jsonb)` → validated, idempotent upsert; returns merged progress.
-- RPC validation: known game ID, level range, score within config cap, duration bounds, payload size ≤ 2 KB, ISO timestamp sanity, idempotency key UUID.
-- Rate limiting: per installation ID minimum interval (e.g., 2s between accepted submissions) and per-day accepted submission cap. Rejected submissions return a typed reason; client stops retrying validation failures.
-- Service-role key exists only in server-only environment variables (never `NEXT_PUBLIC_*`), and only if a server route needs it.
-
-See `DATABASE.md` and `SECURITY.md`.
-
-## 8. PWA architecture
-
-- Manifest: name, short name, standalone, portrait-primary, theme `#070A14`, background `#070A14`, 192/512 icons (plus maskable).
-- Service worker: precache the app shell, fonts, icons, and essential game chunks after first successful load; runtime-cache immutable static assets; **never cache** `/api/*` or Supabase responses.
-- Navigation: network-first for HTML with cached fallback; stale-while-revalidate for static chunks.
-- Update policy: detect a waiting worker, show a non-blocking "Update available" prompt; never auto-reload during an active game. A running session defers activation until it ends.
-- Offline indicator reflects `navigator.onLine` plus failed fetches; sync status is separate ("Saved locally" / "Synced" / "Waiting to sync").
-- iOS limitations documented: storage eviction possible; request `navigator.storage.persist()` opportunistically; provide export/import as a future enhancement only if approved.
-
-## 9. Security boundaries
-
-| Boundary | Rule |
-|---|---|
-| Client ↔ Supabase | anon key only; RPC surface; RLS enabled; no table writes |
-| Client ↔ server route | validate and bound input; no secrets returned |
-| Daily word | answer never bundled; server route returns only evaluation and allowed metadata |
-| Device ID | client-generated, spoofable; used for data separation only |
-| Score | client-computed; server plausibility caps only; never advertised as cheat-proof |
-| Local storage | untrusted input on read; validate every field |
-| Service worker | no caching of authenticated or API responses; versioned caches |
-
-## 10. Decision log
-
-### ADR-001 — npm
-Accepted. Only npm exists in the environment. No pnpm/yarn. `npx` is available for one-off CLIs.
-
-### ADR-002 — Next.js App Router, TypeScript strict
-Accepted. Static-first, low operational cost. Games are client islands; no server state for gameplay.
-
-### ADR-003 — Canvas instead of Phaser
-Accepted. A single-player dodge game does not justify an engine dependency. Bundle and mobile memory stay small.
-
-### ADR-004 — Local-first
-Accepted. Supabase Free availability is not guaranteed; gameplay must never depend on it.
-
-### ADR-005 — Anonymous ID is not authentication
-Accepted. Documented limitations are part of the security posture, not a hidden assumption.
-
-### ADR-006 — Server-validated daily word
-Accepted. Client-side deterministic selection would bundle all future answers. Practice mode remains fully offline; daily mode requires connectivity. Tradeoff documented in `GAME_DESIGN.md`.
-
-### ADR-007 — Centralized level configs
-Accepted. Each game exposes `getLevelConfig(level)`; curves live in `level-config.ts` with a `configVersion`. Changing balance does not touch engine code.
-
-### ADR-008 — Sequential work packages
-Accepted. The environment provides only a read-only `explore` sub-agent. Parallel implementation would violate the single-writer rule from the specification.
-
-### ADR-009 — Version pinning and early compatibility smoke test
-Accepted and verified. Next 16.4.6, React 19.3.1, TypeScript 5.9.3, and Tailwind 4.3.5 are installed and pinned. The Phase 1 production build (`next build`) and production server smoke test passed. Radix + CVA primitives compile under Tailwind v4.
-
-### ADR-010 — Lazy game routes
-Accepted. Home/initial payload must stay small; games load on demand and are cached by the service worker afterward.
-
-### ADR-011 — Manual shadcn-style primitives
-Accepted. The shadcn CLI was not executed. `Button`, `Badge`, `Card`, and `Dialog` follow shadcn/ui conventions (Radix primitives, CVA variants, `cn` utility) and are vendored in `src/components/ui`. This keeps setup non-interactive and auditable. The compatibility intent of the Phase 1 smoke test is satisfied: the primitives build, render, and are covered by component tests.
-
-### ADR-012 — Unused checks via ESLint
-Accepted. `noUnusedLocals` and `noUnusedParameters` were removed from `tsconfig.json` after Next 16 generated `.next/dev/types/validator.ts`, which trips those flags. `eslint-config-next/typescript` still reports unused symbols for project code. Build and typecheck now pass deterministically.
-
-## 11. Architecture risks and guards
-
-| Risk | Guard |
-|---|---|
-| Game logic entangled with React | Pure engines; no DOM imports; Vitest tests first |
-| Multiple RAF loops | Loop ownership in one effect; guard flag; cleanup on unmount/visibility |
-| Service worker breaking a running game | Update prompt + defer activation; no cache-first for HTML mutations |
-| Sync overwriting better local progress | Monotonic merge; server returns max values only |
-| Daily answer leakage | Server route; client bundle contains no future answers |
-| Stale local schema | `schemaVersion` + explicit migrations + quarantine |
-
-## 12. Phase 1 implementation notes
-
-- App shell, fonts (Sora + Inter via `next/font`), semantic tokens, branded splash, catalog pages, empty states, and error/loading/not-found routes are implemented.
-- Next.js 16 rewrote `tsconfig.json` (`jsx: react-jsx`, added `.next/dev/types/**/*.ts`). This is expected; it is recorded here because it affects typechecking.
-- `server-only` guard exists at `src/lib/server/assert-server-only.ts`; no server-only modules are imported by client code.
-- Security headers (CSP and hardening headers) are applied in `next.config.ts` and were verified against the local production server.
-- Tests: Phase 1 smoke (11 unit/component) and Phase 2 verification (68 unit/component + 12 Playwright shell checks) pass; production build passes; routes return 200 and unknown games return 404.
-- No Git staging, commits, or pushes were performed by the agent, per `AGENT_INSTRUCTIONS.md`.
-
-## 13. Phase 2 implementation notes
-
-- `src/lib/games/contracts.ts` defines `GameId`, `GameDefinition`, `LevelConfig`, result/snapshot types; `src/games/<game>/{definition,level-config}.ts` and `src/games/level-registry.ts` own five ten-level configs; `validateLevelRegistry()` enforces sequential levels and caps.
-- `src/lib/persistence/*` implements versioned snapshot validation/normalization, canonical `crypto.randomUUID()` installation ID, corrupt JSON quarantine, quota activity trim, migration skeleton, and monotonic `applyResultToSnapshot`.
-- `AppShell`: sidebar at `lg+`, mobile top bar + 56 px bottom nav, safe-area support; Playwright verifies no horizontal overflow at 320–1440 px and nav switching at 1024 px.
-- Core UI: Button loading, LevelBadge, ProgressBar, StatTile, DifficultyChip, ErrorState, Skeleton, Toast, SyncStatus; Dialog is a mobile bottom sheet.
-- Game chrome: `GameChrome`, `GameHeader`, `GameInstructions`, `PauseOverlay`, `ResultPanel`; static `/games/[gameId]/play` routes, unknown params 404.
-- Testing: Vitest 68/68, Playwright 12/12, axe smoke zero critical/serious.
-
-## 15. Phase 3 implementation notes
-
-- Home/library/stats/achievements use `useLocalSnapshot()`; static shells remain renderable without progress.
-- Real progress is displayed from `snapshot.games`; missing/empty states are real, not fake.
-- Library has real search/filter; daily challenge is informational until Phase 5.
-- Testing: Playwright covers shell overflow, navigation, library search/filter, mobile/desktop switch.
-
-- `npm run build` succeeds with strict TypeScript.
-- Unit tests cover pure engines and progression merges.
-- Playwright covers: play → result → unlock → refresh → progress retained.
-- RLS/RPC tests run against a real Supabase project (manual or scripted) before release.
-- Lighthouse mobile performance/accessibility audited and recorded in `TESTING_AND_QA.md`.
+- Unit tests cover engines, level integrity, and progress parsing/merging.
+- Playwright covers real production output: completion, persistence, level
+  picker, next-level actions, keyboard blocking, narrow layout, and axe.
+- The production build is the Playwright web server, so route and hydration
+  behavior are tested as shipped.
+- ESLint disables `react-hooks/set-state-in-effect` only for
+  `src/lib/use-progress.ts`, `src/components/zip-game.tsx`, and
+  `src/components/maze-paint-game.tsx`. Those effects synchronize localStorage
+  hydration and reset board state when the selected level changes; they are
+  intentional and covered by browser tests.

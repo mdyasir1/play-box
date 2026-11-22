@@ -1,6 +1,86 @@
 # Agent Work Log — YASIR PLAYBOX
 
-> Records work sessions, assignments, files, verification, and handover. Roles are emulated sequentially because the environment has only one read-only exploration sub-agent. No specialized writing agents exist.
+> Records work sessions, assignments, files, verification, and handover. Roles are emulated sequentially because the environment has only one read-only exploration sub-agent. No specialized writing agents exist. Sessions before 2026-11-22 describe the retired five-game scope and are retained as history.
+
+## Session 2026-11-22 — Two-game rebuild
+
+### Owner direction
+
+Replace the previous five-game implementation with exactly two games, Zip and
+Maze Paint, with hundreds of levels, safe changes, good UI, and complete testing.
+Use Supabase only if genuinely needed and request credentials only then.
+
+### Decision
+
+Supabase was not needed. The build is local-only with versioned localStorage
+progress. No database credentials were requested.
+
+### Roles active
+
+| Role | Status | Notes |
+|---|---|---|
+| PM / Architect | Active | Scope reset, integration, verification |
+| Game engineering | Active | Zip and Maze Paint engines and level generators |
+| UI/UX | Active | Two-game shell, boards, level picker, result flow |
+| Persistence | Active | Local progress schema and hydration |
+| QA | Active | Unit, browser, accessibility, build, audit |
+
+### Work completed
+
+1. Deleted the previous `src/` and `tests/` trees and rebuilt the project around
+   two games.
+2. Wrote `script/generate-levels.mjs`:
+   - 100 Zip levels from seeded snake/2-opt Hamiltonian paths.
+   - 100 Maze Paint levels carved and solved with BFS over position/painted
+     state; only shortest-solution levels are emitted.
+3. Implemented pure engines and unit tests for both games.
+4. Implemented Zip board with pointer drag, tap, and keyboard support.
+5. Implemented Maze Paint board with swipe, D-pad, arrows, and WASD.
+6. Implemented level picker, result dialog, home page, app shell, error/loading/
+   not-found states, and app icon.
+7. Implemented `playbox.v3.progress` persistence with validation and safe
+   fallbacks.
+8. Fixed board switching during the result dialog and keyboard movement behind
+   the level picker.
+9. Fixed 320 px overflow and level-picker contrast failures.
+10. Added 17 Playwright tests, including axe scans for pages and dialogs.
+11. Removed unused dependencies and Supabase references.
+12. Rewrote current documentation for the new scope.
+
+### Files touched
+
+| Area | Files |
+|---|---|
+| Game engines/data | `src/games/zip/*`, `src/games/maze-paint/*`, `script/generate-levels.mjs` |
+| Progress | `src/lib/progress.ts`, `src/lib/use-progress.ts`, `src/lib/progress.test.ts` |
+| UI | `src/app/*`, `src/components/*`, `src/components/ui/*` |
+| Tests | `src/games/**/*.test.ts`, `src/lib/progress.test.ts`, `tests/e2e/*` |
+| Tooling | `package.json`, `package-lock.json`, `next.config.ts`, `vitest.config.ts`, `eslint.config.mjs`, `.env.example`, `.gitignore` |
+| Documentation | `docs/*.md` |
+
+### Verification performed
+
+| Command / check | Result |
+|---|---|
+| `npm run lint` | Pass, no warnings |
+| `npm run typecheck` | Pass |
+| `npm test` | 5 files, 30 tests pass |
+| `npm run build` | Pass; routes static |
+| `npm run test:e2e` | 17 tests pass |
+| `npm audit` | 0 vulnerabilities |
+| Axe pages/dialogs | Zero serious/critical |
+| 320 px layout | No horizontal overflow on home, Zip, Maze Paint |
+
+### Git actions
+
+**None.** No staging, commit, push, reset, restore, or other Git write was
+performed. The owner reviews and commits manually.
+
+### Handover
+
+The build is complete for the two-game scope. Optional next steps are deployment,
+a physical-device pass, and manual difficulty review. Any expansion of level
+counts or cloud sync requires a new owner decision.
 
 ## Session 2026-11-21 — Phase 0
 

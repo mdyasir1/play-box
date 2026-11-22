@@ -1,16 +1,74 @@
 # Changelog — YASIR PLAYBOX
 
-All notable changes are recorded here chronologically. Versions follow a simple pre-release scheme until the first public release.
+All notable changes are recorded here chronologically. Earlier entries describe
+the retired five-game foundation and are retained as project history.
 
-## [Unreleased]
+## [1.0.0] — 2026-11-22
 
-### Planned
-- Phase 4: implement Reaction Rush engine, level config v1, unit tests, UI, result panel integration.
-- Phases 4–8: five games.
-- Phase 9–11: progression, Supabase persistence, PWA.
-- Phase 12–14: QA, deployment, handover.
+### Changed
+
+- Replaced the five-game scope with exactly two games: Zip and Maze Paint.
+- Removed the previous source tree and test suite; rebuilt the app around the
+  new scope.
+- Rewrote `PROJECT_SPEC.md` as version 2.0. The old freeze protocol is retired.
+- Rewrote documentation for the two-game architecture, local persistence, UI,
+  security model, testing record, and deployment runbook.
+- Version bumped to `1.0.0`.
+
+### Added
+
+- 100 generated and solver-verified Zip levels (4×4 to 8×8).
+- 100 generated and BFS-solver-verified Maze Paint levels (6×6 to 8×8).
+- Pure Zip engine: start, extend, checkpoint order, backtracking, validation.
+- Pure Maze Paint engine: slide, paint, blocked moves, completion, par replay.
+- Zip board with pointer drag, tap, and keyboard activation.
+- Maze Paint board with swipe, on-screen D-pad, arrow keys, and WASD.
+- Level picker for all 100 levels per game with current/completed states.
+- Result dialog with next level, replay, levels, and per-level statistics.
+- Versioned `playbox.v3.progress` localStorage persistence with validation.
+- Home page progress summary, game cards, rules, and direct play links.
+- Responsive app shell, error page, loading state, not-found page, and icon.
+- Vitest unit suite: 5 files, 30 tests.
+- Playwright suite: 17 tests covering completion, persistence, level selection,
+  result actions, keyboard isolation, narrow layout, and axe accessibility.
+- Build, lint, typecheck, and dependency-audit gates.
+
+### Fixed
+
+- Hero decoration and header wordmark overflowed at 320 px.
+- Level picker dimension labels failed color contrast.
+- Completing a level could switch the board behind the result dialog.
+- Maze arrow keys could move the board while the level picker was open.
+- Closing the result dialog through Levels could leave a completed board with
+  a misleading "fill remaining squares" status.
+
+### Removed
+
+- Five-game engines, pages, components, and tests.
+- Supabase configuration from environment examples and CSP.
+- Unused dependencies: `motion`, `server-only`, `@radix-ui/react-slot`,
+  `class-variance-authority`, React Testing Library, and user-event.
+
+### Verified
+
+- `npm run lint`: pass, no warnings.
+- `npm run typecheck`: pass.
+- `npm test`: 5 files, 30 tests pass.
+- `npm run build`: pass; home, both games, and icon prerendered.
+- `npm run test:e2e`: 17 tests pass on the production build.
+- `npm audit`: 0 vulnerabilities.
+- Axe: zero serious/critical findings on home, both games, level picker, and
+  result dialog.
+
+## [Retired plan]
+
+The earlier `[Unreleased]` five-game phase plan (Reaction Rush, Word Master,
+Number Merge, Memory Challenge, Neon Survival, Supabase, PWA, phases 4-14) is
+obsolete. It must not be resumed without a new owner decision and a new
+specification.
 
 ## [0.4.0-data] — 2026-11-21
+
 
 ### Added
 - Homepage now uses real local snapshot data: games played, completed levels, best scores, games with progress, and achievement highlights. Daily challenge entry is honest ("In build"/offline planned).

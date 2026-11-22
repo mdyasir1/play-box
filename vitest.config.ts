@@ -24,7 +24,7 @@ export default defineConfig({
       exclude: [
         "src/app/**",
         "src/**/*.test.{ts,tsx}",
-        "src/components/ui/dialog.tsx",
+        "src/games/**/levels.ts",
       ],
     },
   },

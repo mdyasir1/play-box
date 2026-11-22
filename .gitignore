@@ -24,10 +24,6 @@ blob-report/
 # Vercel
 .vercel/
 
-# Supabase local
-supabase/.temp/
-supabase/.branches/
-
 # Logs
 *.log
 npm-debug.log*

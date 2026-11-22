@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { AppShell } from "@/components/layout/app-shell";
+import { AppShell } from "@/components/app-shell";
 
 import "./globals.css";
 
@@ -18,16 +18,13 @@ const sora = Sora({
   display: "swap",
 });
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL;
-
 export const metadata: Metadata = {
-  ...(appUrl ? { metadataBase: new URL(appUrl) } : {}),
   title: {
-    default: "YASIR PLAYBOX — Your Personal Arcade",
+    default: "YASIR PLAYBOX — Two games, 200 levels",
     template: "%s · YASIR PLAYBOX",
   },
   description:
-    "A premium pocket arcade with five single-player games, real level progression, and progress that stays on your device.",
+    "Zip and Maze Paint: two focused single-player puzzles with 100 verified levels each. No account, no noise, local progress.",
   applicationName: "YASIR PLAYBOX",
   appleWebApp: {
     capable: true,
@@ -39,16 +36,16 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "YASIR PLAYBOX — Your Personal Arcade",
+    title: "YASIR PLAYBOX — Two games, 200 levels",
     description:
-      "Five focused single-player games, ten levels each, built for one-handed play.",
+      "Zip and Maze Paint. Two polished puzzle games with 200 levels and local progress.",
     siteName: "YASIR PLAYBOX",
   },
   twitter: {
     card: "summary",
-    title: "YASIR PLAYBOX — Your Personal Arcade",
+    title: "YASIR PLAYBOX — Two games, 200 levels",
     description:
-      "Five focused single-player games, ten levels each, built for one-handed play.",
+      "Zip and Maze Paint. Two polished puzzle games with 200 levels and local progress.",
   },
 };
 
@@ -56,15 +53,11 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#070A14",
+  themeColor: "#070a14",
   colorScheme: "dark",
 };
 
-type RootLayoutProps = {
-  children: ReactNode;
-};
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`}>
       <body>

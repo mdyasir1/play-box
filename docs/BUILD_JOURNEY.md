@@ -2,6 +2,62 @@
 
 > Narrative record of **how** the project is being built: steps, order, decisions, failures, lessons. This is not a requirements document (`PROJECT_SPEC.md`) and not a bug ledger (`KNOWN_ISSUES.md`). Progress status lives in `DEVELOPMENT_PROGRESS.md`.
 
+## Chapter 0 — The two-game rebuild (2026-11-22)
+
+The owner replaced the five-game plan with a narrower brief: remove the existing
+code and ship only Zip and Maze Paint, each with around a hundred levels. The
+new build had to be safe, polished, and fully tested. Supabase was allowed only
+if it was actually needed.
+
+### Decision: local-only
+
+The requirement was single-player progression on one device. A database would
+add credentials and failure modes without improving the experience. Supabase was
+dropped entirely; progress moved to a validated localStorage schema. No owner
+credentials were requested.
+
+### Decision: generated, verified content
+
+Level data was treated as a correctness problem, not filler:
+
+- Zip paths start from a Hamiltonian snake and are improved with a seeded 2-opt
+  pass, then validated adjacency by adjacency.
+- Maze Paint levels are carved, then solved with breadth-first search over
+  `(position, painted-mask)` states. A level is emitted only if every floor tile
+  can be painted, and its stored par is the true shortest solution length.
+
+The generator is deterministic and runs at development time. Runtime imports
+committed TypeScript data.
+
+### Decision: pure engines, thin UI
+
+Both games have pure engine functions and React components that own only UI
+state, timers, history, and persistence calls. This made the rules testable in
+Vitest and kept pointer/keyboard code out of the validation logic.
+
+### Failures found and fixed during verification
+
+1. The home hero decoration overflowed a 320 px viewport by 8 px.
+2. The header exceeded 320 px by 60 px before the wordmark was hidden on small
+   screens.
+3. Level-picker dimension labels used 55% opacity and failed WCAG contrast.
+4. Completing a level advanced saved progress and swapped the board while the
+   result dialog opened.
+5. Maze arrow keys moved the board behind the open level picker.
+6. Test assumptions about level-2 Zip size and duplicate text locators were
+   wrong and were corrected.
+
+### Verification result
+
+The final local gates are green: lint, typecheck, 30 unit tests, production
+build, 17 Playwright tests, axe scans, 320 px overflow checks, and a clean
+dependency audit. No deployment or physical-device pass was performed.
+
+---
+
+The chapters below document the retired five-game foundation. They are retained
+as history and are not instructions for the current build.
+
 ## Chapter 1 — Phase 0: inspection, freeze, and plan (2026-11-21)
 
 ### Step 1: Read the brief and refuse to guess

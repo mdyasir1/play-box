@@ -1,17 +1,11 @@
 export default function Loading() {
   return (
-    <div aria-busy="true" aria-live="polite" className="animate-pulse">
-      <span className="sr-only">Loading page</span>
-      <div className="h-4 w-24 rounded-full bg-surface" />
-      <div className="mt-4 h-9 w-64 max-w-full rounded-lg bg-surface" />
-      <div className="mt-3 h-4 w-full max-w-lg rounded bg-surface/70" />
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <div
-            key={index}
-            className="h-72 rounded-card border border-border bg-surface/50"
-          />
-        ))}
+    <div className="animate-rise space-y-8">
+      <div className="h-5 w-32 animate-pulse rounded-full bg-white/[0.06]" />
+      <div className="h-12 w-2/3 animate-pulse rounded-xl bg-white/[0.06]" />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="h-56 animate-pulse rounded-2xl bg-white/[0.045]" />
+        <div className="h-56 animate-pulse rounded-2xl bg-white/[0.045]" />
       </div>
     </div>
   );

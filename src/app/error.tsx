@@ -1,38 +1,31 @@
 "use client";
 
-import { Home, RotateCcw } from "lucide-react";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { buttonStyles } from "@/components/ui/button";
 
-type ErrorPageProps = {
-  reset: () => void;
-};
-
-export default function ErrorPage({ reset }: ErrorPageProps) {
+export default function ErrorPage({ reset }: { error: Error; reset: () => void }) {
   return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-        Unexpected error
-      </p>
-      <h1 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+    <div className="mx-auto flex min-h-[55dvh] max-w-md flex-col items-center justify-center text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-warning">
         Something went wrong
-      </h1>
-      <p className="mt-3 max-w-md text-sm leading-6 text-text-secondary">
-        This page hit an unexpected problem. Try again, or return to the arcade
-        and choose a game.
       </p>
-      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-        <Button onClick={reset}>
-          <RotateCcw aria-hidden="true" className="size-4" />
+      <h1 className="mt-3 font-display text-3xl font-bold tracking-tight">
+        The arcade hit a snag
+      </h1>
+      <p className="mt-3 text-sm leading-6 text-text-secondary">
+        Your saved progress is safe. Try the page again or return home.
+      </p>
+      <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+        <button type="button" onClick={reset} className={buttonStyles()}>
           Try again
-        </Button>
-        <Button asChild variant="secondary">
-          <Link href="/">
-            <Home aria-hidden="true" className="size-4" />
-            Home
-          </Link>
-        </Button>
+        </button>
+        <Link
+          href="/"
+          className={buttonStyles({ variant: "secondary" })}
+        >
+          Back home
+        </Link>
       </div>
     </div>
   );
