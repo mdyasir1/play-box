@@ -13,7 +13,7 @@ export async function loginWithDemo(page: Page): Promise<void> {
   await page.goto("/login");
   await page.getByLabel("Email").fill("player@example.com");
   await page.getByLabel("Password").fill("playbox123");
-  await page.locator("form").getByRole("button", { name: "Sign in" }).click();
+  await page.locator("form").getByRole("button", { name: /Enter the box|Sign in/i }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Yasir's Play-Box" })).toBeVisible();
 }
 

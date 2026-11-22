@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Chakra_Petch, Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import { ThemeProvider } from "next-themes";
 
@@ -17,9 +17,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const chakra = Chakra_Petch({
   subsets: ["latin"],
-  variable: "--font-space",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-chakra",
   display: "swap",
 });
 
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${chakra.variable}`}
     >
       <body>
         <ThemeProvider

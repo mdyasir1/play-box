@@ -18,7 +18,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run build && npm run start -- --port 3100",
+    command: "npx cross-env NEXT_PUBLIC_AUTH_MODE=demo npm run build && npx cross-env NEXT_PUBLIC_AUTH_MODE=demo npm run start -- --port 3100",
     url: "http://127.0.0.1:3100",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

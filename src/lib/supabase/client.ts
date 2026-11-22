@@ -4,6 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 let client: SupabaseClient | null = null;
 
 export function isSupabaseConfigured(): boolean {
+  if (process.env.NEXT_PUBLIC_AUTH_MODE === "demo") return false;
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

@@ -5,7 +5,7 @@ import type { User } from "@supabase/supabase-js";
 export async function getSupabaseServerClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
+  if (process.env.NEXT_PUBLIC_AUTH_MODE === "demo" || !url || !key) return null;
 
   const cookieStore = await cookies();
   return createServerClient(url, key, {

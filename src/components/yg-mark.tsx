@@ -9,29 +9,21 @@ export function YgMark({ className }: YgMarkProps) {
       className={className}
       role="img"
       aria-label="YG — Yasir Games"
+      fill="none"
     >
-      <rect
-        x="2"
-        y="2"
-        width="60"
-        height="60"
-        rx="15"
-        fill="var(--color-text)"
-        stroke="var(--color-border-strong)"
-        strokeWidth="1"
-      />
-      <text
-        x="32"
-        y="40"
-        textAnchor="middle"
-        fontFamily="Georgia, serif"
-        fontSize="27"
-        fontWeight="600"
-        letterSpacing="-2"
-        fill="var(--color-bg)"
+      <rect width="64" height="64" rx="16" fill="currentColor" />
+      <g
+        stroke="var(--color-bg)"
+        strokeWidth="3.2"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
       >
-        YG
-      </text>
+        <path d="M13 17 L21 31 L29 17" />
+        <path d="M21 31 V47" />
+        <path d="M50 21 H39 V44 H50" />
+        <path d="M50 32 H44" />
+        <path d="M50 21 C54 25 55 29 55 33 C55 38 52 42 47 44" />
+      </g>
     </svg>
   );
 }

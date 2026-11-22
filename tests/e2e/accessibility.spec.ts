@@ -7,7 +7,7 @@ import { loginWithDemo } from "./helpers";
 type AxeViolation = {
   id: string;
   impact: string | null;
-  nodes: Array<{ target: unknown[] }>;
+  nodes: Array<{ target: unknown[]; failureSummary?: string }>;
 };
 
 type AxeWindow = Window & {
@@ -30,11 +30,12 @@ async function seriousViolations(page: Page) {
         (violation) =>
           violation.impact === "serious" || violation.impact === "critical",
       )
-      .map((violation) => ({
-        id: violation.id,
-        impact: violation.impact,
-        targets: violation.nodes.map((node) => node.target.join(" ")),
-      }));
+        .map((violation) => ({
+          id: violation.id,
+          impact: violation.impact,
+          targets: violation.nodes.map((node) => node.target.join(" ")),
+          summary: violation.nodes[0]?.failureSummary,
+        }));
   });
 }
 
@@ -45,6 +46,7 @@ for (const path of PATHS) {
     await loginWithDemo(page);
     await page.goto(path);
     await expect(page.locator("main")).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     expect(await seriousViolations(page)).toEqual([]);
   });
 }

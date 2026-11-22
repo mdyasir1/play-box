@@ -16,6 +16,8 @@ test("home is a quiet Yasir storefront for two games", async ({ page }) => {
   await expect(page.getByText("200 levels").first()).toBeVisible();
   await expect(page.locator('main a[href="/games/zip"]')).toHaveCount(1);
   await expect(page.locator('main a[href="/games/maze-paint"]')).toHaveCount(1);
+  await expect(page.getByRole("navigation", { name: "Main" })).toHaveCount(0);
+  await expect(page.getByRole("contentinfo")).toHaveCount(0);
 });
 
 test("theme toggle switches light and dark", async ({ page }) => {
