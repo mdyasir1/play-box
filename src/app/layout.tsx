@@ -1,8 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
+import { ThemeProvider } from "next-themes";
 
 import { AppShell } from "@/components/app-shell";
+import { AuthGate } from "@/components/auth-gate";
+import { AuthProvider } from "@/components/auth-provider";
+import { ProgressSync } from "@/components/progress-sync";
+import { SplashScreen } from "@/components/splash-screen";
 
 import "./globals.css";
 
@@ -12,40 +17,29 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-space",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "YASIR PLAYBOX — Two games, 200 levels",
-    template: "%s · YASIR PLAYBOX",
+    default: "Yasir's Play-Box",
+    template: "%s · Yasir's Play-Box",
   },
-  description:
-    "Zip and Maze Paint: two focused single-player puzzles with 100 verified levels each. No account, no noise, local progress.",
-  applicationName: "YASIR PLAYBOX",
+  description: "Two puzzles by Yasir. Zip and Maze Paint, 200 levels each.",
+  applicationName: "Yasir's Play-Box",
   appleWebApp: {
     capable: true,
-    title: "YASIR PLAYBOX",
-    statusBarStyle: "black-translucent",
-  },
-  formatDetection: {
-    telephone: false,
+    title: "Yasir's Play-Box",
+    statusBarStyle: "default",
   },
   openGraph: {
+    title: "Yasir's Play-Box",
+    description: "Zip and Maze Paint. 200 levels each.",
+    siteName: "Yasir's Play-Box",
     type: "website",
-    title: "YASIR PLAYBOX — Two games, 200 levels",
-    description:
-      "Zip and Maze Paint. Two polished puzzle games with 200 levels and local progress.",
-    siteName: "YASIR PLAYBOX",
-  },
-  twitter: {
-    card: "summary",
-    title: "YASIR PLAYBOX — Two games, 200 levels",
-    description:
-      "Zip and Maze Paint. Two polished puzzle games with 200 levels and local progress.",
   },
 };
 
@@ -53,15 +47,31 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#070a14",
-  colorScheme: "dark",
+  themeColor: "#0e1013",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+    >
       <body>
-        <AppShell>{children}</AppShell>
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            <ProgressSync />
+            <SplashScreen />
+            <AppShell>
+              <AuthGate>{children}</AuthGate>
+            </AppShell>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

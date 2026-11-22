@@ -21,26 +21,21 @@ export function useProgress() {
     setReady(true);
   }, []);
 
-  const completeLevel = useCallback(
-    (game: GameSlug, level: number, score: number) => {
-      setProgress((previous) => {
-        const next = markLevelComplete(previous, game, level, score);
-        saveProgress(next);
-        return next;
-      });
-    },
-    [],
-  );
-
-  const chooseLevel = useCallback((game: GameSlug, level: number) => {
+  const completeLevel = useCallback((game: GameSlug, level: number, score: number) => {
     setProgress((previous) => {
-      const next = setCurrentLevel(previous, game, level);
-      if (next !== previous) {
-        saveProgress(next);
-      }
+      const next = markLevelComplete(previous, game, level, score);
+      if (next !== previous) saveProgress(next);
       return next;
     });
   }, []);
 
-  return { progress, ready, completeLevel, chooseLevel };
+  const chooseLevel = useCallback((game: GameSlug, level: number) => {
+    setProgress((previous) => {
+      const next = setCurrentLevel(previous, game, level);
+      if (next !== previous) saveProgress(next);
+      return next;
+    });
+  }, []);
+
+  return { progress, ready, setProgress, completeLevel, chooseLevel };
 }

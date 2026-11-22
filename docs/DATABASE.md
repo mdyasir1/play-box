@@ -1,86 +1,91 @@
-# Database — YASIR PLAYBOX
+# Database — Yasir's Play-Box
 
-> Canonical persistence document. The current build has no database.
+## Current design
 
-## Decision
+The app is local-first and supports optional Supabase cloud sync.
 
-**No database is used.** The app is a local-only, single-player arcade. A
-backend would add credentials, deployment work, privacy obligations, and
-failure modes without improving the required experience.
+- **Guest / unconfigured mode:** progress is stored in browser localStorage at
+  `playbox.v4.progress`.
+- **Configured mode:** Supabase Auth handles email/password login, and Prisma
+  writes one `progress` row per user per game.
+- **No credentials are committed.** Values live only in `.env.local`.
 
-**No Supabase credentials are needed.** Do not ask the owner for a URL, anon
-key, service-role key, or database password for this build.
+## Credentials needed from you
 
-## Current storage
+Copy `.env.example` to `.env.local` and fill:
 
-- Mechanism: browser `localStorage`.
-- Key: `playbox.v3.progress`.
-- Scope: one browser profile on one device.
-- Data sensitivity: game progress only; no personal data.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<public anon key>
+DATABASE_URL=postgresql://postgres.nosopvjkiocugukavowd:[PASSWORD]@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?pgbouncer=true
+DIRECT_URL=postgresql://postgres.nosopvjkiocugukavowd:[PASSWORD]@aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres
+```
 
-### Schema
+You only need to provide the **database password** for the project user shown in
+your template, plus the project URL and anon key. The service-role key is not
+used by this app.
 
-```json
-{
-  "version": 3,
-  "games": {
-    "zip": {
-      "completed": [1, 2, 3],
-      "bestScores": { "1": 42, "2": 51, "3": 38 },
-      "lastLevel": 4
-    },
-    "maze-paint": {
-      "completed": [1, 2],
-      "bestScores": { "1": 6, "2": 8 },
-      "lastLevel": 3
-    }
-  },
-  "updatedAt": 1763856000000
+## Schema
+
+Prisma schema: `prisma/schema.prisma`.
+SQL migration: `prisma/migrations/20261122_init/migration.sql` and
+`supabase/migrations/20261122_init.sql`.
+
+```prisma
+model Progress {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId       String   @db.Uuid
+  game         String
+  currentLevel Int      @default(1)
+  completed    Int[]    @default([])
+  bestScores   Json     @default(dbgenerated("'{}'::jsonb"))
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([userId, game])
+  @@index([userId])
+  @@map("progress")
 }
 ```
 
-- `completed` is sorted and de-duplicated.
-- `bestScores` keys are level numbers as strings.
-- Zip scores are seconds; Maze Paint scores are moves.
-- `lastLevel` is clamped to 1-100.
-- `updatedAt` is a millisecond epoch timestamp.
+## Apply the migration
 
-## Validation and failure behavior
+With `.env.local` filled:
 
-- Missing key: return clean defaults.
-- Malformed JSON: return clean defaults.
-- Wrong version: return clean defaults.
-- Non-object game data: return clean defaults for that game.
-- Invalid completed levels or scores: discard those entries.
-- Invalid current level: reset to 1.
-- Storage unavailable or full: writes return `false`; the game remains playable
-  for the session without persistence.
+```bash
+npx prisma migrate deploy
+npx prisma generate
+```
 
-Implementation and tests live in `src/lib/progress.ts` and
-`src/lib/progress.test.ts`.
+Or paste `supabase/migrations/20261122_init.sql` into the Supabase SQL editor.
 
-## Why not Supabase now
+## Row Level Security
 
-| Concern | Local-only result |
-|---|---|
-| Accounts | None needed |
-| Secrets | None stored or transmitted |
-| Network | Not required after loading assets |
-| Free-tier limits | Not applicable |
-| Backend failures | No effect on play |
-| Privacy | Game progress stays in the browser |
+The migration enables RLS and creates:
 
-## When a database would become relevant
+```sql
+CREATE POLICY "users_manage_own_progress" ON "progress"
+  FOR ALL
+  USING (auth.uid() = "userId")
+  WITH CHECK (auth.uid() = "userId");
+```
 
-A future owner-approved feature could add optional cross-device sync. That
-would require:
+Server-side Prisma uses the Postgres connection and validates the user from the
+Supabase session before reading or writing.
 
-1. A written requirement and threat model.
-2. A chosen provider and account.
-3. Explicit owner-supplied credentials in `.env.local`.
-4. Anonymous identity or authentication design.
-5. Schema, row-level security, and migration review.
-6. Conflict and offline-merge rules.
-7. New tests for sync, failure, and privacy.
+## Auth setup
 
-Until those steps happen, adding a database is out of scope.
+In Supabase dashboard:
+
+1. Authentication → Providers → Email: enabled.
+2. For local testing, disable "Confirm email" or use the confirmation flow.
+3. Add your site URL to Authentication → URL Configuration.
+
+## Sync behavior
+
+- On sign-in, remote progress is merged with local progress.
+- Completed levels union; best scores keep the minimum; current level keeps the
+  highest unlocked value.
+- After remote load, local changes are pushed to Supabase.
+- If Supabase is not configured, the app uses a local demo login and keeps
+  everything in localStorage.

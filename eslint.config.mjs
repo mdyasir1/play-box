@@ -19,6 +19,10 @@ const config = [
       "src/lib/use-progress.ts",
       "src/components/zip-game.tsx",
       "src/components/maze-paint-game.tsx",
+      "src/components/auth-provider.tsx",
+      "src/components/progress-sync.tsx",
+      "src/components/splash-screen.tsx",
+      "src/components/theme-toggle.tsx",
     ],
     rules: {
       "react-hooks/set-state-in-effect": "off",

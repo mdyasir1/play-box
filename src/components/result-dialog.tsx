@@ -1,14 +1,11 @@
 "use client";
 
-import { ArrowRight, Grid2X2, RotateCcw, Trophy } from "lucide-react";
+import { ArrowRight, Check, Grid2X2, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 
-type ResultStat = {
-  label: string;
-  value: string;
-};
+type ResultStat = { label: string; value: string };
 
 type ResultDialogProps = {
   open: boolean;
@@ -40,36 +37,25 @@ export function ResultDialog({
       open={open}
       onOpenChange={onOpenChange}
       title={isLast ? "All levels complete" : `Level ${level} complete`}
-      description={
-        isLast
-          ? `${gameName} is fully cleared. Replay any board whenever you want.`
-          : `${gameName} level ${level} is solved. Ready for the next one?`
-      }
+      description={isLast ? `${gameName} is complete.` : undefined}
     >
-      <div className="flex items-center gap-3 rounded-xl border border-success/25 bg-success/10 p-3">
-        <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
-          <Trophy aria-hidden="true" className="size-5" />
+      <div className="flex items-center gap-3 rounded-md border border-border bg-surface p-3">
+        <span className="inline-flex size-9 items-center justify-center rounded-full bg-success/15 text-success">
+          <Check className="size-4" aria-hidden="true" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-text">Clean finish</p>
-          <p className="text-xs text-text-secondary">
-            Your result is saved on this device.
-          </p>
+          <p className="text-sm font-medium">Solved</p>
+          <p className="text-xs text-text-muted">Saved for {gameName}</p>
         </div>
       </div>
 
       <dl className="mt-4 grid grid-cols-2 gap-2">
         {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-xl border border-white/[0.07] bg-white/[0.035] px-3 py-2.5"
-          >
-            <dt className="text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
+          <div key={stat.label} className="rounded-md border border-border px-3 py-2">
+            <dt className="text-[0.6rem] uppercase tracking-wider text-text-muted">
               {stat.label}
             </dt>
-            <dd className="mt-0.5 font-display text-lg font-semibold tabular-nums text-text">
-              {stat.value}
-            </dd>
+            <dd className="mt-0.5 font-display text-lg">{stat.value}</dd>
           </div>
         ))}
       </dl>
@@ -78,15 +64,15 @@ export function ResultDialog({
         {isLast ? null : (
           <Button onClick={onNext} className="flex-1">
             Next level
-            <ArrowRight aria-hidden="true" className="size-4" />
+            <ArrowRight className="size-4" aria-hidden="true" />
           </Button>
         )}
         <Button variant="secondary" onClick={onReplay} className="flex-1">
-          <RotateCcw aria-hidden="true" className="size-4" />
+          <RotateCcw className="size-4" aria-hidden="true" />
           Replay
         </Button>
         <Button variant="ghost" onClick={onLevels} className="flex-1">
-          <Grid2X2 aria-hidden="true" className="size-4" />
+          <Grid2X2 className="size-4" aria-hidden="true" />
           Levels
         </Button>
       </div>

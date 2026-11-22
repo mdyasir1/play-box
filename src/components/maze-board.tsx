@@ -38,17 +38,17 @@ export function MazeBoard({ level, state, onDirection }: MazeBoardProps) {
           key={`${row}-${col}`}
           className={cn(
             "relative rounded-[3px] transition-colors duration-150",
-            !floor && "bg-[#070a12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.025)]",
-            floor && !isPainted && "bg-[#182033]",
+            !floor && "bg-bg-elevated shadow-[inset_0_0_0_1px_var(--color-border)]",
+            floor && !isPainted && "bg-surface-hover",
             floor &&
               isPainted &&
-              "bg-gradient-to-br from-cyan/55 to-accent/35 shadow-[inset_0_0_0_1px_rgba(76,201,240,0.18)]",
+              "bg-cyan-soft shadow-[inset_0_0_0_1px_var(--color-cyan)]",
           )}
         >
           {isRoller ? (
             <span
               aria-hidden="true"
-              className="absolute inset-[22%] rounded-full bg-white shadow-[0_0_0_2px_rgba(76,201,240,0.55),0_0_18px_rgba(76,201,240,0.8)]"
+              className="absolute inset-[24%] rounded-full bg-text shadow-[0_0_0_2px_var(--color-cyan)]"
             />
           ) : null}
         </div>,
@@ -57,12 +57,12 @@ export function MazeBoard({ level, state, onDirection }: MazeBoardProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-surface/45 p-2.5 shadow-[0_22px_70px_rgba(0,0,0,0.35)] sm:p-3">
+    <div className="paper-edge rounded-lg border border-border bg-surface p-2.5 sm:p-3">
       <div
         role="group"
         aria-label="Maze Paint board. Swipe or use the arrow keys to slide the roller."
         tabIndex={0}
-        className="w-full touch-none select-none rounded-xl bg-[#070a12] p-1.5 outline-none focus-visible:ring-2 focus-visible:ring-focus"
+        className="w-full touch-none select-none rounded-md bg-bg p-1.5 outline-none focus-visible:ring-2 focus-visible:ring-focus"
         style={{ aspectRatio: `${level.width} / ${level.height}` }}
         onPointerDown={(event) => {
           if (event.button !== 0) return;

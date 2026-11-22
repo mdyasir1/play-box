@@ -1,6 +1,6 @@
-# Project Overview — YASIR PLAYBOX
+# Project Overview — Yasir's Play-Box
 
-> Product summary. Requirements are canonical in `PROJECT_SPEC.md`.
+> Current release: v2.0.0 — login-first, 200 levels per game, light/dark themes, optional Supabase sync. Requirements are canonical in `PROJECT_SPEC.md`.
 
 ## Identity
 

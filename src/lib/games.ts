@@ -16,9 +16,8 @@ export const GAMES: readonly GameDefinition[] = [
     name: "Zip",
     shortName: "Zip",
     tagline: "One path. Every square.",
-    description:
-      "Draw a single continuous path that fills the whole grid and visits the numbers in order.",
-    levelCount: 100,
+    description: "Draw one line through every cell.",
+    levelCount: 200,
     accent: "violet",
   },
   {
@@ -26,9 +25,8 @@ export const GAMES: readonly GameDefinition[] = [
     name: "Maze Paint",
     shortName: "Maze Paint",
     tagline: "Slide. Paint. Repeat.",
-    description:
-      "Slide your roller until it hits a wall. Paint every open tile in the maze in as few moves as you can.",
-    levelCount: 100,
+    description: "Slide the roller. Paint the maze.",
+    levelCount: 200,
     accent: "cyan",
   },
 ] as const;

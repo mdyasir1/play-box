@@ -13,51 +13,43 @@ type ModalProps = {
   description?: string;
   children: ReactNode;
   className?: string;
-  hideClose?: boolean;
 };
 
-export function Modal({
-  open,
-  onOpenChange,
-  title,
-  description,
-  children,
-  className,
-  hideClose = false,
-}: ModalProps) {
+export function Modal({ open, onOpenChange, title, description, children, className }: ModalProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-[#03050b]/80 backdrop-blur-sm data-[state=open]:animate-[fade-in_150ms_ease-out]" />
-        <Dialog.Content
-          className={cn(
-            "fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-border bg-[#0c1120] p-5 shadow-[0_30px_100px_rgba(0,0,0,0.65)] outline-none sm:p-6",
-            "data-[state=open]:animate-[modal-in_180ms_cubic-bezier(0.2,0.8,0.2,1)]",
-            className,
-          )}
-        >
-          <div className="pr-10">
-            <Dialog.Title className="font-display text-xl font-bold tracking-tight text-text">
-              {title}
-            </Dialog.Title>
-            {description ? (
-              <Dialog.Description className="mt-1.5 text-sm leading-6 text-text-secondary">
-                {description}
-              </Dialog.Description>
-            ) : null}
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/20 backdrop-blur-[2px]" />
+        <Dialog.Content className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4 outline-none">
+          <div
+            className={cn(
+              "animate-modal pointer-events-auto max-h-[85dvh] w-full max-w-lg overflow-y-auto rounded-lg border border-border bg-bg-elevated shadow-2xl",
+              className,
+            )}
+          >
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-border bg-bg-elevated px-5 py-4 sm:px-6">
+              <div className="min-w-0">
+                <Dialog.Title className="font-display text-xl font-semibold tracking-tight">
+                  {title}
+                </Dialog.Title>
+                {description ? (
+                  <Dialog.Description className="mt-1 text-sm text-text-secondary">
+                    {description}
+                  </Dialog.Description>
+                ) : null}
+              </div>
+              <Dialog.Close asChild>
+                <button
+                  type="button"
+                  aria-label="Close"
+                  className="inline-flex size-9 shrink-0 items-center justify-center rounded-md text-text-muted transition hover:bg-surface-hover hover:text-text"
+                >
+                  <X className="size-4" aria-hidden="true" />
+                </button>
+              </Dialog.Close>
+            </div>
+            <div className="px-5 py-5 sm:px-6">{children}</div>
           </div>
-          {hideClose ? null : (
-            <Dialog.Close asChild>
-              <button
-                type="button"
-                aria-label="Close"
-                className="absolute right-3 top-3 inline-flex size-10 items-center justify-center rounded-xl text-text-muted transition hover:bg-white/10 hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
-              >
-                <X aria-hidden="true" className="size-4" />
-              </button>
-            </Dialog.Close>
-          )}
-          <div className="mt-5">{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

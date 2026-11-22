@@ -1,12 +1,9 @@
 export default function Loading() {
   return (
-    <div className="animate-rise space-y-8">
-      <div className="h-5 w-32 animate-pulse rounded-full bg-white/[0.06]" />
-      <div className="h-12 w-2/3 animate-pulse rounded-xl bg-white/[0.06]" />
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="h-56 animate-pulse rounded-2xl bg-white/[0.045]" />
-        <div className="h-56 animate-pulse rounded-2xl bg-white/[0.045]" />
-      </div>
+    <div className="animate-rise space-y-5">
+      <div className="h-4 w-24 animate-pulse rounded bg-surface" />
+      <div className="h-10 w-2/3 animate-pulse rounded bg-surface" />
+      <div className="h-72 animate-pulse rounded-lg border border-border bg-surface" />
     </div>
   );
 }

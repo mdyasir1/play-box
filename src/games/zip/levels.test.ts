@@ -4,11 +4,11 @@ import { validateZipSolution } from "./engine";
 import { ZIP_LEVELS } from "./levels";
 
 describe("Zip level data", () => {
-  it("ships exactly 100 levels with unique ids and numbers", () => {
-    expect(ZIP_LEVELS).toHaveLength(100);
-    expect(new Set(ZIP_LEVELS.map((level) => level.id)).size).toBe(100);
+  it("ships exactly 200 levels with unique ids and numbers", () => {
+    expect(ZIP_LEVELS).toHaveLength(200);
+    expect(new Set(ZIP_LEVELS.map((level) => level.id)).size).toBe(200);
     expect(ZIP_LEVELS.map((level) => level.number)).toEqual(
-      Array.from({ length: 100 }, (_, index) => index + 1),
+      Array.from({ length: 200 }, (_, index) => index + 1),
     );
   });
 
@@ -34,7 +34,7 @@ describe("Zip level data", () => {
         Array.from({ length: sorted.length }, (_, index) => index + 1),
       );
       expect(sorted.length).toBeGreaterThanOrEqual(4);
-      expect(sorted.length).toBeLessThanOrEqual(5);
+      expect(sorted.length).toBeLessThanOrEqual(6);
       expect(new Set(sorted.map((checkpoint) => checkpoint.cell)).size).toBe(
         sorted.length,
       );

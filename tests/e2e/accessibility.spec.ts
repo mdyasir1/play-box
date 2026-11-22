@@ -2,6 +2,7 @@ import axe from "axe-core";
 import { expect, test, type Page } from "@playwright/test";
 
 import { ZIP_LEVELS } from "../../src/games/zip/levels";
+import { loginWithDemo } from "./helpers";
 
 type AxeViolation = {
   id: string;
@@ -41,6 +42,7 @@ const PATHS = ["/", "/games/zip", "/games/maze-paint"] as const;
 
 for (const path of PATHS) {
   test(`has no serious accessibility violations on ${path}`, async ({ page }) => {
+    await loginWithDemo(page);
     await page.goto(path);
     await expect(page.locator("main")).toBeVisible();
     expect(await seriousViolations(page)).toEqual([]);
@@ -50,12 +52,13 @@ for (const path of PATHS) {
 test("level picker and result dialog pass accessibility checks", async ({
   page,
 }) => {
+  await loginWithDemo(page);
   await page.goto("/games/zip");
   await page.getByRole("button", { name: /Choose level/i }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   expect(await seriousViolations(page)).toEqual([]);
 
-  await page.getByRole("button", { name: "Close" }).click();
+  await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
 
   for (const cell of ZIP_LEVELS[0]!.solution) {

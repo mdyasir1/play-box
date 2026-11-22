@@ -4,8 +4,7 @@ import { ZipGame } from "@/components/zip-game";
 
 export const metadata: Metadata = {
   title: "Zip",
-  description:
-    "Draw one continuous path through every square and visit the numbers in order. 100 levels.",
+  description: "One line through every square. 200 levels.",
 };
 
 export default function ZipPage() {

@@ -62,12 +62,12 @@ export function ZipBoard({ level, path, onCellAction }: ZipBoardProps) {
     .join(" ");
 
   return (
-    <div className="rounded-2xl border border-border bg-surface/45 p-2.5 shadow-[0_22px_70px_rgba(0,0,0,0.35)] sm:p-3">
+    <div className="paper-edge rounded-lg border border-border bg-surface p-2.5 sm:p-3">
       <div
         ref={boardRef}
         role="group"
         aria-label={`Zip grid, ${level.size} by ${level.size}`}
-        className="relative aspect-square w-full touch-none select-none overflow-hidden rounded-xl bg-[#080c16]"
+        className="relative aspect-square w-full touch-none select-none overflow-hidden rounded-md bg-bg"
         onPointerDown={(event) => {
           if (event.button !== 0) return;
           event.preventDefault();
@@ -118,10 +118,10 @@ export function ZipBoard({ level, path, onCellAction }: ZipBoardProps) {
                   }
                 }}
                 className={cn(
-                  "relative border border-white/[0.035] outline-none transition-[background-color,box-shadow] focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
-                  inPath ? "bg-accent/[0.17]" : "bg-white/[0.025]",
+                  "relative border border-border/60 outline-none transition-colors focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus",
+                  inPath ? "bg-accent-soft" : "bg-surface-hover/40",
                   isLast &&
-                    "bg-accent/[0.26] shadow-[inset_0_0_0_2px_rgba(180,154,255,0.75)]",
+                    "bg-accent-soft shadow-[inset_0_0_0_2px_var(--color-accent)]",
                 )}
               >
                 {checkpoint ? (
@@ -129,8 +129,8 @@ export function ZipBoard({ level, path, onCellAction }: ZipBoardProps) {
                     className={cn(
                       "absolute inset-[22%] z-20 flex items-center justify-center rounded-full text-[clamp(0.6rem,2.4vmin,0.9rem)] font-bold transition",
                       inPath
-                        ? "bg-accent text-[#090612] shadow-[0_0_18px_rgba(155,123,255,0.45)]"
-                        : "border border-accent/40 bg-accent/12 text-accent",
+                        ? "bg-accent text-bg"
+                        : "border border-accent text-accent",
                     )}
                   >
                     {checkpoint.value}
@@ -150,7 +150,7 @@ export function ZipBoard({ level, path, onCellAction }: ZipBoardProps) {
             <polyline
               points={points}
               fill="none"
-              stroke="#b49aff"
+              stroke="var(--color-accent)"
               strokeWidth={level.size >= 7 ? 0.15 : 0.18}
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -161,7 +161,7 @@ export function ZipBoard({ level, path, onCellAction }: ZipBoardProps) {
               cx={(path[0] ?? 0) % level.size + 0.5}
               cy={Math.floor((path[0] ?? 0) / level.size) + 0.5}
               r={0.12}
-              fill="#b49aff"
+              fill="var(--color-accent)"
             />
           ) : null}
         </svg>

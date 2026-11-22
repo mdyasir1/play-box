@@ -148,14 +148,20 @@ function makeZipLevel(level) {
 }
 
 function mazeSize(level) {
-  if (level <= 15) return 6;
-  if (level <= 50) return 7;
+  if (level <= 30) return 6;
+  if (level <= 90) return 7;
   return 8;
 }
 
 function mazeTargetFloor(level, size) {
-  const base = 9 + Math.floor(((level - 1) * 10) / 99);
-  return Math.min(base, Math.max(5, (size - 2) * (size - 2) - 2));
+  const max = Math.max(5, (size - 2) * (size - 2) - 2);
+  if (size === 6) {
+    return Math.min(max, 9 + Math.floor(((level - 1) / 30) * 5));
+  }
+  if (size === 7) {
+    return Math.min(max, 12 + Math.floor(((level - 31) / 60) * 7));
+  }
+  return Math.min(max, 15 + Math.floor(((level - 91) / 110) * 4));
 }
 
 function carveMaze(size, targetFloor, random) {
@@ -306,7 +312,7 @@ function mazeTransitions(rows, start) {
   return { floors, startIndex, transitions };
 }
 
-function solveMaze(rows, start, stateLimit = 700_000) {
+function solveMaze(rows, start, stateLimit = 1_500_000) {
   const parsed = mazeTransitions(rows, start);
   if (!parsed) {
     return null;
@@ -397,8 +403,8 @@ function makeMazeLevel(level) {
   throw new Error(`Maze level ${level} could not be generated`);
 }
 
-const zipLevels = Array.from({ length: 100 }, (_, index) => makeZipLevel(index + 1));
-const mazeLevels = Array.from({ length: 100 }, (_, index) => makeMazeLevel(index + 1));
+const zipLevels = Array.from({ length: 200 }, (_, index) => makeZipLevel(index + 1));
+const mazeLevels = Array.from({ length: 200 }, (_, index) => makeMazeLevel(index + 1));
 
 for (const level of zipLevels) {
   if (!validateHamiltonian(level.solution, level.size)) {

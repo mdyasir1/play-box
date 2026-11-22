@@ -1,9 +1,9 @@
 # YASIR PLAYBOX — Documentation Index
 
 **Product:** YASIR PLAYBOX — "Your Personal Arcade."
-**Version:** 1.0.0
-**Status:** Complete two-game build, verified locally on 2026-11-22.
-**Scope:** Zip and Maze Paint only; 100 levels each; local progress; no account or database.
+**Version:** 2.0.0
+**Status:** Login-first two-game arcade, 200 levels each, light/dark themes, Supabase-ready.
+**Scope:** Zip and Maze Paint; sequential unlock; local-first with optional Supabase sync.
 
 ## Scope change
 

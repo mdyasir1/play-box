@@ -8,11 +8,11 @@ import {
 import { MAZE_LEVELS } from "./levels";
 
 describe("Maze Paint level data", () => {
-  it("ships exactly 100 solvable levels", () => {
-    expect(MAZE_LEVELS).toHaveLength(100);
-    expect(new Set(MAZE_LEVELS.map((level) => level.id)).size).toBe(100);
+  it("ships exactly 200 solvable levels", () => {
+    expect(MAZE_LEVELS).toHaveLength(200);
+    expect(new Set(MAZE_LEVELS.map((level) => level.id)).size).toBe(200);
     expect(MAZE_LEVELS.map((level) => level.number)).toEqual(
-      Array.from({ length: 100 }, (_, index) => index + 1),
+      Array.from({ length: 200 }, (_, index) => index + 1),
     );
   });
 
@@ -50,6 +50,6 @@ describe("Maze Paint level data", () => {
 
   it("keeps the layout roster varied", () => {
     const layouts = new Set(MAZE_LEVELS.map((level) => level.rows.join("|")));
-    expect(layouts.size).toBeGreaterThan(80);
+    expect(layouts.size).toBeGreaterThan(180);
   });
 });

@@ -1,4 +1,6 @@
-# Project Specification — YASIR PLAYBOX
+# Project Specification — Yasir's Play-Box
+
+> Current release is v2.0.0: 200 levels per game, login-first access, Supabase/Prisma sync, light/dark themes. Older sections below describe the 1.0 local-only release and are retained as history.
 
 **Version:** 2.0
 **Date:** 2026-11-22

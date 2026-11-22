@@ -1,6 +1,7 @@
 "use client";
 
-import { Check, X } from "lucide-react";
+import { Check, Lock } from "lucide-react";
+import { useState } from "react";
 
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
@@ -27,64 +28,90 @@ export function LevelPicker({
   levelLabel,
 }: LevelPickerProps) {
   const completedSet = new Set(completed);
+  const [range, setRange] = useState(0);
+  const ranges = Array.from({ length: Math.ceil(levelCount / 50) }, (_, index) => ({
+    start: index * 50 + 1,
+    end: Math.min(levelCount, (index + 1) * 50),
+  }));
+  const activeRange = ranges[range] ?? ranges[0]!;
 
   return (
     <Modal
       open={open}
       onOpenChange={onOpenChange}
       title={`${gameName} levels`}
-      description="Every level is unlocked. Pick any board and keep your best result."
-      className="max-w-2xl"
+      description={`${completed.length} of ${levelCount} complete`}
+      className="max-w-3xl"
     >
-      <div className="grid grid-cols-5 gap-2 sm:grid-cols-8 md:grid-cols-10">
-        {Array.from({ length: levelCount }, (_, index) => {
-          const level = index + 1;
+      <div className="mb-3 flex flex-wrap gap-1.5">
+        {ranges.map((item, index) => (
+          <button
+            key={item.start}
+            type="button"
+            onClick={() => setRange(index)}
+            className={cn(
+              "rounded-md border px-3 py-1.5 text-xs transition",
+              index === range
+                ? "border-text bg-text text-bg"
+                : "border-border text-text-muted hover:text-text",
+            )}
+          >
+            {item.start}–{item.end}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-10">
+        {Array.from(
+          { length: activeRange.end - activeRange.start + 1 },
+          (_, index) => {
+            const level = activeRange.start + index;
           const isCurrent = level === current;
-          const isCompleted = completedSet.has(level);
+          const isComplete = completedSet.has(level);
+          const isUnlocked = level === 1 || completedSet.has(level - 1);
+
           return (
             <button
               key={level}
               type="button"
+              disabled={!isUnlocked}
               onClick={() => {
+                if (!isUnlocked) return;
                 onSelect(level);
                 onOpenChange(false);
               }}
-              aria-label={`Level ${level}${isCompleted ? ", completed" : ""}${isCurrent ? ", current" : ""}`}
+              aria-label={`Level ${level}${isComplete ? ", completed" : ""}${isCurrent ? ", current" : ""}${isUnlocked ? "" : ", locked"}`}
               aria-current={isCurrent ? "true" : undefined}
               className={cn(
-                "relative flex aspect-square min-h-10 flex-col items-center justify-center rounded-xl border text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
+                "relative flex aspect-square min-h-11 flex-col items-center justify-center rounded-md border text-xs font-medium transition",
                 isCurrent
-                  ? "border-accent bg-accent/15 text-text"
-                  : "border-white/[0.08] bg-white/[0.035] text-text-secondary hover:border-white/20 hover:bg-white/[0.08] hover:text-text",
-                isCompleted && !isCurrent && "border-success/25 text-success",
+                  ? "border-text bg-text text-bg"
+                  : isUnlocked
+                    ? "border-border bg-surface text-text hover:border-border-strong"
+                    : "border-border bg-bg text-text-muted opacity-45",
               )}
             >
               <span>{level}</span>
-              {levelLabel ? (
-                <span className="mt-0.5 text-[0.6rem] font-medium uppercase tracking-wide text-text-muted">
+              {levelLabel && isUnlocked ? (
+                <span
+                  className={cn(
+                    "mt-0.5 text-[0.6rem] font-medium",
+                    isCurrent ? "text-bg" : "text-text",
+                  )}
+                >
                   {levelLabel(level)}
                 </span>
               ) : null}
-              {isCompleted ? (
-                <Check
-                  aria-hidden="true"
-                  className="absolute right-1 top-1 size-2.5 text-success"
-                />
+              {isComplete ? (
+                <Check className="absolute right-1 top-1 size-2.5 text-success" aria-hidden="true" />
+              ) : null}
+              {!isUnlocked ? (
+                <Lock className="absolute right-1 top-1 size-2.5" aria-hidden="true" />
               ) : null}
             </button>
           );
-        })}
-      </div>
-      <div className="mt-4 flex items-center gap-4 text-xs text-text-muted">
-        <span className="inline-flex items-center gap-1.5">
-          <span className="size-2 rounded-full bg-accent" /> Current
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Check aria-hidden="true" className="size-3 text-success" /> Complete
-        </span>
-        <span className="ml-auto inline-flex items-center gap-1.5">
-          <X aria-hidden="true" className="size-3" /> Incomplete
-        </span>
+        },
+        )}
       </div>
     </Modal>
   );

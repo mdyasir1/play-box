@@ -1,7 +1,30 @@
-# Changelog — YASIR PLAYBOX
+# Changelog — Yasir's Play-Box
 
-All notable changes are recorded here chronologically. Earlier entries describe
-the retired five-game foundation and are retained as project history.
+All notable changes are recorded here chronologically. Earlier entries describe retired scopes and are retained as history.
+
+## [2.0.0] — 2026-11-22
+
+### Added
+
+- Login-first access flow; protected routes redirect to `/login`.
+- Supabase Auth email/password and Prisma `progress` schema with RLS migration.
+- Local demo login fallback when Supabase is not configured.
+- 200 levels per game with steeper difficulty curves.
+- Sequential level unlocking; next level disabled until previous is completed.
+- Light and dark premium themes with a default dark theme.
+- Animated "Yasir's Play-Box" splash screen and YG SVG mark/favicon.
+- Space Grotesk display font, refined buttons, and flatter color system.
+
+### Changed
+
+- Removed gradient-heavy AI-looking UI in favor of a quiet editorial style.
+- Home reduced to only the necessary content.
+- Auth forms no longer hardcode Yasir.
+- Progress storage moved to `playbox.v4.progress`.
+
+### Verified
+
+- Lint, typecheck, 31 unit tests, production build, 23 Playwright tests, audit.
 
 ## [1.0.0] — 2026-11-22
 

@@ -16,12 +16,7 @@ import { LevelPicker } from "@/components/level-picker";
 import { MazeBoard } from "@/components/maze-board";
 import { ResultDialog } from "@/components/result-dialog";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import {
   createMazeState,
@@ -33,19 +28,17 @@ import {
   slideMaze,
 } from "@/games/maze-paint/engine";
 import { MAZE_LEVELS } from "@/games/maze-paint/levels";
-import type {
-  MazeDirection,
-  MazeState,
-} from "@/games/maze-paint/types";
+import type { MazeDirection, MazeState } from "@/games/maze-paint/types";
 import { formatDuration, formatScore } from "@/lib/format";
 import { getGame } from "@/lib/games";
+import { isLevelUnlocked } from "@/lib/progress";
 import { mazeTier } from "@/lib/level-meta";
 import { useProgress } from "@/lib/use-progress";
 
 const GAME_SLUG = "maze-paint";
 const GAME = getGame(GAME_SLUG);
 
-const DIRECTION_BUTTONS: Array<{
+const DIRECTIONS: Array<{
   direction: MazeDirection;
   icon: typeof ArrowUp;
   className: string;
@@ -58,7 +51,7 @@ const DIRECTION_BUTTONS: Array<{
 
 export function MazePaintGame() {
   const { progress, ready, completeLevel, chooseLevel } = useProgress();
-  const savedMazeLevel = progress.games["maze-paint"].lastLevel;
+  const savedLevel = progress.games["maze-paint"].lastLevel;
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const levelNumber = Math.min(
     GAME.levelCount,
@@ -102,20 +95,16 @@ export function MazePaintGame() {
   }, [level]);
 
   useEffect(() => {
-    if (ready && selectedLevel === null) {
-      setSelectedLevel(savedMazeLevel);
-    }
-  }, [ready, selectedLevel, savedMazeLevel]);
+    if (ready && selectedLevel === null) setSelectedLevel(savedLevel);
+  }, [ready, selectedLevel, savedLevel]);
 
   useEffect(() => {
     resetBoard();
-  }, [level?.id, resetBoard, level]);
+  }, [level, resetBoard]);
 
   useEffect(() => {
     if (startedAt === null || won) return;
-    const tick = () => {
-      setElapsed(Math.floor((Date.now() - startedAt) / 1000));
-    };
+    const tick = () => setElapsed(Math.floor((Date.now() - startedAt) / 1000));
     tick();
     const interval = window.setInterval(tick, 500);
     return () => window.clearInterval(interval);
@@ -140,13 +129,11 @@ export function MazePaintGame() {
         setMessage("Blocked there — try another direction.");
         return;
       }
-
       if (movesRef.current === 0) {
         const now = Date.now();
         startedAtRef.current = now;
         setStartedAt(now);
       }
-
       historyRef.current = [...historyRef.current, stateRef.current];
       setHistory(historyRef.current);
       stateRef.current = result.state;
@@ -155,19 +142,14 @@ export function MazePaintGame() {
       movesRef.current = nextMoves;
       setMoves(nextMoves);
       setMessage(null);
-
-      if (mazeIsComplete(level, result.state)) {
-        finish(nextMoves);
-      }
+      if (mazeIsComplete(level, result.state)) finish(nextMoves);
     },
     [finish, level],
   );
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
-      if (pickerOpen || wonRef.current) {
-        return;
-      }
+      if (pickerOpen || wonRef.current) return;
       const target = event.target;
       if (
         target instanceof HTMLElement &&
@@ -179,10 +161,9 @@ export function MazePaintGame() {
         return;
       }
       const direction = mazeDirectionFromKey(event.key);
-      if (direction) {
-        event.preventDefault();
-        move(direction);
-      }
+      if (!direction) return;
+      event.preventDefault();
+      move(direction);
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -209,24 +190,22 @@ export function MazePaintGame() {
 
   const goToLevel = useCallback(
     (nextLevel: number) => {
+      if (!isLevelUnlocked(progress, GAME_SLUG, nextLevel)) return;
       const clamped = Math.min(GAME.levelCount, Math.max(1, nextLevel));
       setSelectedLevel(clamped);
       chooseLevel(GAME_SLUG, clamped);
       setPickerOpen(false);
     },
-    [chooseLevel],
+    [chooseLevel, progress],
   );
 
-  if (!level || !state) {
-    return null;
-  }
+  if (!level || !state) return null;
 
   const floorCount = mazeFloorCount(level);
   const paintedCount = mazePaintedCount(level, state);
   const best = progress.games["maze-paint"].bestScores[String(level.number)];
   const displayBest = best === undefined ? null : Math.min(best, finalScore ?? best);
-  const tier = mazeTier(level.width);
-  const completed = progress.games["maze-paint"].completed;
+  const nextUnlocked = isLevelUnlocked(progress, GAME_SLUG, level.number + 1);
 
   const board = (
     <div>
@@ -234,12 +213,12 @@ export function MazePaintGame() {
       <div
         role="status"
         aria-live="polite"
-        className="mt-3 min-h-6 px-1 text-sm font-medium text-text-secondary"
+        className="mt-3 min-h-5 px-1 text-xs text-text-secondary"
       >
         {message ? (
           <span className="text-warning">{message}</span>
         ) : mazeIsComplete(level, state) ? (
-          <span className="text-success">Every tile painted. Clean finish.</span>
+          <span className="text-success">Every tile painted.</span>
         ) : (
           <span>
             Painted {paintedCount} of {floorCount} tiles.
@@ -250,111 +229,68 @@ export function MazePaintGame() {
   );
 
   const side = (
-    <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Run</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-3">
-          <ProgressBar
-            value={paintedCount}
-            max={floorCount}
-            label="Maze painted"
-            barClassName="from-cyan to-accent"
-          />
-          <dl className="mt-4 grid grid-cols-2 gap-2">
-            <div className="rounded-xl bg-white/[0.035] px-3 py-2.5">
-              <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
-                Painted
+    <Card>
+      <CardHeader>
+        <CardTitle>Run</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-4">
+        <ProgressBar
+          value={paintedCount}
+          max={floorCount}
+          label="Maze painted"
+          barClassName="bg-cyan"
+        />
+        <dl className="mt-4 grid grid-cols-2 gap-2">
+          {[
+            { label: "Painted", value: `${paintedCount}/${floorCount}` },
+            { label: "Moves", value: `${moves} / ${level.par}` },
+            { label: "Time", value: formatDuration(elapsed) },
+            { label: "Best", value: formatScore(displayBest) },
+          ].map((stat) => (
+            <div key={stat.label} className="rounded-md border border-border px-3 py-2">
+              <dt className="text-[0.6rem] uppercase tracking-wider text-text-muted">
+                {stat.label}
               </dt>
-              <dd className="mt-0.5 font-display text-lg font-semibold tabular-nums">
-                {paintedCount}/{floorCount}
-              </dd>
+              <dd className="mt-0.5 font-display text-lg tabular-nums">{stat.value}</dd>
             </div>
-            <div className="rounded-xl bg-white/[0.035] px-3 py-2.5">
-              <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
-                Moves
-              </dt>
-              <dd className="mt-0.5 font-display text-lg font-semibold tabular-nums">
-                {moves}
-                <span className="ml-1 text-xs font-medium text-text-muted">
-                  / par {level.par}
-                </span>
-              </dd>
-            </div>
-            <div className="rounded-xl bg-white/[0.035] px-3 py-2.5">
-              <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
-                Time
-              </dt>
-              <dd className="mt-0.5 font-display text-lg font-semibold tabular-nums">
-                {formatDuration(elapsed)}
-              </dd>
-            </div>
-            <div className="rounded-xl bg-white/[0.035] px-3 py-2.5">
-              <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-text-muted">
-                Best
-              </dt>
-              <dd className="mt-0.5 font-display text-lg font-semibold tabular-nums text-success">
-                {formatScore(displayBest)}
-              </dd>
-            </div>
-          </dl>
+          ))}
+        </dl>
 
-          <div className="mt-4 flex justify-center">
-            <div className="grid grid-cols-3 grid-rows-2 gap-1.5">
-              {DIRECTION_BUTTONS.map(({ direction, icon: Icon, className }) => (
-                <Button
-                  key={direction}
-                  variant="secondary"
-                  size="icon"
-                  aria-label={mazeDirectionLabel(direction)}
-                  onClick={() => move(direction)}
-                  disabled={won}
-                  className={className}
-                >
-                  <Icon aria-hidden="true" className="size-4" />
-                </Button>
-              ))}
-            </div>
+        <div className="mt-4 flex justify-center">
+          <div className="grid grid-cols-3 grid-rows-2 gap-1.5">
+            {DIRECTIONS.map(({ direction, icon: Icon, className }) => (
+              <Button
+                key={direction}
+                variant="secondary"
+                size="icon"
+                aria-label={mazeDirectionLabel(direction)}
+                onClick={() => move(direction)}
+                disabled={won}
+                className={className}
+              >
+                <Icon className="size-4" aria-hidden="true" />
+              </Button>
+            ))}
           </div>
+        </div>
 
-          <div className="mt-3 flex gap-2">
-            <Button
-              variant="secondary"
-              onClick={undo}
-              disabled={history.length === 0 || won}
-              className="flex-1"
-            >
-              <Undo2 aria-hidden="true" className="size-4" />
-              Undo
-            </Button>
-            <Button variant="ghost" onClick={resetBoard} className="flex-1">
-              <RotateCcw aria-hidden="true" className="size-4" />
-              Restart
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>How to play</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 pt-3 text-xs leading-5 text-text-secondary">
-          <p>
-            Slide the roller in a direction. It keeps moving until a wall stops
-            it, painting every open tile it crosses.
-          </p>
-          <p>
-            Fill every open tile to finish. Fewer moves means a better score —
-            par is the shortest useful route.
-          </p>
-          <p className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2 text-text-muted">
-            Keyboard: arrow keys or WASD. Touch: swipe across the board.
-          </p>
-        </CardContent>
-      </Card>
-    </>
+        <div className="mt-3 flex gap-2">
+          <Button
+            variant="secondary"
+            onClick={undo}
+            disabled={history.length === 0 || won}
+            className="flex-1"
+          >
+            <Undo2 className="size-4" aria-hidden="true" />
+            Undo
+          </Button>
+          <Button variant="ghost" onClick={resetBoard} className="flex-1">
+            <RotateCcw className="size-4" aria-hidden="true" />
+            Restart
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 
   return (
@@ -364,7 +300,8 @@ export function MazePaintGame() {
           game={GAME}
           level={level.number}
           levelCount={GAME.levelCount}
-          tier={tier}
+          tier={mazeTier(level.width)}
+          nextUnlocked={nextUnlocked}
           onPrevious={() => goToLevel(level.number - 1)}
           onNext={() => goToLevel(level.number + 1)}
           onPick={() => setPickerOpen(true)}
@@ -380,10 +317,10 @@ export function MazePaintGame() {
             gameName={GAME.name}
             levelCount={GAME.levelCount}
             current={level.number}
-            completed={completed}
+            completed={progress.games["maze-paint"].completed}
             onSelect={goToLevel}
-            levelLabel={(numberValue) =>
-              `${MAZE_LEVELS[numberValue - 1]?.width ?? 0}×${MAZE_LEVELS[numberValue - 1]?.height ?? 0}`
+            levelLabel={(value) =>
+              `${MAZE_LEVELS[value - 1]?.width ?? 0}×${MAZE_LEVELS[value - 1]?.height ?? 0}`
             }
           />
           <ResultDialog
