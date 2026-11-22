@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { notifySessionChange, setGuestMode } from "@/lib/session";
 
 type AuthResult = { error: string | null; needsConfirmation?: boolean };
 type UpdateResult = { error: string | null; message?: string };
@@ -25,6 +26,7 @@ type AuthContextValue = {
   user: AuthUser | null;
   authReady: boolean;
   isGuest: boolean;
+  guestMode: boolean;
   fullName: string;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signUp: (
@@ -34,6 +36,7 @@ type AuthContextValue = {
     lastName: string,
   ) => Promise<AuthResult>;
   signOut: () => Promise<void>;
+  continueAsGuest: () => void;
   updateProfile: (firstName: string, lastName: string) => Promise<UpdateResult>;
   changePassword: (password: string) => Promise<UpdateResult>;
 };
@@ -74,6 +77,7 @@ function readDemoUser(): AuthUser | null {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [guestModeState, setGuestModeState] = useState(false);
   const [authReady, setAuthReady] = useState(false);
 
   useEffect(() => {
@@ -118,10 +122,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         lastName: existing?.lastName ?? "One",
       };
       window.localStorage.setItem(DEMO_USER_KEY, JSON.stringify(demoUser));
+      setGuestMode(false);
+      setGuestModeState(false);
+      notifySessionChange();
       setUser(demoUser);
       return { error: null };
     }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (!error) {
+      setGuestMode(false);
+      setGuestModeState(false);
+      notifySessionChange();
+    }
     return { error: error?.message ?? null };
   }, []);
 
@@ -142,6 +154,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           lastName: lastName.trim(),
         };
         window.localStorage.setItem(DEMO_USER_KEY, JSON.stringify(demoUser));
+        setGuestMode(false);
+        setGuestModeState(false);
+        notifySessionChange();
         setUser(demoUser);
         return { error: null };
       }
@@ -155,6 +170,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       if (error) return { error: error.message };
       if (!data.session) return { error: null, needsConfirmation: true };
+      setGuestMode(false);
+      setGuestModeState(false);
+      notifySessionChange();
       return { error: null };
     },
     [],
@@ -164,7 +182,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const supabase = getSupabaseBrowserClient();
     if (supabase) await supabase.auth.signOut();
     window.localStorage.removeItem(DEMO_USER_KEY);
+    setGuestMode(false);
+    setGuestModeState(false);
+    notifySessionChange();
     setUser(null);
+  }, []);
+
+  const continueAsGuest = useCallback(() => {
+    setGuestMode(true);
+    setGuestModeState(true);
+    notifySessionChange();
+    setUser({ id: "guest-session", firstName: "Guest", lastName: "Player" });
   }, []);
 
   const updateProfile = useCallback(
@@ -173,6 +201,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { error: "First and last name are required." };
       }
       const supabase = getSupabaseBrowserClient();
+      if (guestModeState) {
+        setUser({
+          id: "guest-session",
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+        });
+        return { error: null, message: "Guest name updated for this session." };
+      }
       if (!supabase) {
         const next: AuthUser = {
           id: user?.id ?? "local-demo-user",
@@ -191,12 +227,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (data.user) setUser(mapUser(data.user));
       return { error: null, message: "Profile updated." };
     },
-    [user],
+    [user, guestModeState],
   );
 
   const changePassword = useCallback(async (password: string) => {
     if (password.length < 6) {
       return { error: "Password must be at least 6 characters." };
+    }
+    if (guestModeState) {
+      return { error: "Guest sessions don't have a password." };
     }
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
@@ -205,7 +244,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.auth.updateUser({ password });
     if (error) return { error: error.message };
     return { error: null, message: "Password updated." };
-  }, []);
+  }, [guestModeState]);
 
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim();
 
@@ -214,11 +253,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         user,
         authReady,
-        isGuest: authReady && !user,
+        isGuest: authReady && (!user || guestModeState),
+        guestMode: guestModeState,
         fullName,
         signIn,
         signUp,
         signOut,
+        continueAsGuest,
         updateProfile,
         changePassword,
       }}

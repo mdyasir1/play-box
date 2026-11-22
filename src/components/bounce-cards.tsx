@@ -58,6 +58,7 @@ export function BounceCards({
 }: BounceCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const [isNarrow, setIsNarrow] = useState(false);
   const [hovered, setHovered] = useState<number | null>(null);
 
   useEffect(() => {
@@ -70,37 +71,55 @@ export function BounceCards({
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsNarrow(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
   const count = cards.length;
   const middle = (count - 1) / 2;
-  const size = Math.min(cardSize, width ? width * 0.46 : cardSize);
+  const isMobile = isNarrow;
+  const size = isMobile
+    ? Math.min(cardSize, width ? width * 0.62 : cardSize)
+    : Math.min(cardSize, width ? width * 0.46 : cardSize);
   const gap = Math.min(spread, width ? width * 0.22 : spread);
+  const stackGap = 28;
+  const mobileHeight = size * count + stackGap * (count - 1) + 16;
   const damping = 12 + (1 - bounciness) * 26;
 
   return (
     <div
       ref={containerRef}
       className="relative mx-auto w-full"
-      style={{ height: containerHeight, maxWidth: containerWidth }}
+      style={{ height: isMobile ? mobileHeight : containerHeight, maxWidth: containerWidth }}
     >
       {cards.map((card, index) => {
         const offset = (index - middle) * gap * 2;
-        const baseRotate = (index - middle) * rotation;
+        const baseRotate = isMobile ? 0 : (index - middle) * rotation;
         const isHovered = hovered === index;
         const push =
-          hovered === null || isHovered
+          hovered === null || isHovered || isMobile
             ? 0
             : index < hovered
               ? -pushDistance
               : pushDistance;
-        const x = offset + push;
-        const y = isHovered ? -16 : Math.abs(index - middle) * arc;
+        const x = isMobile ? 0 : offset + push;
+        const y = isMobile
+          ? (index - middle) * (size + stackGap)
+          : isHovered
+            ? -16
+            : Math.abs(index - middle) * arc;
         const scale = isHovered ? hoverScale : 1;
-        const rotate = isHovered ? baseRotate * 0.35 : baseRotate;
+        const rotate = isHovered && !isMobile ? baseRotate * 0.35 : baseRotate;
         const image = images[index] ?? "";
 
         return (
           <motion.div
             key={card.href}
+            layout
             className="absolute left-1/2 top-1/2"
             style={{
               width: size,
@@ -135,7 +154,7 @@ export function BounceCards({
                 src={image}
                 alt=""
                 fill
-                sizes="220px"
+                sizes={`${Math.round(size)}px`}
                 className="object-cover"
                 aria-hidden="true"
                 unoptimized

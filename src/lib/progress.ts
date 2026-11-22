@@ -1,4 +1,5 @@
 import type { GameSlug } from "./games";
+import { isGuestMode } from "./session";
 
 export const LEVEL_COUNT = 200;
 export const PROGRESS_STORAGE_KEY = "playbox.v4.progress";
@@ -103,6 +104,7 @@ function getStorage(): Storage | null {
 }
 
 export function loadProgress(storage?: Storage | null): ProgressState {
+  if (isGuestMode()) return createDefaultProgress();
   const target = storage === undefined ? getStorage() : storage;
   if (!target) return createDefaultProgress();
 
@@ -116,6 +118,7 @@ export function loadProgress(storage?: Storage | null): ProgressState {
 }
 
 export function saveProgress(progress: ProgressState, storage?: Storage | null): boolean {
+  if (isGuestMode()) return false;
   const target = storage === undefined ? getStorage() : storage;
   if (!target) return false;
 

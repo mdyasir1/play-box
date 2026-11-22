@@ -84,11 +84,13 @@ const CHARSETS: Record<string, string> = {
 const toCssUnit = (value: number | string) =>
   typeof value === "number" ? `${value}px` : value;
 
-const resolveCharset = (charset: SplitFlapTextProps["charset"]) => {
-  if (charset && CHARSETS[charset]) return CHARSETS[charset];
-  return typeof charset === "string" && charset.length > 0
-    ? charset
-    : CHARSETS.alphanumeric;
+const resolveCharset = (charset: SplitFlapTextProps["charset"]): string => {
+  if (charset && typeof charset === "string") {
+    const preset = CHARSETS[charset];
+    if (preset) return preset;
+    return charset;
+  }
+  return CHARSETS.alphanumeric ?? "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 };
 
 const normalizePhrase = (

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
   const router = useRouter();
-  const { user, signIn, signUp } = useAuth();
+  const { user, signIn, signUp, continueAsGuest } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -165,6 +165,29 @@ export function LoginForm() {
             <ArrowRight className="size-4" aria-hidden="true" />
           </Button>
         </form>
+
+        <div className="my-4 flex items-center gap-3">
+          <span className="h-px flex-1 bg-border" />
+          <span className="font-display text-[0.6rem] uppercase tracking-widest text-text-muted">
+            or be reckless
+          </span>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            continueAsGuest();
+            router.replace("/");
+          }}
+          className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-border text-xs font-semibold text-text-secondary transition hover:border-border-strong hover:text-text"
+        >
+          Continue as guest
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </button>
+        <p className="mt-2 text-center text-[0.65rem] text-text-muted">
+          Guest progress vanishes when you leave. Like it never happened.
+        </p>
       </div>
 
       <div className="mt-4 flex items-center justify-between text-[0.65rem] text-text-muted">
