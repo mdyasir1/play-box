@@ -26,7 +26,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link href={onLogin ? "/login" : "/"} className="flex items-center gap-2.5">
             <Logo className="size-8" />
             <span className="font-display text-base font-bold tracking-tight text-text sm:text-lg">
-              {onLogin ? "Yasir's Play-Box" : "YASIR'S"}
+              PLAY-BOX
             </span>
           </Link>
 

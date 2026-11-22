@@ -8,7 +8,7 @@ test("login page is the first screen for new visitors", async ({ page }) => {
   await expect(page).toHaveURL(/\/login/);
   await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Main" })).toHaveCount(0);
-  await expect(page.getByRole("banner").getByText("Yasir's Play-Box")).toBeVisible();
+  await expect(page.getByRole("banner").getByText("PLAY-BOX")).toBeVisible();
   await expect(page.getByRole("button", { name: /Switch to (light|dark) theme/i })).toBeVisible();
   await expect(page.getByText("Yasir", { exact: true })).toHaveCount(0);
 });
