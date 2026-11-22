@@ -6,8 +6,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { NAAT_TRACKS } from "@/lib/naats";
 
-let audioUnlocked = false;
-
 export function NaatPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [index, setIndex] = useState(0);
@@ -18,7 +16,7 @@ export function NaatPlayer() {
 
   const playAt = useCallback((nextIndex: number) => {
     const audio = audioRef.current;
-    if (!audio || !audioUnlocked) return;
+    if (!audio) return;
     const safeIndex = nextIndex % NAAT_TRACKS.length;
     setIndex(safeIndex);
     setStopped(false);
@@ -38,27 +36,21 @@ export function NaatPlayer() {
   }, []);
 
   useEffect(() => {
-    const unlock = () => {
-      audioUnlocked = true;
-    };
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("keydown", unlock);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!audioUnlocked) return;
     const audio = audioRef.current;
+    if (!audio) return;
+
     playAt(0);
+
+    const retry = () => playAt(0);
+    window.addEventListener("pointerdown", retry, { once: true });
+    window.addEventListener("keydown", retry, { once: true });
+
     return () => {
-      if (audio) {
-        audio.pause();
-        audio.removeAttribute("src");
-        audio.load();
-      }
+      window.removeEventListener("pointerdown", retry);
+      window.removeEventListener("keydown", retry);
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
     };
   }, [playAt]);
 

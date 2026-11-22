@@ -62,12 +62,12 @@ export function ResultDialog({
 
       <div className="mt-5 flex flex-col gap-2 sm:flex-row">
         {isLast ? null : (
-          <Button onClick={onNext} className="flex-1">
+          <Button onClick={onNext} className="">
             Next level
             <ArrowRight className="size-4" aria-hidden="true" />
           </Button>
         )}
-        <Button variant="secondary" onClick={onReplay} className="flex-1">
+        <Button variant="secondary" onClick={onReplay} className="">
           <RotateCcw className="size-4" aria-hidden="true" />
           Replay
         </Button>

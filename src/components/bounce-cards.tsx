@@ -83,18 +83,22 @@ export function BounceCards({
   const middle = (count - 1) / 2;
   const isMobile = isNarrow;
   const size = isMobile
-    ? Math.min(cardSize, width ? width * 0.62 : cardSize)
+    ? Math.min(cardSize, width ? width * 0.42 : 150)
     : Math.min(cardSize, width ? width * 0.46 : cardSize);
   const gap = Math.min(spread, width ? width * 0.22 : spread);
-  const stackGap = 28;
-  const mobileHeight = size * count + stackGap * (count - 1) + 16;
+  const stackGap = 14;
+  const mobileHeight = size * count + stackGap * (count - 1) + 8;
   const damping = 12 + (1 - bounciness) * 26;
 
   return (
     <div
       ref={containerRef}
       className="relative mx-auto w-full"
-      style={{ height: isMobile ? mobileHeight : containerHeight, maxWidth: containerWidth }}
+      style={{
+        height: isMobile ? mobileHeight : containerHeight,
+        maxWidth: containerWidth,
+        overflow: "hidden",
+      }}
     >
       {cards.map((card, index) => {
         const offset = (index - middle) * gap * 2;
