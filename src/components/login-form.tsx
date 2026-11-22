@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { YgMark } from "@/components/yg-mark";
 import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
@@ -65,16 +65,7 @@ export function LoginForm() {
             {mode === "signin" ? "Welcome back" : "Join the arcade"}
           </h1>
         </div>
-        <div className="rounded-md bg-white p-1">
-          <Image
-            src="/yg.png"
-            alt="YG — Yasir Games"
-            width={100}
-            height={67}
-            className="h-12 w-auto"
-            priority
-          />
-        </div>
+        <YgMark className="h-12 w-auto" />
       </div>
 
       <div className="paper-edge rounded-xl border border-border bg-surface p-5 sm:p-6">

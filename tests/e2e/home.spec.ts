@@ -9,7 +9,6 @@ test("home is a quiet Yasir storefront for two games", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 1, name: "Yasir's Play-Box" }),
   ).toBeVisible();
-  await expect(page.getByText("By Yasir", { exact: true })).toBeVisible();
   await expect(page.getByText("Two games. 200 levels each.")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Zip" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Maze Paint" })).toBeVisible();

@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 import SplitFlapText from "@/components/SplitFlapText";
+import { YgMark } from "@/components/yg-mark";
 
 const STORAGE_KEY = "yg-splash-seen";
 
@@ -46,16 +46,12 @@ export function SplashScreen() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: reduceMotion ? 0.1 : 0.45 }}
-              className="mb-5 rounded-md bg-white p-1"
+              className="mb-5"
             >
-              <Image
-                src="/yg.png"
-                alt="YG — Yasir Games"
-                width={100}
-                height={67}
-                className="h-16 w-auto sm:h-20"
-                priority
-              />
+              <YgMark className="h-16 w-auto sm:h-20" />
+              <p className="mt-1 text-center font-display text-sm font-bold tracking-[0.35em] text-text sm:text-base">
+                YASIR GAMES
+              </p>
             </motion.div>
 
             <SplitFlapText

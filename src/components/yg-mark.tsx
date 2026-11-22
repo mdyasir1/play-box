@@ -9,10 +9,10 @@ type YgMarkProps = {
 export function YgMark({ className }: YgMarkProps) {
   return (
     <Image
-      src="/favicon/favicon.svg"
+      src="/yg.png"
       alt="YG — Yasir Games"
-      width={64}
-      height={64}
+      width={320}
+      height={212}
       unoptimized
       className={cn("object-contain", className)}
     />

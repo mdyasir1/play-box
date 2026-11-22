@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border bg-bg/95 backdrop-blur-sm">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
           <Link href={onLogin ? "/login" : "/"} className="flex items-center gap-2.5">
-            <Logo className="size-8 text-text" />
+            <Logo className="size-8" />
             <span className="font-display text-base font-bold tracking-tight text-text sm:text-lg">
               {onLogin ? "Yasir's Play-Box" : "YASIR'S"}
             </span>
